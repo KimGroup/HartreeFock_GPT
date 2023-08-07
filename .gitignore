@@ -1,0 +1,10 @@
+.env
+obs-del
+cmp1.md
+cmp2.md
+test_prompt.ipynb
+todo_old.md
+unpublished/main.pdf
+replace.sh
+__pycache__/
+legacy.md
