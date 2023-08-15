@@ -1,0 +1,74 @@
+- task: Construct Kinetic Hamiltonian (lattice version)
+  source:
+    0902.1336.tex:
+      - [233,250]
+      - [253,306]
+
+- task: Construct interaction Hamiltonian (real space, lattice version)
+  source:
+    0902.1336.tex:
+      - [244,245]
+      - [264,273]
+
+- task: Convert noninteracting Hamiltonian in real space to momentum space (lattice version)
+  source:
+    0902.1336.tex:
+      - [687,715]
+
+- task: Convert interacting Hamiltonian in real space to momentum space (lattice version)
+  source:
+    0902.1336.tex:
+      - [687,715]
+
+- task: Wick's theorem
+  source:
+    0902.1336.tex:
+      - [356,389]
+      - [681,686]
+
+- task: Extract quadratic term
+  source:
+    0902.1336.tex:
+      - [687,709]
+
+- task: Expand interaction
+  source:
+    0902.1336.tex:
+      - [356,389]
+      - [681,686]
+      - [687,709]
+
+- task: Swap the index only
+  source:
+    0902.1336.tex:
+      - [356,389]
+      - [681,686]
+      - [687,709]
+
+- task: Reduce momentum in Hartree term (momentum in BZ)
+  source:
+    0902.1336.tex:
+      - [356,389]
+      - [681,686]
+      - [687,709]
+
+- task: Reduce momentum in Fock term (momentum in BZ)
+  source:
+    0902.1336.tex:
+      - [356,389]
+      - [681,686]
+      - [687,709]
+
+- task: Combine the Hartree and Fock term
+  source:
+    0902.1336.tex:
+      - [356,389]
+      - [681,686]
+      - [687,709]
+
+- task: Construct full Hamiltonian after HF
+  source:
+    0902.1336.tex:
+      - [356,389]
+      - [681,686]
+      - [687,709]

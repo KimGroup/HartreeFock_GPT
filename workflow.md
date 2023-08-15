@@ -152,12 +152,12 @@ flowchart LR
     end
     subgraph B["Hamiltonian construction"]
         direction TB
-        b1["Construct Kinetic Hamiltonian (continuum version, single-quantized)"]
+        b1["Construct Kinetic Hamiltonian (continuum version, single-particle)"]
         b2["Define each term in Kinetic Hamiltonian (continuum version)"]
         b3["Construct Potential Hamiltonian (continuum version)"]
         b4["Define each term in Potential Hamiltonian (continuum version)"]
-        b5["Convert from single-particle to second-quantized form, return in matrix"]
-        b6["Convert from single-particle to second-quantized form, return in summation"]
+        b5["Convert from single-particle to second-quantized form, return in matrix "]
+        b6["Convert from single-particle to second-quantized form, return in summation (expand the matrix)"]
         b7["Convert noninteracting Hamiltonian in real space to momentum space (continuum version)"]
         b8["Construct interaction Hamiltonian (momentum space)"]
         b1-->b2
@@ -204,12 +204,12 @@ flowchart LR
     end
     subgraph B["Hamiltonian construction"]
         direction TB
-        b1["Construct Kinetic Hamiltonian (continuum version, single-quantized)"]
+        b1["Construct Kinetic Hamiltonian (continuum version, single-particle)"]
         b2["Define each term in Kinetic Hamiltonian (continuum version)"]
         b3["Construct Potential Hamiltonian (continuum version)"]
         b4["Define each term in Potential Hamiltonian (continuum version)"]
         b5["Convert from single-particle to second-quantized form, return in matrix"]
-        b6["Convert from single-particle to second-quantized form, return in summation"]
+        b6["Convert from single-particle to second-quantized form, return in summation (expand the matrix)"]
         b7["Convert noninteracting Hamiltonian in real space to momentum space (continuum version)"]
         b8["Construct interaction Hamiltonian (momentum space)"]
         b1-->b2
@@ -257,12 +257,12 @@ flowchart LR
     end
     subgraph B["Hamiltonian construction"]
         direction TB
-        b1["Construct Kinetic Hamiltonian (continuum version, single-quantized)"]
+        b1["Construct Kinetic Hamiltonian (continuum version, single-particle)"]
         b2["Define each term in Kinetic Hamiltonian (continuum version)"]
         b3["Construct Potential Hamiltonian (continuum version)"]
         b4["Define each term in Potential Hamiltonian (continuum version)"]
         b5["Convert from single-particle to second-quantized form, return in matrix"]
-        b6["Convert from single-particle to second-quantized form, return in summation"]
+        b6["Convert from single-particle to second-quantized form, return in summation (expand the matrix)"]
         b7["Convert noninteracting Hamiltonian in real space to momentum space (continuum version)"]
         b8["Construct interaction Hamiltonian (momentum space)"]
         b1-->b2

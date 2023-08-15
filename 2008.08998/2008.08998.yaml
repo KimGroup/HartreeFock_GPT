@@ -1,0 +1,41 @@
+- task: Construct Kinetic Hamiltonian (lattice version)
+  source:
+    2008.08998.tex:
+      - [46,51]
+    
+- task: Construct interaction Hamiltonian (real space, lattice version)
+  source:
+    2008.08998.tex:
+      - [46,51]
+      - [184,188]
+    
+- task: Convert noninteracting Hamiltonian in real space to momentum space (lattice version)
+  source:
+    2008.08998.tex:
+      - [221,225]
+    
+- task: Convert interacting Hamiltonian in real space to momentum space (lattice version)
+  source:
+    2008.08998.tex:
+      - [225,237]
+    
+- task: Wick's theorem
+  source:
+    2008.08998.tex:
+      - [239,245]
+    
+- task: Extract quadratic term
+  source:
+    2008.08998.tex:
+      - [239,245]
+    
+- task: Expand interaction
+  source:
+    2008.08998.tex:
+      - [239,245]
+    
+- task: Swap the index only
+  source:
+    2008.08998.tex:
+      - [239,245]
+    

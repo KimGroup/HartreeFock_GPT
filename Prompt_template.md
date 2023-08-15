@@ -285,7 +285,7 @@ You will be instructed to perform a Hartree-Fock approximation to expand the int
 You should use Wick's theorem to expand the four-fermion term in {second_int_symbol} into quadratic terms. You should strictly follow the EXAMPLE below to expand using Wick's theorem, select the correct EXAMPLE by noticing the order of four term product with and without ${{}}^\dagger$, and be extremely cautious about the order of the index and sign before each term.  
 You should only preserve the normal terms. Here, the normal terms mean the product of a creation operator and an annihilation operator.  
 You should recall that {expression_int}.  
-Return the expanded interaction term after Hartree-Fock approximation as {HF_symbol}.
+Return the expanded interaction term after Hartree-Fock approximation as {Hartree_Fock_symbol}.
 
 Use the following conventions for the symbols (You should also obey the conventions in all my previous prompts if you encounter undefined symbols. If you find it is never defined or has conflicts in the conventions, you should stop and let me know):  
 {definition_of_variables}
@@ -301,11 +301,11 @@ Be cautious about the order of the index and sign before each term here.
 
 ## Extract quadratic term
 **Prompt:**  
-You will be instructed to extract the quadratic terms in the {HF_symbol}.  
+You will be instructed to extract the quadratic terms in the {Hartree_Fock_term_symbol}.  
 The quadratic terms mean terms that are proportional to {bilinear_op}, which excludes terms that are solely expectations or products of expectations.  
-You should only preserve the quadratic terms in {HF_symbol}, denoted as {HF_2_symbol}.  
+You should only preserve the quadratic terms in {Hartree_Fock_term_symbol}, denoted as {Hartree_Fock_second_quantized_symbol}.  
 You should recall that {expression_HF}.  
-Return {HF_2_symbol}.  
+Return {Hartree_Fock_second_quantized_symbol}.  
 
 Use the following conventions for the symbols (You should also obey the conventions in all my previous prompts if you encounter undefined symbols. If you find it is never defined or has conflicts in the conventions, you should stop and let me know):  
 {definition_of_variables}
@@ -313,35 +313,35 @@ Use the following conventions for the symbols (You should also obey the conventi
 # Order parameters
 ## Hartree term only
 **Prompt:**  
-You will be instructed to keep only the Hartree term in {HF_2_symbol}.  
-Here, Hartree term only means that only the expected value in the form {expval_Hartree} (Note that the two indices are the same) should be the preserved. All other expected value terms should be dropped.
+You will be instructed to keep only the Hartree term in {Hartree_Fock_second_quantized_symbol}.  
+Here, Hartree term only means that only the expected value in the form {expected_value_Hartree} (Note that the two indices are the same) should be the preserved. All other expected value terms should be dropped.
 You should recall that {expression_HF}  
-Return the simplified Hamiltonian with {Hartree_2_symbol}.  
+Return the simplified Hamiltonian with {Hartree_second_quantized_symbol}.  
 
 ## Fock term only
 **Prompt:**  
-You will be instructed to keep only the Fock term in {HF_2_symbol}.  
-Here, Fock term only means that only the expected value in the form {expval_Fock:$\langle c_{\alpha_1,s_1}^\dagger(k_1) c_{\alpha_2,s_2}(k_2) \rangle$} (Note that the two indices are the different) should be the preserved. All other expected value terms should be dropped.
+You will be instructed to keep only the Fock term in {Hartree_Fock_second_term_symbol}.  
+Here, Fock term only means that only the expected value in the form {expected_value_Fock} (Note that the two indices are the different) should be the preserved. All other expected value terms should be dropped.
 You should recall that {expression_HF}  
-Return the simplified Hamiltonian with {Fock_2_symbol}.
+Return the simplified Hamiltonian with {Fock_second_quantized_symbol}.
 
 # Simplify the MF quadratic term
 ## Expand interaction
 **Prompt:**  
-You will be instructed to expand interaction term $V(q)$ in the MF quadratic term {HF_2_symbol}.
-If you find the $V(q)$ in {HF_2_symbol} does not contain any momentum that is not in the summation sign. The interaction term is already expanded. No action to perform on interaction term.
+You will be instructed to expand interaction term $V(q)$ in the MF quadratic term {Hartree_Fock_second_quantized_symbol}.
+If you find the $V(q)$ in {Hartree_Fock_second_quantized_symbol} does not contain any momentum that is not in the summation sign. The interaction term is already expanded. No action to perform on interaction term.
 Otherwise, you will expand $V(q)$ by replacing $q$ with the momentum {momentum}.
 You should recall that {expression_HF_2}.
-Return {HF_2_symbol} with expanded interaction.
+Return {Hartree_Fock_second_quantized_symbol} with expanded interaction.
 
 ## Swap the index only
 **Prompt:**  
-You will be instructed to simplify the quadratic term {HF_2_symbol} through relabeling the index.  
-The logic is that the expected value ({expval}) in the first Hartree term ({expression_Hartree_1}) has the same form as the quadratic operators in the second Hartree term ({expression_Hartree_2}), and vice versa. The same applies to the Fock term.  
+You will be instructed to simplify the quadratic term {Hartree_Fock_second_quantized_symbol} through relabeling the index.  
+The logic is that the expected value ({expected_value}) in the first Hartree term ({expression_Hartree_1}) has the same form as the quadratic operators in the second Hartree term ({expression_Hartree_2}), and vice versa. The same applies to the Fock term.  
 Namely, a replacement of {relabel} is applied to ONLY the second Hartree or Fock term. You should not swap any index that is not in the summation, which includes {Unsummed_Indices}.  
 This means, if you relabel the index by swapping the index in the "expected value" and "quadratic operators" in the second Hartree or Fock term, you can make the second Hartree or Fock term look identical to the first Hartree or Fock term, as long as $V(q)=V(-q)$, which is naturally satisfied in Coulomb interaction. You should follow the EXAMPLE below to simplify it through relabeling the index.  
 You should recall that {expression_HF_2}
-Return the simplified {HF_2_symbol}.
+Return the simplified {Hartree_Fock_second_quantized_symbol}.
 
 ===  
 EXAMPLE:  
@@ -354,12 +354,12 @@ Finally, we have the simplified Hamiltonian as  $\hat{{H}}=\sum_{{k_1,k_2, k_3, 
 
 ## Swap the index to combine Hartree and Fock terms
 **Prompt:**  
-You will be instructed to simplify the quadratic term {HF_2_symbol} through relabeling the index to combine the two Hartree/Fock term into one Hartree/Fock term.  
-The logic is that the expected value ({expval}) in the first Hartree term ({expression_Hartree_1}) has the same form as the quadratic operators in the second Hartree term ({expression_Hartree_2}), and vice versa. The same applies to the Fock term.  
+You will be instructed to simplify the quadratic term {Hartree_Fock_second_quantized_symbol} through relabeling the index to combine the two Hartree/Fock term into one Hartree/Fock term.  
+The logic is that the expected value ({expected_value}) in the first Hartree term ({expression_Hartree_1}) has the same form as the quadratic operators in the second Hartree term ({expression_Hartree_2}), and vice versa. The same applies to the Fock term.  
 This means, if you relabel the index by swapping the index in the "expected value" and "quadratic operators" in the second Hartree term, you can make the second Hartree term look identical to the first Hartree term, as long as $V(q)=V(-q)$, which is naturally satisfied in Coulomb interaction. You should follow the EXAMPLE below to simplify it through relabeling the index.  
 You should perform this trick of "relabeling the index" for both two Hartree terms and two Fock terms to reduce them to one Hartree term, and one Fock term.  
 You should recall that {expression_HF_2}.  
-Return the simplified {HF_2_symbol} which reduces from four terms (two Hartree and two Fock terms) to only two terms (one Hartree and one Fock term)
+Return the simplified {Hartree_Fock_second_quantized_symbol} which reduces from four terms (two Hartree and two Fock terms) to only two terms (one Hartree and one Fock term)
 
 ===  
 EXAMPLE:
@@ -371,13 +371,13 @@ Finally, we have the simplified Hamiltonian as  $\hat{{H}}=2\sum_{{k_1,k_2, k_3,
 
 ## Reduce momentum in Hartree term (momentum in BZ + reciprocal lattice)
 **Prompt:**  
-You will be instructed to simplify the Hartree term in {Hartree_2_symbol} by reducing the momentum inside the expected value {expval}.  
-The expected value {expval} is only nonzero when the two momenta $k_i,k_j$ are the same, namely, {expval_id}.  
+You will be instructed to simplify the Hartree term in {Hartree_second_quantized_symbol} by reducing the momentum inside the expected value {expected_value}.  
+The expected value {expected_value} is only nonzero when the two momenta $k_i,k_j$ are the same, namely, {expected_value_nonzero}.  
 You should use the property of Kronecker delta function $\delta_{{k_i,k_j}}$ to reduce one momentum $k_i$ but not $b_i$.
 Once you reduce one momentum inside the expected value $\langle\dots\rangle$. You will also notice the total momentum conservation will reduce another momentum in the quadratic term. Therefore, you should end up with only two momenta left in the summation.  
 You should follow the EXAMPLE below to reduce one momentum in the Hartree term, and another momentum in the quadratic term.  
 You should recall that {expression_Hartree}.  
-Return the final simplified Hartree term {Hartree_2_symbol}.
+Return the final simplified Hartree term {Hartree_second_quantized_symbol}.
 
 ===  
 EXAMPLE:  
@@ -390,13 +390,13 @@ Therefore, the final simplified Hartree term after reducing two momenta is $\hat
 
 ## Reduce momentum in Hartree term (momentum in BZ)
 **Prompt:**  
-You will be instructed to simplify the Hartree term, {Hartree_2_symbol}, by reducing the momentum inside the expected value {expval}.  
-The expected value {expval} is only nonzero when the two momenta $k_i,k_j$ are the same, namely, {expval_id}.  
+You will be instructed to simplify the Hartree term, {Hartree_second_quantized_symbol}, by reducing the momentum inside the expected value {expected_value}.  
+The expected value {expected_value} is only nonzero when the two momenta $k_i,k_j$ are the same, namely, {expected_value_nonzero}.  
 You should use the property of Kronecker delta function $\delta_{{k_i,k_j}}$ to reduce one momentum $k_i$.
 Once you reduce one momentum inside the expected value $\langle\dots\rangle$. You will also notice the total momentum conservation will reduce another momentum in the quadratic term. Therefore, you should end up with only two momenta left in the summation.  
 You should follow the EXAMPLE below to reduce one momentum in the Hartree term, and another momentum in the quadratic term.  
 You should recall that {expression_Hartree}.  
-Return the final simplified Hartree term {Hartree_2_symbol}.
+Return the final simplified Hartree term {Hartree_second_quantized_symbol}.
 
 ===  
 EXAMPLE:  
@@ -411,13 +411,13 @@ Therefore, the final simplified Hartree term after reducing one momentum is $\ha
 
 ## Reduce momentum in Fock term (momentum in BZ + reciprocal lattice)
 **Prompt:**  
-You will be instructed to simplify the Fock term in {Fock_2_symbol} by reducing the momentum inside the expected value {expval}.  
-The expected value {expval} is only nonzero when the two momenta $k_i,k_j$ are the same, namely, {expval_id}.  
+You will be instructed to simplify the Fock term in {Fock_second_quantized_symbol} by reducing the momentum inside the expected value {expected_value}.  
+The expected value {expected_value} is only nonzero when the two momenta $k_i,k_j$ are the same, namely, {expected_value_nonzero}.  
 You should use the property of Kronecker delta function $\delta_{{k_i,k_j}}$ to reduce one momentum $k_i$ but not $b_i$.  
 Once you reduce one momentum inside the expected value $\langle\dots\rangle$. You will also notice the total momentum conservation will reduce another momentum in the quadratic term. Therefore, you should end up with only two momenta left in the summation.
 You should follow the EXAMPLE below to reduce one momentum in the Fock term, and another momentum in the quadratic term.    
 You should recall that {expression_Fock}.  
-Return the final simplified Fock term {Fock_2_symbol}.
+Return the final simplified Fock term {Fock_second_quantized_symbol}.
 
 ===  
 EXAMPLE:  
@@ -428,6 +428,28 @@ Use the property of Kronecker delta function $\delta_{{k_1,k_3}}$ to sum over $k
 Because $k_i$ is momentum inside first Brilloun zone while $b_i$ is the reciprocal lattice. It is only when $k_2=k_4$ that $\delta_{{k_2+b_1+b_2,k_4+b_3+b_4}}$ is nonzero, i.e., $\delta_{{k_2+b_1+b_2,k_4+b_3+b_4}}=\delta_{{b_1+b_2,b_3+b_4}}\delta_{{k_2,k_4}}$.  
 Therefore, the Fock term simplifies to $-\sum_{{k_1,k_2, k_4,b_1,b_2,b_3,b_4}}  V(k_1-k_4+b_1-b_4) \langle c_{{b_1}}^\dagger(k_1) c_{{b_3}}(k_1) \rangle c_{{b_2}}^\dagger(k_2) c_{{b_4}}(k_4) \delta_{{b_1+b_2,b_3+b_4}}\delta_{{k_2,k_4}}=-\sum_{{k_1,k_2, b_1,b_2,b_3,b_4}} V(k_1-k_2+b_1-b_4) \langle c_{{b_1}}^\dagger(k_1) c_{{b_3}}(k_1) \rangle c_{{b_2}}^\dagger(k_2) c_{{b_4}}(k_2) \delta_{{b_1+b_2,b_3+b_4}}$.  
 Therefore, the final simplified Fock term after reducing two momenta is $\hat{{H}}^{{Fock}}=-\sum_{{k_1, k_2,b_1,b_2,b_3,b_4}}  V(k_1-k_2+b_1-b_4) \langle c_{{b_1}}^\dagger(k_1) c_{{b_3}}(k_1) \rangle c_{{b_2}}^\dagger(k_2) c_{{b_4}}(k_2) \delta_{{b_1+b_2,b_3+b_4}}$ 
+
+## Reduce momentum in Fock term (momentum in BZ)
+**Prompt:**  
+You will be instructed to simplify the Fock term in {Fock_second_quantized_symbol} by reducing the momentum inside the expected value {expected_value}.  
+The expected value {expected_value} is only nonzero when the two momenta $k_i,k_j$ are the same, namely, {expected_value_nonzero}.  
+You should use the property of Kronecker delta function $\delta_{{k_i,k_j}}$ to reduce one momentum $k_i$.  
+Once you reduce one momentum inside the expected value $\langle\dots\rangle$. You will also notice the total momentum conservation will reduce another momentum in the quadratic term. Therefore, you should end up with only two momenta left in the summation.
+You should follow the EXAMPLE below to reduce one momentum in the Fock term, and another momentum in the quadratic term.    
+You should recall that {expression_Fock}.  
+Return the final simplified Fock term {Fock_second_quantized_symbol}.
+
+===  
+EXAMPLE:  
+Given a Hamiltonian where the Fock term $\hat{{H}}^{{Fock}}=-\sum_{{k_1,k_2, k_3, k_4,s_1,s_2}} V(k_1-k_4) \langle c_{{s_1}}^\dagger(k_1) c_{{s_2}}(k_3) \rangle c_{{s_2}}^\dagger(k_2) c_{{s_1}}(k_4)  \sum_{{G}}\delta_{{k_1+k_2-k_3-k_4,G}}$, where $k_i$ is the momentum inside first Brilloun zone, $G$ is the reciprocal lattice vectors, and $s_i$ is a certain index for the degree of freedom other than momentum.  
+Inside the expected value, we realize $\langle c_{{s_1}}^\dagger(k_1) c_{{s_2}}(k_3) \rangle$ is nonzero only when $k_1=k_3$, i.e., $\langle c_{{s_1}}^\dagger(k_1) c_{{s_2}}(k_3) \rangle=\langle c_{{s_1}}^\dagger(k_1) c_{{s_2}}(k_3) \rangle\delta_{{k_1,k_3}}$.    
+Thus, the Fock term becomes $-\sum_{{k_1,k_2, k_3, k_4,s_1,s_2}} V(k_1-k_4) \langle c_{{s_1}}^\dagger(k_1) c_{{s_2}}(k_3) \rangle \delta_{{k_1,k_3}} c_{{s_2}}^\dagger(k_2) c_{{s_1}}(k_4) \sum_{{G}}\delta_{{k_1+k_2-k_3-k_4,G}}$.  
+Use the property of Kronecker delta function $\delta_{{k_1,k_3}}$ to sum over $k_3$, we have $-\sum_{{k_1,k_2, k_4,s_1,s_2}} V(k_1-k_4) \langle c_{{s_1}}^\dagger(k_1) c_{{s_2}}(k_1) \rangle c_{{s_2}}^\dagger(k_2) c_{{s_1}}(k_4) \sum_{{G}}\delta_{{k_2-k_4,G}}$.  
+We can further simplify $\sum_{{G}}\delta_{{k_2-k_4,G}}$. Because $k_i$ is momentum inside first Brilloun zone, and the difference between $k_2$ and $k_4$ cannot exceed the first shell of reciprocal lattice vector, which means $G$ can only take the value of the origin point in the reciprocal lattice, therefore, $\sum_{{G}}\delta_{{k_2-k_4,G}}=\delta_{{k_2-k_4,0}}$.   
+Thus, the Fock term simplifies to $-\sum_{{k_1,k_2, k_4,s_1,s_2}} V(k_1-k_4) \langle c_{{s_1}}^\dagger(k_1) c_{{s_2}}(k_1) \rangle c_{{s_2}}^\dagger(k_2) c_{{s_1}}(k_4) \delta_{{k_2-k_4,0}}=-\sum_{{k_1, k_2,s_1,s_2}} V(k_1-k_2) \langle c_{{s_1}}^\dagger(k_1) c_{{s_2}}(k_1) \rangle c_{{s_2}}^\dagger(k_2) c_{{s_1}}(k_2)$.  
+Therefore, the final simplified Fock term after reducing one momentum is $\hat{{H}}^{{Fock}}=-\sum_{{k_1, k_2,s_1,s_2}} V(k_1-k_2) \langle c_{{s_1}}^\dagger(k_1) c_{{s_2}}(k_1) \rangle c_{{s_2}}^\dagger(k_2) c_{{s_1}}(k_2)$ 
+
+
 
 ## Combine the Hartree and Fock term
 **Prompt:**  
@@ -440,7 +462,7 @@ Return the final sum of Hartree and Fock term.
 
 ## Construct full Hamiltonian after HF
 **Prompt:**  
-You will be instructed to construct the entire Hamiltonian after the Hartree-Fock approximation {HF_symbol}. 
+You will be instructed to construct the entire Hamiltonian after the Hartree-Fock approximation {Hartree_Fock_symbol}. 
 You should first recall the Kinetic Hamiltonian {kinetic_symbol} is {expression_kinetic}.  
 You should then recall the interacting Hamiltonian {int_symbol} is {expression_int}.  
 You should then combine {kinetic_symbol} with the interacting Hamiltonian {int_symbol} after the Hartree-Fock approximation, which is the entire Hamiltonian {Ham_symbol} after Hartree-Fock.  
