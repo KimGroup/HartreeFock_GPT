@@ -1,0 +1,37 @@
+# Preamble:
+# Problem-solver:
+# Conversation summarizer:
+Construct Kinetic Hamiltonian (continuum version, single-particle): Identify kinetic term (continuum,first-quantized)
+Construct Kinetic Hamiltonian (continuum version, second-quantized): Identify kinetic term (continuum,second-quantized)
+Construct Kinetic Hamiltonian (lattice version): Identify kinetic term (lattice)
+Define each term in Kinetic Hamiltonian (continuum version): Define energy dispersion (continuum)
+Construct Potential Hamiltonian (continuum version): Identify potential term (continuum)
+Define each term in Potential Hamiltonian (continuum version): Define potential term (continuum)
+Construct interaction Hamiltonian (real space, lattice version): Identify interacting term (real space)
+Construct interaction Hamiltonian (momentum space): Identify interacting term (momentum space)
+Convert from single-particle to second-quantized form, return in matrix: Second-quantization (matrix)
+Convert from single-particle to second-quantized form, return in summation (expand the matrix): Second-quantization (summation)
+Convert noninteracting Hamiltonian in real space to momentum space (continuum version): Fourier transform noninteracting term to momentum space (continuum)
+Convert noninteracting Hamiltonian in real space to momentum space (lattice version): Fourier transform noninteracting term to momentum space (lattice)
+Convert interacting Hamiltonian in real space to momentum space (lattice version): Fourier transform interacting term to momentum space (lattice)
+Particle-hole transformation: Particle-hole transformation
+Simplify the Hamiltonian in the particle-hole basis: Simplify the Hamiltonian in the particle-hole basis
+Wick's theorem: Wick's theorem expansion
+Extract quadratic term: Drop constant terms
+Hartree term only: Keep Hartree term
+Fock term only: Keep Fock term
+Expand interaction: Identify momentum transfer in interaction
+Swap the index only: Relabel the index
+Swap the index to combine Hartree and Fock terms: Combine Hartree/Fock terms
+Reduce momentum in Hartree term (momentum in BZ + reciprocal lattice): Identify order parameters in Hartree term (extended BZ)
+Reduce momentum in Hartree term (momentum in BZ): Identify order parameters in Hartree term
+Reduce momentum in Fock term (momentum in BZ + reciprocal lattice): Identify order parameters in Fock term (extended BZ)
+Reduce momentum in Fock term (momentum in BZ): Identify order parameters in Fock term
+Combine the Hartree and Fock term: Final form of iteration in quadratic terms
+# Construct full Hamiltonian after HF:
+# Mathematical simplify: inner product expansion:
+# Mathematical simplify: Euler's formula:
+# Mathematical simplify: prosthaphaeresis:
+# Mathematical simplify: Expand the product using Associative property:
+# Mathematical simplify: Combine using Associative property:
+# Mathematical simplify: reduce index:

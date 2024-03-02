@@ -1,61 +1,535 @@
+- branch: lattice, second-quantized
 - task: Construct Kinetic Hamiltonian (lattice version)
   source: 
     2012.04554.tex:
       - [39,44]
-
+  placeholder:
+    system:
+      LLM: the TTMD 2D moiré materials
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    real|momentum:
+      LLM: real
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    single-particle|second-quantized:
+      LLM: second-quantized
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    degrees_of_freedom:
+      LLM: valley index $s$, spin-up or down, coupled with $+K$  or $-K$  valley, respectively, in the Brillouin zone
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    site i and site j with the amplitude hopping:
+      LLM: between site i and site j with the amplitude hopping $t_s$.
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    kinetic_symbol:
+      LLM: $H$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    definition_of_variables:
+      LLM: $t_s$ represents band structures (depending on $\theta$), and effective interparticle Coulomb interactions $ U $  represent the correlation effect (depending on $\epsilon$). Both $ t $ and $ U $ involve distant nearest neighbors (i.e., our parametrization of Eq.~\eqref{eq:hubbard} includes hopping up to the third nearest neighbors and Coulomb coupling term $ U $ up to 1993 distant sites).
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 1
+        # Partial credit since no mention of operators
+    You should ensure the hermiticity of the Hamiltonian:
+      LLM: True
+      human: False
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+        # Check
+  answer: 
+  score:
+    in_paper: 2
+    prompt_quality: 2
+    follow_instructions: 1
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+    # The sign before t is flipped
 - task: Construct interaction Hamiltonian (real space, lattice version)
   source: 
     2012.04554.tex:
       - [39,44]
-
+  placeholder:
+    second_int_symbol:
+      LLM: $H$
+      human: $H^{int}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 2
+        # Seems reasonable given excerpt
+    kinetic_symbol:
+      LLM: $\sum_{s}\sum_{i,j}^{} t_{s}\left(\bm{R}_i-\bm{R}_j\right) c_{i,s}^\dagger c_{j,s}$
+      human: $H$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 1
+        # Seems reasonable given excerpt
+    site i and site j with the interaction strength:
+      LLM: site i and site j with the interaction strength $U(\bm{R}_i-\bm{R}_j)$.
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    degrees_of_freedom:
+      LLM: valley indices $s$ and $s'$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    density_symbol:
+      LLM: $c_{i,s}^\dagger c_{j,s'}^\dagger c_{j,s'} c_{i,s}$
+      human: $c_{i,s}^\dagger c_{i,s}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 0
+    definition_of_variables:
+      LLM: $t_s$ represents band structures, $U$ represents the correlation effect, $c_{i,s}^\dagger$ and $c_{j,s'}$ are creation and annihilation operators, respectively, and $\bm{R}_i$ and $\bm{R}_j$ are real space positions.
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 1
+        # Partial credit since no mention of operators
+  answer: $H^{int} = \frac{1}{2} \sum_{i,j,s,s'} U(\bm{R}_i-\bm{R}_j) c_{i,s}^\dagger c_{i,s} c_{j,s'}^\dagger c_{j,s'}$
+  score:
+    in_paper: 2
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
 - task: Convert noninteracting Hamiltonian in real space to momentum space (lattice version)
   source: 
     2012.04554.tex:
       - [39,44]
-
+  placeholder:
+    nonint_symbol:
+      LLM: $H$
+      human:
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+        # Reasonable given excerpt
+    real_creation_op:
+      LLM: $c_{i,s}^\dagger$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    momentum_creation_op:
+      LLM: 
+      human: $c_{k,s}^\dagger$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    definition_of_Fourier_Transformation:
+      LLM: 
+      human:  $c_{{k},s}^\dagger= \frac{1}{\sqrt{N}} \sum_i c_{i,s}^\dagger e^{i k \cdot R_i}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    real_variable:
+      LLM: i
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    definition_of_variables:
+      LLM: The hopping terms t_s represent band structures (depending on θ), and effective interparticle Coulomb interactions U represent the correlation effect (depending on ε). Valley index s, spin-up or down, is coupled with +K or -K valley, respectively, in the Brillouin zone. Both t and U involve distant nearest neighbors (i.e., our parametrization of Eq.~\eqref{eq:hubbard} includes hopping up to the third nearest neighbors and Coulomb coupling term U up to 1993 distant sites).
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 1
+        # Partial credit since no mention of operators
+    Note that hopping have no position dependence now.:
+      LLM: True
+      human: False
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: N/A
+        # Check
+    expression_nonint: 
+      human: $\sum_{s}\sum_{i,j}^{} t_{s}\left(\bm{R}_i-\bm{R}_j\right) c_{i,s}^\dagger c_{j,s}$
+  answer: $H = \sum_{s}\sum_{k} E_{s}(k) c_{k,s}^\dagger c_{k,s}$
+  score:
+    in_paper: 0
+    prompt_quality: 2
+    follow_instructions: 1
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+    # Opposite sign of E(k)
 - task: Convert interacting Hamiltonian in real space to momentum space (lattice version)
   source: 
     2012.04554.tex:
       - [39,44]
-
+  placeholder:
+    second_int_symbol:
+      LLM: H
+      human: $H_{int}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 2
+        # Reasonable given excerpt
+    single-particle|second-quantized:
+      LLM: second-quantized
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    real_creation_op:
+      LLM: $c_{i,s}^\dagger$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    momentum_creation_op:
+      LLM: 
+      human: $c_{k,s}^\dagger$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    definition_of_Fourier_Transformation:
+      LLM: 
+      human: $c_{{k},s}^\dagger= \frac{1}{\sqrt{N}} \sum_i c_{i,s}^\dagger e^{i k \cdot R_i}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    real_variable:
+      LLM: i
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    momentum_var:
+      LLM: 
+      human: k
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    Note that interaction have no position dependence now:
+      LLM: 
+      human: False
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: N/A
+        # Check
+    expression_int: 
+      human: $H_{int} = \frac{1}{2} \sum_{i,j,s,s'} U(\bm{R}_i-\bm{R}_j) c_{i,s}^\dagger c_{i,s} c_{j,s'}^\dagger c_{j,s'}$
+  answer: $$H_{int} = \frac{1}{2N} \sum_{s,s'} \sum_{k_1,k_2,k_3,k_4} U(k_1-k_2) c_{k_1,s}^\dagger c_{k_2,s} c_{k_3,s'}^\dagger c_{k_4,s'} \sum_{G} \delta(k_1-k_2+k_3-k_4,G).$$
+  score:
+    in_paper: 0
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
 - task: Wick's theorem
   source: 
     2012.04554.tex:
       - [39,44]
-      
+  placeholder:
+    second_int_symbol:
+      LLM: $\frac{1}{2}\sum_{s,s'}\sum_{i,j}U(\bm{R}_i-\bm{R}_j) c_{i,s}^\dagger c_{j,s'}^\dagger c_{j,s'} c_{i,s}$
+      human: $H_{int}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 2
+        # Reasonable given excerpt
+    Hartree_Fock_symbol:
+      LLM: 
+      human: $H_{int}^{HF}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    definition_of_variables:
+      LLM: The hopping terms $t_s$ represent band structures (depending on $\theta$), and effective interparticle Coulomb interactions $ U $  represent the correlation effect (depending on $\epsilon$). Valley index $s$ , spin-up or down, is coupled with $+K$  or $-K$  valley, respectively, in the Brillouin zone. Both $ t $ and $ U $ involve distant nearest neighbors.
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 1
+        # Partial credit for no mention of operators -- unless intended to be excluded here?
+    expression_int: 
+      human: $$H_{int} = \frac{1}{2N} \sum_{s,s'} \sum_{k_1,k_2,k_3,k_4} U(k_1-k_2) c_{k_1,s}^\dagger c_{k_2,s} c_{k_3,s'}^\dagger c_{k_4,s'} \sum_{G} \delta(k_1-k_2+k_3-k_4,G).$$
+  answer: $$H_{int} = \frac{1}{2N} \sum_{s,s'} \sum_{k_1,k_2,k_3,k_4} U(k_1-k_2) \left[ \langle c_{k_1,s}^\dagger c_{k_2,s} \rangle c_{k_3,s'}^\dagger c_{k_4,s'} + \langle c_{k_3,s'}^\dagger c_{k_4,s'} \rangle c_{k_1,s}^\dagger c_{k_2,s} - \langle c_{k_1,s}^\dagger c_{k_2,s} \rangle \langle c_{k_3,s'}^\dagger c_{k_4,s'}\rangle - \langle c_{k_1,s}^\dagger c_{k_4,s'} \rangle c_{k_3,s'}^\dagger c_{k_2,s} - \langle c_{k_3,s'}^\dagger c_{k_2,s} \rangle c_{k_1,s}^\dagger c_{k_4,s'} + \langle c_{k_1,s}^\dagger c_{k_4,s'}\rangle \langle c_{k_3,s'}^\dagger c_{k_2,s} \rangle \right] \sum_{G} \delta(k_1-k_2+k_3-k_4,G).$$
+  score:
+    in_paper: 2
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
 - task: Extract quadratic term
   source: 
     2012.04554.tex:
       - [39,44]
-      
+  placeholder:
+    Hartree_Fock_term_symbol:
+      LLM: Hubbard Hamiltonian
+      human: $H_{int}^{HF}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    bilinear_op:
+      LLM: $c_{i,s}^\dagger c_{j,s}$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    Hartree_Fock_second_quantized_symbol:
+      LLM: H
+      human: $H_{int}^{HF,2}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 2
+        # Reasonable given excerpt
+    definition_of_variables:
+      LLM: $t_s$ represents the hopping terms which are band structures (depending on $\theta$), and effective interparticle Coulomb interactions $ U $  represent the correlation effect (depending on $\epsilon$). Valley index $s$ , spin-up or down, is coupled with $+K$  or $-K$  valley, respectively, in the Brillouin zone. Both $ t $ and $ U $ involve distant nearest neighbors.
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 1
+        # Partial credit for not mentioning operators?
+    expression_HF: 
+      human: $$H_{int} = \frac{1}{2N} \sum_{s,s'} \sum_{k_1,k_2,k_3,k_4} U(k_1-k_2) \left[ \langle c_{k_1,s}^\dagger c_{k_2,s} \rangle c_{k_3,s'}^\dagger c_{k_4,s'} + \langle c_{k_3,s'}^\dagger c_{k_4,s'} \rangle c_{k_1,s}^\dagger c_{k_2,s} - \langle c_{k_1,s}^\dagger c_{k_2,s} \rangle \langle c_{k_3,s'}^\dagger c_{k_4,s'}\rangle - \langle c_{k_1,s}^\dagger c_{k_4,s'} \rangle c_{k_3,s'}^\dagger c_{k_2,s} - \langle c_{k_3,s'}^\dagger c_{k_2,s} \rangle c_{k_1,s}^\dagger c_{k_4,s'} + \langle c_{k_1,s}^\dagger c_{k_4,s'}\rangle \langle c_{k_3,s'}^\dagger c_{k_2,s} \rangle \right] \sum_{G} \delta(k_1-k_2+k_3-k_4,G).$$
+  answer: 
+  score:
+    in_paper: 0
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
 - task: Expand interaction
   source: 
     2012.04554.tex:
       - [39,44]
-      
+  placeholder:
+    Hartree_Fock_second_quantized_symbol:
+      LLM: $U(\bm{R}_i-\bm{R}_j)$
+      human: H_{int}^{HF,2}
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    momentum:
+      LLM: $\bm{R}_i-\bm{R}_j$
+      human: $\bm{k}_\alpha-\bm{k}_\delta$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    expression_HF_2: 
+      human: $H_{int} = \frac{1}{2N} \sum_{s,s'} \sum_{k_1,k_2,k_3,k_4} U(k_1-k_2) \left[ \langle c_{k_1,s}^\dagger c_{k_2,s} \rangle c_{k_3,s'}^\dagger c_{k_4,s'} + \langle c_{k_3,s'}^\dagger c_{k_4,s'} \rangle c_{k_1,s}^\dagger c_{k_2,s} - \langle c_{k_1,s}^\dagger c_{k_4,s'} \rangle c_{k_3,s'}^\dagger c_{k_2,s} - \langle c_{k_3,s'}^\dagger c_{k_2,s} \rangle c_{k_1,s}^\dagger c_{k_4,s'} \right] \sum_{G} \delta(k_1-k_2+k_3-k_4,G).$
+  answer: 
+  score:
+    in_paper: 0
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
 - task: Swap the index only
   source: 
     2012.04554.tex:
       - [39,44]
-      
+  placeholder:
+    Hartree_Fock_second_quantized_symbol:
+      LLM: H
+      human: $H_{int}^{HF,2}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 2
+        # Reasonable given excerpt
+    expected_value:
+      LLM: t_{s}
+      human: $\langle{c_{\bm{k}_\alpha,s}^\dagger c_{\bm{k}_\delta,s}}\rangle$ and $\langle{c_{\bm{k}_\alpha,s}^\dagger c_{\bm{k}_\gamma,s'}}\rangle$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    expression_Hartree_1:
+      LLM: c_{i,s}^\dagger c_{j,s}
+      human: $c_{\bm{k}_\beta,s'}^\dagger c_{\bm{k}_\gamma,s'}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    expression_Hartree_2:
+      LLM: c_{i,s}^\dagger c_{j,s'}^\dagger c_{j,s'} c_{i,s}
+      human: $c_{\bm{k}_\beta,s'}^\dagger c_{\bm{k}_\delta,s}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    relabel:
+      LLM: 
+      human: $\bm{k}_1 \leftrightarrow \bm{k}_3$, $\bm{k}_2 \leftrightarrow \bm{k}_4$, and $s$ and $s'$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    Unsummed_Indices:
+      LLM: $\bm{k}_\alpha, \bm{k}_\beta$
+      human: Not neededded
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    expression_HF_2: 
+      human: $H_{int} = \frac{1}{2N} \sum_{s,s'} \sum_{k_1,k_2,k_3,k_4} U(k_1-k_2) \left[ \langle c_{k_1,s}^\dagger c_{k_2,s} \rangle c_{k_3,s'}^\dagger c_{k_4,s'} + \langle c_{k_3,s'}^\dagger c_{k_4,s'} \rangle c_{k_1,s}^\dagger c_{k_2,s} - \langle c_{k_1,s}^\dagger c_{k_4,s'} \rangle c_{k_3,s'}^\dagger c_{k_2,s} - \langle c_{k_3,s'}^\dagger c_{k_2,s} \rangle c_{k_1,s}^\dagger c_{k_4,s'} \right] \sum_{G} \delta(k_1-k_2+k_3-k_4,G).$
+  answer: 
+  score:
+    in_paper: 0
+    prompt_quality: 2
+    follow_instructions: 1
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+    # The relabeling of indices is not implemented on k1<->k3, and k2<->k4
+
 - task: Reduce momentum in Hartree term (momentum in BZ)
+# did not run LLM since it is not in the paper, thus no need to score either
   source: 
-    2012.04554.tex:
-      - [39,44]
-      
+  placeholder:
+    Hartree_second_quantized_symbol:
+      LLM: 
+      human: $H_{\text{Hartree}}$
+      # score: 
+      #   Haining: 2
+    expected_value:
+      LLM: 
+      human: $\langle c_{k_1,s}^\dagger c_{k_2,s} \rangle$
+      # score: 
+      #   Haining: 2
+    expected_value_nonzero:
+      LLM: 
+      human: $\langle c_{k_1,s}^\dagger c_{k_2,s} \rangle=\delta_{k_1,k_2} \langle c_{k_1,s}^\dagger c_{k_2,s} \rangle$
+      # score: 
+      #   Haining: 0
+    expression_Hartree: 
+      human: $H_{\text{Hartree}} = \frac{1}{N} \sum_{s,s'} \sum_{k_1,k_2,k_3,k_4} U(k_3-k_4) \langle c_{k_1,s}^\dagger c_{k_2,s} \rangle c_{k_3,s'}^\dagger c_{k_4,s'} \sum_{G} \delta(k_1-k_2+k_3-k_4,G).$
+  answer: $H_{\text{Hartree}} = \frac{1}{N} \sum_{s,s'} \sum_{k_1,k_3} U(0) \langle c_{k_1,s}^\dagger c_{k_1,s} \rangle c_{k_3,s'}^\dagger c_{k_3,s'}$.
+  score:
+    in_paper: 0
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 1
+    math_derivation: 1
+    final_answer_accuracy: 2
+    # The answer is correct but the simplification of dirac delta is of k1-k2 is wrong
+
 - task: Reduce momentum in Fock term (momentum in BZ)
   source: 
-    2012.04554.tex:
-      - [39,44]
-      
+  placeholder:
+    Fock_second_quantized_symbol:
+      LLM: 
+      human: $H_{\text{Fock}}$
+      # score: 
+      #   Haining: 2
+    expected_value:
+      LLM: 
+      human: $\langle c_{k_1,s}^\dagger c_{k_4,s'} \rangle$
+      # score: 
+      #   Haining: 2
+    expected_value_nonzero:
+      LLM: 
+      human: $\langle c_{k_1,s}^\dagger c_{k_4,s'} \rangle=\delta_{k_1,k_4}\langle c_{k_1,s}^\dagger c_{k_4,s'} \rangle$
+      # score: 
+      #   Haining: 0
+    expression_Fock: 
+      human: $H_{Fock} = -\frac{1}{N} \sum_{s,s'} \sum_{k_1,k_2,k_3,k_4} U(k_3-k_4)  \langle c_{k_1,s}^\dagger c_{k_4,s'} \rangle c_{k_3,s'}^\dagger c_{k_2,s}\sum_{G} \delta(k_1-k_2+k_3-k_4,G).$
+  answer: $H_{Fock} = -\frac{1}{N} \sum_{s,s'} \sum_{k_1,k_2} U(k_2-k_1)  \langle c_{k_1,s}^\dagger c_{k_1,s'} \rangle c_{k_2,s'}^\dagger c_{k_2,s}$.
+  score:
+    in_paper: 0
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+
 - task: Combine the Hartree and Fock term
   source: 
-    2012.04554.tex:
-      - [39,44]
-      
-- task: Construct full Hamiltonian after HF
-  source: 
-    2012.04554.tex:
-      - [39,44]
-
-
+  placeholder:
+    Hartree_symbol:
+      human: $H_{\text{Hartree}}$
+      score: 
+        Haining: 
+    Fock_symbol:
+      human: $H_{\text{Fock}}$
+      score: 
+        Haining: 
+    Hartree:
+      human: $H_{\text{Hartree}} = \frac{1}{N} \sum_{s,s'} \sum_{k_1,k_3} U(0) \langle c_{k_1,s}^\dagger c_{k_1,s} \rangle c_{k_3,s'}^\dagger c_{k_3,s'}$
+      score: 
+        Haining:
+    Fock:
+      human: $H_{Fock} = -\frac{1}{N} \sum_{s,s'} \sum_{k_1,k_2} U(k_2-k_1)  \langle c_{k_1,s}^\dagger c_{k_1,s'} \rangle c_{k_2,s'}^\dagger c_{k_2,s}$.
+      score: 
+        Haining: 
+    swap_rule:
+      human: Not neededded
+      score: 
+        Haining: 
+  answer: $H_{\text{Hartree+Fock}} = H_{\text{Hartree}} + H_{\text{Fock}}= \frac{1}{N} \sum_{s,s'} \sum_{k_1,k_3} U(0) \langle c_{k_1,s}^\dagger c_{k_1,s} \rangle c_{k_3,s'}^\dagger c_{k_3,s'} - \frac{1}{N} \sum_{s,s'} \sum_{k_1,k_2} U(k_2-k_1)  \langle c_{k_1,s}^\dagger c_{k_1,s'} \rangle c_{k_2,s'}^\dagger c_{k_2,s}$.
+  score:
+    in_paper: 0
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2

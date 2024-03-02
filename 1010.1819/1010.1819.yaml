@@ -1,0 +1,761 @@
+- branch: continuum, first-quantized
+- task: Construct Kinetic Hamiltonian (continuum version, single-particle)
+  source:
+    1010.1819.tex:
+      - [122,137]
+  placeholder:
+    system:
+      LLM: the model's Bloch basis states
+      human: bilayer graphene
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 0
+    real|momentum:
+      LLM: real
+      human: momentum
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 2
+        # either answer acceptable, not really specified further
+    single-particle|second-quantized:
+      LLM: second-quantized
+      human: single-particle
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 2
+        # either answer acceptable, not really specified further
+    degrees_of_freedom:
+      LLM: the total number of unit cells in the system, the band's Wannier wavefunction, and the carbon site with position relative to a the triangular lattice vector.
+      human: four sublattice indices on both layers, $A, B, \tilde{A}, \tilde{B}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 0
+    kinetic_symbol:
+      LLM: 
+      human: $H_0$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    variable:
+      LLM: 
+      human: $\gamma_0$, $\gamma_1$, $\gamma_3$, $\gamma_4$ and f
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    order:
+      LLM: the four sublattice indexes
+      human:  $A, B, \tilde{A}, \tilde{B}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 1
+        # partial credit
+    definition_of_variables:
+      LLM: N is the total number of unit cells in the system, φ is the band's Wannier wavefunction, and κ labels the carbon site with position τκ relative to a the triangular lattice vector R_i. The notations A, B, Ā, B̄ are used for the four sublattice indexes κ, where B and Ā are the opposite-layer near-neighbor-pair sites.
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    Note that the sublattice degrees of freedom is suppressed for now and will be stated later:
+      LLM: True
+      human: False
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 2
+        # remove from scoring
+  answer: |
+    $${H}_0= 
+      \begin{pmatrix}
+          0 & \gamma_0 f & \gamma_4 f & \gamma_3 f^*   \\
+      \gamma_0 f^*    & 0 & \gamma_1 & \gamma_4 f  \\
+      \gamma_4 f^*   & \gamma_1 & 0 &  \gamma_0 f  \\
+      \gamma_3 f & \gamma_4 f^* & \gamma_0 f^* & 0
+      \end{pmatrix}$$
+  score:
+    in_paper: 2
+    prompt_quality: 1
+    follow_instructions: 2
+    physics_logic: 1
+    math_derivation: 2
+    final_answer_accuracy: 0
+    # The answer is not correct. The essential reason is that the format of the paper is very different from the template. 
+- task: Define each term in Kinetic Hamiltonian (continuum version)
+  source:
+    1010.1819.tex:
+      - [138,169]
+  placeholder:
+    Energy_dispersion:
+      LLM: |
+        {H}_0
+      human: $\gamma_0$, $\gamma_1$, $\gamma_3$, $\gamma_4$ and f
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 2
+        # reasonable answer given excerpt.
+        # Dispersion could mean after diagonalization. Also unclear can give multiple answers.
+    parabolic|Dirac|cos:
+      LLM: 
+      human: cos
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    electrons|holes:
+      LLM: 
+      human: electrons
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    momentum_shift:
+      LLM: 
+      human: None
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    k_symbol:
+      LLM: 
+      human: k
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    shifted_Ek:
+      LLM: 
+      human: None
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    r_symbol:
+      LLM: r
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    kinetic_symbol:
+      LLM: k
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    definition_of_variables:
+      LLM: |
+        {f\left( {\bf k} \right) &=&   e^{ i k_y a / \sqrt{3} } \left( 1 + 2 e^{-i 3 k_{y} a / 2\sqrt{3}}  
+                                       \cos \left(  \frac{k_x a}{2} \right)    \right)  
+        \end{eqnarray}
+        with $a = 2.46 \AA$ arises from a sum over the three near-neighbor hops within a layer. 
+        We have neglected differences in on-site energies and next nearest neighbor hopping processes 
+        which give rise to electron-hole asymmetry and do not play an important role in pseudospin ferromagnetism.
+        The tight-binding model parameters $\gamma_i$ should not be confused with the 
+        Slonczewski-Weiss, McClure \cite{swm} model parameters for bulk graphite,
+        despite the obvious similarities in notation. 
+        In our calculations we adopt conventions similar to those of Ref.[\onlinecite{gamma3}]
+        for bilayer graphene, taking the values $\gamma_0 = -3.12 \,\, eV$, $\gamma_1 = -0.377$,
+        $\gamma_3 = -0.29 \,\, eV$ and $\gamma_4 = -0.12 \,\, eV$ for the hopping parameters.
+        Only the intralayer nearest neighbor ($\gamma_0$) process and interlayer tunneling ($\gamma_1$) 
+        process are retained in the minimal tight-binding model. 
+        The trigonal warping ($\gamma_3$) process which connects the $A$ and $\widetilde{B}$ sites 
+        is responsible for the leading circular symmetry breaking near the 
+        valley points,
+        while the ($\gamma_4$) process which connects $A$ and $\widetilde{A}$ sites 
+        influences the intralayer charge imbalance between sublattices $A$ and $B$. }
+      human: |
+        $f\left( {\bf k} \right) = e^{ i k_y a / \sqrt{3} } \left( 1 + 2 e^{-i 3 k_{y} a / 2\sqrt{3}}\cos \left(  \frac{k_x a}{2} \right)    \right)  $ 
+        Only the intralayer nearest neighbor ($\gamma_0$) process and interlayer tunneling ($\gamma_1$) 
+        process are retained in the minimal tight-binding model. 
+        The trigonal warping ($\gamma_3$) process which connects the $A$ and $\widetilde{B}$ sites 
+        is responsible for the leading circular symmetry breaking near the 
+        valley points,
+        while the ($\gamma_4$) process which connects $A$ and $\widetilde{A}$ sites 
+        influences the intralayer charge imbalance between sublattices $A$ and $B$. 
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 0
+        # deducted due to too much irrelevant information.
+    In addition, a shift of {momentum_shift} in the momentum ${k_symbol}$ for {shifted_Ek}, respectively.:
+      LLM: True
+      human: False
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 2
+        # remove from scoring
+    expression_kinetic:
+      human: |
+        $${H}_0= 
+        \begin{pmatrix}
+            0 & \gamma_0 f & \gamma_4 f & \gamma_3 f^*   \\
+        \gamma_0 f^*    & 0 & \gamma_1 & \gamma_4 f  \\
+        \gamma_4 f^*   & \gamma_1 & 0 &  \gamma_0 f  \\
+        \gamma_3 f & \gamma_4 f^* & \gamma_0 f^* & 0
+        \end{pmatrix}$$
+  answer:
+  score:
+    in_paper: 2
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+- task: Convert from single-particle to second-quantized form, return in matrix
+  source:
+    1010.1819.tex:
+      - [122,169]
+  placeholder:
+    real|momentum:
+      LLM: momentum
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    nonint_symbol:
+      LLM: $H_0$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    kinetic_symbol:
+      LLM: $H_0$
+      human: None
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 2
+        # seems reasonable
+    potential_symbol:
+      LLM: potential_symbol
+      human: None
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 1
+        # partial credit since symbol doesn’t appear
+    $r$|$k$:
+      LLM: $k$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    second_nonint_symbol:
+      LLM: $\hat{H}_0$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    definition_of_variables:
+      LLM: |
+        The model's Bloch basis states are written as $\psi_{{\bf k}\kappa} \left({\mathbf r} \right) = \frac{1}{\sqrt{N}} \sum_{i} e^{i {\mathbf k} \left( {\mathbf R}_i + {\bf \tau}_{\kappa} \right)} 
+        \phi \left({\mathbf r} - {\mathbf R}_i - {\bf \tau}_{\kappa} \right)$, where $N$ is the total number of unit cells in the system, $\phi  \left({\mathbf r} \right)$ is the band's 
+        Wannier wavefunction, and $\kappa$ labels the carbon site with position 
+        ${\bf \tau}_{\kappa}$ relative to a the triangular lattice vector ${\mathbf R}_i$. The four band tight-binding model Hamiltonian of a graphene bilayer is represented as $H_0$. The tight-binding model parameters are represented as $\gamma_i$.
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+        # reasonable compared to previous answers
+  answer:
+  score:
+    in_paper: 0
+    prompt_quality: 2
+    follow_instructions: 0
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 1
+    # Fail to start from the correct single particle H, where the correct Hamiltonian is ignored.
+- task: Convert from single-particle to second-quantized form, return in summation (expand the matrix)
+  source:
+    1010.1819.tex:
+      - [122,169]
+  placeholder:
+    second_nonint_symbol:
+      LLM: |
+        {H}_0
+      human: $\hat{H}_0$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 1
+        # partial credit
+    matrix_element_symbol:
+      LLM: |
+        ${H_{ij}}$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    basis_symbol:
+      LLM: |
+        ${\psi_{{\bf k}\kappa}}$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    definition_of_variables:
+      LLM: |
+        ${H}_0$ is the four band tight-binding model Hamiltonian of a graphene bilayer, ${\psi_{{\bf k}\kappa}}$ is the model's Bloch basis states, and ${\gamma_i}$ are the tight-binding model parameters.
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    expression_second_nonint: 
+      human: $\hat{H}_0 = \sum_{k} \vec{\psi}_k^\dagger H_k \vec{\psi}_k$, where $\vec{\psi}=\begin{pmatrix} \psi_A \\ \psi_B \\ \psi_{\widetilde{A}} \\ \psi_{\widetilde{B}} \end{pmatrix}$ and $\vec{\psi}^\dagger=\begin{pmatrix} \psi_A^\dagger & \psi_B^\dagger & \psi_{\widetilde{A}}^\dagger & \psi_{\widetilde{B}}^\dagger \end{pmatrix}$
+  answer:
+  score:
+    in_paper: 0
+    prompt_quality: 2
+    follow_instructions: 0
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 0
+    # Fail to start from the correct single particle H, where the correct Hamiltonian is ignored.
+- task: Construct interaction Hamiltonian (momentum space)
+  source:
+    1010.1819.tex:
+      - [173,174]
+      - [201,222]
+  placeholder:
+    second_int_symbol:
+      LLM: $V^{\kappa \kappa^{\prime}}$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+        # reasonable since no other relevant symbol appears
+    index_of_operator:
+      LLM: $\kappa, \kappa^{\prime}, \kappa^{\prime}, \kappa$
+      human: $\lambda, \lambda^{\prime}, \lambda^{\prime}, \lambda$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 1
+        # seems $\lambda$’s never referenced in the excerpt?
+    momentum:
+      LLM: 
+      human: k
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    interaction:
+      LLM: 
+      human: electron-electron Coulomb interaction
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    int_form:
+      LLM: 2 \pi e^2 / \left(  \left| \bf q \right|   \epsilon_r \right)
+      human: |
+        2 \pi e^2 / \left(  \left| \bf q \right|   \epsilon_r \right)$ refer to the same layer and 
+        $\left( 2 \pi e^2 /\left( { \left| \bf q \right|}   \epsilon_r \right)  \right)  \exp{ \left[  - \left| {\bf q} \right|  c \right] } $
+        when $\kappa$ and $\kappa^{\prime}$ refer to the opposite layers.
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 2
+    normalization_factor:
+      LLM: $A$
+      human: $1/2A$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 0
+        # normalization also seems to not appear in excerpt?
+    op:
+      LLM: creation and annihilation operators
+      human: $c_{k,\lambda}^\dagger$ and $c_{k,\lambda}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 2
+        # accepted, operators not explicitly referenced in excerpt
+    definition_of_variables:
+      LLM: $\kappa, \kappa^{\prime}$ are the indices of operators, $q$ is the momentum, $V^{\kappa \kappa^{\prime}}$ is the interaction Hamiltonian, $\epsilon_r$ is the relative dielectric constant, $c=3.35 \AA$ is the interlayer separation, $A$ is the total area of the graphene sheet, $r_0 = 3 \widetilde{a}_0$ is the root mean square radius corresponding to the covalent radius of the carbon atom $a_0 = 0.77 \AA$.
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    For each operator, the total momentum is the sum of moire reciprocal lattice $b_i$ and momentum with in the first BZ $k_i$:
+      LLM: False
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+        # remove from scoring
+  answer:
+  score:
+    in_paper: 1
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+- task: Wick's theorem
+  source:
+    1010.1819.tex:
+      - [175,200]
+  placeholder:
+    second_int_symbol:
+      LLM: $V^{HF}$
+      human: $V^{\kappa \kappa^{\prime}}$
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+        # seems reasonable
+    Hartree_Fock_symbol:
+      LLM: $V^{HF}$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    definition_of_variables:
+      LLM: $\lambda$ is a composite label for sublattice $\kappa$ and spin $\sigma$. $N_{\lambda}$ is the Hartree term and $W^{X}_{{\bf k} \lambda \lambda'}$ is the Fock (exchange) term. ${\bf G}$ is a reciprocal lattice vector.
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 1
+        # partial credit, incorrect reference to Hartree term
+    expression_int:
+      human: |
+        $V^{\kappa \kappa^{\prime}} = \frac{1}{2A} \sum_{\lambda, \lambda^{\prime}, k_1, k_2, k_3, k_4} c_{k_1,\lambda}^\dagger c_{k_2,\lambda^{\prime}}^\dagger c_{k_3,\lambda^{\prime}} c_{k_4,\lambda} \times \delta_{k_1+k_2, k_3+k_4} \times V(q)$
+        where $q=k_1-k_4$ is the transferred total momentum between a creation operator and an annihilation operator with the same $\lambda, \lambda^{\prime}, \lambda^{\prime}, \lambda$.
+  answer: $V^{HF} = \frac{1}{2A} \sum_{\lambda, \lambda^{\prime}, k_1, k_2, k_3, k_4} \left[ \langle c_{k_1,\lambda}^\dagger c_{k_4,\lambda} \rangle c_{k_2,\lambda^{\prime}}^\dagger c_{k_3,\lambda^{\prime}} + \langle c_{k_2,\lambda^{\prime}}^\dagger c_{k_3,\lambda^{\prime}} \rangle c_{k_1,\lambda}^\dagger c_{k_4,\lambda} - \langle c_{k_1,\lambda}^\dagger c_{k_4,\lambda} \rangle \langle c_{k_2,\lambda^{\prime}}^\dagger c_{k_3,\lambda^{\prime}}\rangle - \langle c_{k_1,\lambda}^\dagger c_{k_3,\lambda^{\prime}} \rangle c_{k_2,\lambda^{\prime}}^\dagger c_{k_4,\lambda} - \langle c_{k_2,\lambda^{\prime}}^\dagger c_{k_4,\lambda} \rangle c_{k_1,\lambda}^\dagger c_{k_3,\lambda^{\prime}} + \langle c_{k_1,\lambda}^\dagger c_{k_3,\lambda^{\prime}}\rangle \langle c_{k_2,\lambda^{\prime}}^\dagger c_{k_4,\lambda} \rangle \right] \times \delta_{k_1+k_2, k_3+k_4} \times V(q)$
+  score:
+    in_paper: 0
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+- task: Extract quadratic term
+  source:
+    1010.1819.tex:
+      - [175,200]
+  placeholder:
+    Hartree_Fock_term_symbol:
+      LLM: $V^{HF}$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    bilinear_op:
+      LLM: c_{{\bf k} \lambda}^{\dag} c_{{\bf k} \lambda}
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    Hartree_Fock_second_quantized_symbol:
+      LLM: $V^{HF}_{quadratic}$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    definition_of_variables:
+      LLM: |
+        $\lambda$ is a composite label for sublattice $\kappa$ and spin $\sigma$.  
+        N_{\lambda} is the expectation value of the number operator.  
+        U_H^{\lambda \lambda'} is the Hartree term.  
+        W^{X}_{{\bf k} \lambda \lambda'} is the Fock (exchange) term.  
+        U_X^{\kappa \kappa'} is the exchange interaction.  
+        ${\bf G}$ is a reciprocal lattice vector.
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    expression_HF: 
+      human: $V^{HF} = \frac{1}{2A} \sum_{\lambda, \lambda^{\prime}, k_1, k_2, k_3, k_4} \left[ \langle c_{k_1,\lambda}^\dagger c_{k_4,\lambda} \rangle c_{k_2,\lambda^{\prime}}^\dagger c_{k_3,\lambda^{\prime}} + \langle c_{k_2,\lambda^{\prime}}^\dagger c_{k_3,\lambda^{\prime}} \rangle c_{k_1,\lambda}^\dagger c_{k_4,\lambda} - \langle c_{k_1,\lambda}^\dagger c_{k_4,\lambda} \rangle \langle c_{k_2,\lambda^{\prime}}^\dagger c_{k_3,\lambda^{\prime}}\rangle - \langle c_{k_1,\lambda}^\dagger c_{k_3,\lambda^{\prime}} \rangle c_{k_2,\lambda^{\prime}}^\dagger c_{k_4,\lambda} - \langle c_{k_2,\lambda^{\prime}}^\dagger c_{k_4,\lambda} \rangle c_{k_1,\lambda}^\dagger c_{k_3,\lambda^{\prime}} + \langle c_{k_1,\lambda}^\dagger c_{k_3,\lambda^{\prime}}\rangle \langle c_{k_2,\lambda^{\prime}}^\dagger c_{k_4,\lambda} \rangle \right] \times \delta_{k_1+k_2, k_3+k_4} \times V(q)$
+  answer: $V^{HF}_{quadratic} = \frac{1}{2A} \sum_{\lambda, \lambda^{\prime}, k_1, k_2, k_3, k_4} \left[ \langle c_{k_1,\lambda}^\dagger c_{k_4,\lambda} \rangle c_{k_2,\lambda^{\prime}}^\dagger c_{k_3,\lambda^{\prime}} + \langle c_{k_2,\lambda^{\prime}}^\dagger c_{k_3,\lambda^{\prime}} \rangle c_{k_1,\lambda}^\dagger c_{k_4,\lambda} - \langle c_{k_1,\lambda}^\dagger c_{k_3,\lambda^{\prime}} \rangle c_{k_2,\lambda^{\prime}}^\dagger c_{k_4,\lambda} - \langle c_{k_2,\lambda^{\prime}}^\dagger c_{k_4,\lambda} \rangle c_{k_1,\lambda}^\dagger c_{k_3,\lambda^{\prime}} \right] \times \delta_{k_1+k_2, k_3+k_4} \times V(q)$
+  score:
+    in_paper: 0
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+- task: Expand interaction
+  source:
+    1010.1819.tex:
+      - [175,200]
+  placeholder:
+    Hartree_Fock_second_quantized_symbol:
+      LLM: |
+        $V^{HF} = \sum_{{\bf k} \lambda \lambda'} U_H^{\lambda \lambda'} N_{\lambda'} c_{{\bf k} \lambda}^{\dag} c_{{\bf k} \lambda} 
+        -W^{X}_{{\bf k} {\lambda' \lambda}}  c_{{\bf k} \lambda}^{\dag} c_{{\bf k} \lambda'}$.
+      human: $V^{HF}_{quadratic}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 2
+        # acceptable to give actual expression since ambiguous intent
+    momentum:
+      LLM: ${\bf k}$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    expression_HF_2:
+      human: $V_{quadratic}^{HF} = \frac{1}{2A} \sum_{\lambda, \lambda^{\prime}, k_1, k_2, k_3, k_4} \left[ \langle c_{k_1,\lambda}^\dagger c_{k_4,\lambda} \rangle c_{k_2,\lambda^{\prime}}^\dagger c_{k_3,\lambda^{\prime}} + \langle c_{k_2,\lambda^{\prime}}^\dagger c_{k_3,\lambda^{\prime}} \rangle c_{k_1,\lambda}^\dagger c_{k_4,\lambda} - \langle c_{k_1,\lambda}^\dagger c_{k_4,\lambda} \rangle \langle c_{k_2,\lambda^{\prime}}^\dagger c_{k_3,\lambda^{\prime}}\rangle - \langle c_{k_1,\lambda}^\dagger c_{k_3,\lambda^{\prime}} \rangle c_{k_2,\lambda^{\prime}}^\dagger c_{k_4,\lambda} - \langle c_{k_2,\lambda^{\prime}}^\dagger c_{k_4,\lambda} \rangle c_{k_1,\lambda}^\dagger c_{k_3,\lambda^{\prime}} + \langle c_{k_1,\lambda}^\dagger c_{k_3,\lambda^{\prime}}\rangle \langle c_{k_2,\lambda^{\prime}}^\dagger c_{k_4,\lambda} \rangle \right] \times \delta_{k_1+k_2, k_3+k_4} \times V(q)$
+  answer: $V_{quadratic}^{HF} = \frac{1}{2A} \sum_{\lambda, \lambda^{\prime}, k_1, k_2, k_3, k_4} \left[ \langle c_{k_1,\lambda}^\dagger c_{k_4,\lambda} \rangle c_{k_2,\lambda^{\prime}}^\dagger c_{k_3,\lambda^{\prime}} + \langle c_{k_2,\lambda^{\prime}}^\dagger c_{k_3,\lambda^{\prime}} \rangle c_{k_1,\lambda}^\dagger c_{k_4,\lambda} - \langle c_{k_1,\lambda}^\dagger c_{k_4,\lambda} \rangle \langle c_{k_2,\lambda^{\prime}}^\dagger c_{k_3,\lambda^{\prime}}\rangle - \langle c_{k_1,\lambda}^\dagger c_{k_3,\lambda^{\prime}} \rangle c_{k_2,\lambda^{\prime}}^\dagger c_{k_4,\lambda} - \langle c_{k_2,\lambda^{\prime}}^\dagger c_{k_4,\lambda} \rangle c_{k_1,\lambda}^\dagger c_{k_3,\lambda^{\prime}} + \langle c_{k_1,\lambda}^\dagger c_{k_3,\lambda^{\prime}}\rangle \langle c_{k_2,\lambda^{\prime}}^\dagger c_{k_4,\lambda} \rangle \right] \times \delta_{k_1+k_2, k_3+k_4} \times V(k_1-k_4)$
+  score:
+    in_paper: 0
+    prompt_quality: 2
+    follow_instructions: 0
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 0
+    # It fails to identify that q is the ``unsummed'' index, and thus, need to be expanded.
+- task: Swap the index to combine Hartree and Fock terms
+  source:
+    1010.1819.tex:
+      - [175,200]
+  placeholder:
+    Hartree_Fock_second_quantized_symbol:
+      LLM: $V^{HF}_{quadratic}$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    expected_value:
+      LLM: $N_{\lambda}$
+      human: $\left< c^{\dag}_{{\bf k} \lambda} c_{{\bf k} \lambda} \right>$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 0
+    expression_Hartree_1:
+      LLM: and $\left<c_{{\bf k}' \lambda'}^{\dag} c_{{\bf k}' \lambda} \right>$ in the second Fock term) in the first Hartree term ($U_H^{\lambda \lambda'} N_{\lambda'} c_{{\bf k} \lambda}^{\dag} c_{{\bf k} \lambda}$
+      human: $\left<c_{{\bf k} \lambda}^{\dag} c_{{\bf k} \lambda} \right>c_{{\bf k'} \lambda'}^{\dag} c_{{\bf k'} \lambda'}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 0
+    expression_Hartree_2:
+      LLM: $W^{X}_{{\bf k} {\lambda' \lambda}}  c_{{\bf k} \lambda}^{\dag} c_{{\bf k} \lambda'}$
+      human: $\left<c_{{\bf k'} \lambda'}^{\dag} c_{{\bf k'} \lambda'}\right>c_{{\bf k} \lambda}^{\dag} c_{{\bf k} \lambda} $
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 0
+    expression_HF_2:
+      human: $V_{quadratic}^{HF} = \frac{1}{2A} \sum_{\lambda, \lambda^{\prime}, k_1, k_2, k_3, k_4} \left[ \langle c_{k_1,\lambda}^\dagger c_{k_4,\lambda} \rangle c_{k_2,\lambda^{\prime}}^\dagger c_{k_3,\lambda^{\prime}} + \langle c_{k_2,\lambda^{\prime}}^\dagger c_{k_3,\lambda^{\prime}} \rangle c_{k_1,\lambda}^\dagger c_{k_4,\lambda} - \langle c_{k_1,\lambda}^\dagger c_{k_4,\lambda} \rangle \langle c_{k_2,\lambda^{\prime}}^\dagger c_{k_3,\lambda^{\prime}}\rangle - \langle c_{k_1,\lambda}^\dagger c_{k_3,\lambda^{\prime}} \rangle c_{k_2,\lambda^{\prime}}^\dagger c_{k_4,\lambda} - \langle c_{k_2,\lambda^{\prime}}^\dagger c_{k_4,\lambda} \rangle c_{k_1,\lambda}^\dagger c_{k_3,\lambda^{\prime}} + \langle c_{k_1,\lambda}^\dagger c_{k_3,\lambda^{\prime}}\rangle \langle c_{k_2,\lambda^{\prime}}^\dagger c_{k_4,\lambda} \rangle \right] \times \delta_{k_1+k_2, k_3+k_4} \times V(k_1-k_4)$
+  answer: $V_{quadratic}^{HF} = \frac{1}{A} \sum_{\lambda, \lambda^{\prime}, k_1, k_2, k_3, k_4} \left[ \langle c_{k_1,\lambda}^\dagger c_{k_4,\lambda} \rangle c_{k_2,\lambda^{\prime}}^\dagger c_{k_3,\lambda^{\prime}} - \langle c_{k_1,\lambda}^\dagger c_{k_3,\lambda^{\prime}} \rangle c_{k_2,\lambda^{\prime}}^\dagger c_{k_4,\lambda} \right] \times \delta_{k_1+k_2, k_3+k_4} \times V(k_1-k_4)$
+  score:
+    in_paper: 1
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 1
+    final_answer_accuracy: 1
+    # It fails to ...
+- task: Reduce momentum in Hartree term (momentum in BZ + reciprocal lattice)
+  source:
+    1010.1819.tex:
+      - [175,200]
+  placeholder:
+    Hartree_second_quantized_symbol:
+      LLM: $V^{HF}$
+      human: V^{Hartree}_{quadratic}
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 0
+        # one of the few excerpts where Hartree and Fock terms are explicitly labeled! So deducted here.
+    expected_value: 
+      LLM: $N_{\lambda}$
+      human: $\left< c^{\dag}_{{\bf k}_1 \lambda} c_{{\bf k'} \lambda} \right>$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 2
+        # accepted since they are related, unclear if shouldn't be an expression or not
+    expected_value_nonzero:
+      LLM: $N_{\lambda} =\sum_{{\bf k}'} \left< c^{\dag}_{{\bf k}' \lambda} c_{{\bf k}' \lambda} \right>  = \sum_{{\bf k}'} n_{{\bf k}' \lambda}$
+      human: $\left< c^{\dag}_{{\bf k} \lambda} c_{{\bf k'} \lambda} \right>=\delta_{k,k'}\left< c^{\dag}_{{\bf k} \lambda} c_{{\bf k'} \lambda} \right>$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 0
+    expression_Hartree:
+      human: $V_{quadratic}^{HF} = \frac{1}{A} \sum_{\lambda, \lambda^{\prime}, k_1, k_2, k_3, k_4}  \langle c_{k_1,\lambda}^\dagger c_{k_4,\lambda} \rangle c_{k_2,\lambda^{\prime}}^\dagger c_{k_3,\lambda^{\prime}}  \times \delta_{k_1+k_2, k_3+k_4} \times V(k_1-k_4)$
+  answer: $V^{Hartree}_{quadratic} = \frac{1}{A} \sum_{\lambda, \lambda^{\prime}, k_1, k_2}  \langle c_{k_1,\lambda}^\dagger c_{k_1,\lambda} \rangle c_{k_2,\lambda^{\prime}}^\dagger c_{k_2,\lambda^{\prime}}  \times V(0)$
+  score:
+    in_paper: 1
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+- task: Reduce momentum in Fock term (momentum in BZ + reciprocal lattice)
+  source:
+    1010.1819.tex:
+      - [175,200]
+  placeholder:
+    Fock_second_quantized_symbol:
+      LLM: $V^{HF}$
+      human: $V^{Fock}_{quadratic}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 2
+    expected_value:
+      LLM: $\left< c^{\dag}_{{\bf k}' \lambda} c_{{\bf k}' \lambda} \right>$
+      human: $\left< c^{\dag}_{{\bf k}_1 \lambda} c_{{\bf k'} \lambda} \right>$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 1
+    expected_value_nonzero:
+      LLM: $\left< c^{\dag}_{{\bf k}' \lambda} c_{{\bf k}' \lambda} \right> = \sum_{{\bf k}'} n_{{\bf k}' \lambda}$
+      human: $\left< c^{\dag}_{{\bf k} \lambda} c_{{\bf k'} \lambda} \right>=\delta_{k,k'}\left< c^{\dag}_{{\bf k} \lambda} c_{{\bf k'} \lambda} \right>$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 0
+    expression_Fock:
+      human: $V_{quadratic}^{HF} = -\frac{1}{A} \sum_{\lambda, \lambda^{\prime}, k_1, k_2, k_3, k_4}  \langle c_{k_1,\lambda}^\dagger c_{k_3,\lambda^{\prime}} \rangle c_{k_2,\lambda^{\prime}}^\dagger c_{k_4,\lambda} \times \delta_{k_1+k_2, k_3+k_4} \times V(k_1-k_4)$
+  answer: $V^{Fock}_{quadratic} = -\frac{1}{A} \sum_{\lambda, \lambda^{\prime}, k_1, k_2}  \langle c_{k_1,\lambda}^\dagger c_{k_1,\lambda^{\prime}} \rangle c_{k_2,\lambda^{\prime}}^\dagger c_{k_2,\lambda}  \times V(k_1-k_2)$
+  score:
+    in_paper: 1
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+- task: Combine the Hartree and Fock term
+  source:
+    1010.1819.tex:
+      - [175,200]
+  placeholder:
+    Hartree_symbol:
+      LLM: U_H^{\lambda \lambda'}
+      human: $V^{Hartree}_{quadratic}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 2
+        # reasonable given excerpt
+    Fock_symbol:
+      LLM:
+      human: $V^{Fock}_{quadratic}$
+    Hartree:
+      human: $V^{Hartree}_{quadratic} = \frac{1}{A} \sum_{\lambda, \lambda^{\prime}, k_1, k_2}  \langle c_{k_1,\lambda}^\dagger c_{k_1,\lambda} \rangle c_{k_2,\lambda^{\prime}}^\dagger c_{k_2,\lambda^{\prime}}  \times V(0)$
+    Fock:
+      LLM: W^{X}_{{\bf k} {\lambda' \lambda}}
+      human: $V^{Fock}_{quadratic} = -\frac{1}{A} \sum_{\lambda, \lambda^{\prime}, k_1, k_2}  \langle c_{k_1,\lambda}^\dagger c_{k_1,\lambda^{\prime}} \rangle c_{k_2,\lambda^{\prime}}^\dagger c_{k_2,\lambda}  \times V(k_1-k_2)$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 2
+        # reasonable given excerpt
+    swap_rule:
+      LLM: 
+      human: Not needed
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+  answer: $V^{HF}_{quadratic} = \frac{1}{A} \sum_{\lambda, \lambda^{\prime}, k_1, k_2}  \langle c_{k_1,\lambda}^\dagger c_{k_1,\lambda} \rangle c_{k_2,\lambda^{\prime}}^\dagger c_{k_2,\lambda^{\prime}}  \times V(0) - \frac{1}{A} \sum_{\lambda, \lambda^{\prime}, k_1, k_2}  \langle c_{k_1,\lambda}^\dagger c_{k_1,\lambda^{\prime}} \rangle c_{k_2,\lambda^{\prime}}^\dagger c_{k_2,\lambda}  \times V(k_1-k_2)$
+  score:
+    in_paper: 2
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+    # Slight mistake: V should carry the index of \lambda
+# - task: Construct full Hamiltonian after HF
+#   source:
+#     1010.1819.tex:
+#       - [175,200]
+#   placeholder:
+#     Hartree_Fock_symbol:
+#       LLM: 
+#       human: 
+#       score: 
+#         Haining: 
+#         Will: 
+#         Yasaman: 
+#     kinetic_symbol:
+#       LLM: 
+#       human: 
+#       score: 
+#         Haining: 
+#         Will: 
+#         Yasaman: 
+#     expression_kinetic:
+#       LLM: 
+#       human: 
+#       score: 
+#         Haining: 
+#         Will: 
+#         Yasaman: 
+#     int_symbol:
+#       LLM: 
+#       human: 
+#       score: 
+#         Haining: 
+#         Will: 
+#         Yasaman: 
+#     expression_int:
+#       LLM: 
+#       human: 
+#       score: 
+#         Haining: 
+#         Will: 
+#         Yasaman: 
+#     Ham_symbol:
+#       LLM: 
+#       human: 
+#       score: 
+#         Haining: 
+#         Will: 
+#         Yasaman: 
+#     definition_of_variables:
+#       LLM: 
+#       human: 
+#       score: 
+#         Haining: 
+#         Will: 
+#         Yasaman: 
+#   answer:
+#   score:
+#     in_paper: 
+#     prompt_quality: 
+#     follow_instructions: 
+#     physics_logic: 
+#     math_derivation: 
+#     final_answer_accuracy:

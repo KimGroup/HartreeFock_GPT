@@ -1,0 +1,385 @@
+1106.6060.tex:
+  placeholder:
+    Note that interaction have no position dependence now:
+      One-Shot: true
+      Zero-Shot: true
+      human: null
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 2
+    definition_of_Fourier_Transformation:
+      One-Shot: $\hat{p}^{\dag}_{k s} = \frac{1}{\sqrt{N}} \sum_i \hat{p}^{\dag}_{R_\bm{i},s}
+        e^{i k \cdot R_i}$
+      Zero-Shot: $\HH_{\kk s}$
+      human: $c_{\alpha,s}^\dagger(k)= \frac{1}{\sqrt{N}} \sum_i c_{\alpha,s}^\dagger(R_i)
+        e^{i k \cdot R_i}$
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 0
+    momentum_creation_op:
+      One-Shot: $\hat{p}^{\dag}_{k s}, \hat{p}^{\dag}_{k s}, \hat{d}^{\dag}_{k s}$
+      Zero-Shot: $\hat{p}^{\dag}_{x\kk s}, \hat{p}^{\dag}_{y\kk s}, \hat{d}^{\dag}_{\kk
+        s}$
+      human: $c_{\alpha,s}^\dagger(k)$
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 0
+    momentum_var:
+      One-Shot: k
+      Zero-Shot: $s$
+      human: $k$
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 0
+    real_creation_op:
+      One-Shot: $\hat{p}^{\dag}_{x\kk s}, \hat{p}^{\dag}_{y\kk s}, \hat{d}^{\dag}_{\kk
+        s}$
+      Zero-Shot: $\hat{C}^{\dag}_{\kk s}$
+      human: $c_{\alpha,s}^\dagger(R_i)$
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 0
+    real_variable:
+      One-Shot: $\bm{R}_i$
+      Zero-Shot: $\kk$
+      human: $i$
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 0
+    second_int_symbol:
+      One-Shot: $\HH_{\rm MF}$
+      Zero-Shot: $\HH_{\rm MF}$
+      human: null
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 2
+    single-particle|second-quantized:
+      One-Shot: second-quantized
+      Zero-Shot: second-quantized
+      human: null
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 2
+  source:
+    1106.6060.tex:
+    - - 221
+      - 267
+1310.2674.tex:
+  placeholder:
+    Note that interaction have no position dependence now:
+      One-Shot: true
+      Zero-Shot: true
+      human: null
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 2
+    definition_of_Fourier_Transformation:
+      One-Shot: $d_{k,\alpha,\sigma}^\dagger= \frac{1}{\sqrt{N}} \sum_i d_{R_\bm{i},\alpha,\sigma}^\dagger
+        e^{i k \cdot R_i}$
+      Zero-Shot: T_{\alpha,\beta}(\bk) d^\dagger_{\bk,\alpha,\sigma} d^{\phantom\dagger}_{\bk,\beta,\sigma}
+      human: $d^\dagger_{\bk,\alpha,\sigma}= \frac{1}{\sqrt{N}} \sum_i d^\dagger_{i,\alpha,\sigma}
+        e^{i k \cdot R_i}$
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 0
+    momentum_creation_op:
+      One-Shot: $d_{k,\alpha,\sigma}^\dagger$
+      Zero-Shot: d
+      human: d^\dagger_{\bk,\alpha,\sigma}
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 1
+    momentum_var:
+      One-Shot: k
+      Zero-Shot: $\alpha,\beta,\sigma$
+      human: $k$
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 0
+    real_creation_op:
+      One-Shot: $d^\dagger_{\bk,\alpha,\sigma}$
+      Zero-Shot: d
+      human: d^\dagger_{i,\alpha,\sigma}
+      score:
+        One-Shot (Haining): 1
+        Zero-Shot (Haining): 1
+    real_variable:
+      One-Shot: $\bm{R}_i$
+      Zero-Shot: \bk
+      human: i
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 0
+    second_int_symbol:
+      One-Shot: $H$
+      Zero-Shot: $U^{\sigma\sigma^\prime}_{\alpha,\alpha^\prime,\beta,\beta^\prime}$
+      human: \hat{H}_{\rm {int}}
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 0
+    single-particle|second-quantized:
+      One-Shot: second-quantized
+      Zero-Shot: second-quantized
+      human: null
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 2
+  source:
+    1310.2674_SM.tex:
+    - - 67
+      - 89
+2008.08998.tex:
+  placeholder:
+    Note that interaction have no position dependence now:
+      One-Shot: true
+      Zero-Shot: true
+      human: null
+      score:
+        One-Shot (Haining): 0
+        Zero-Shot (Haining): 0
+    definition_of_Fourier_Transformation:
+      One-Shot: $c_{\bm{k}_\alpha,s}^\dagger= \frac{1}{\sqrt{\mathcal{N}}} \sum_{\bm{R}}
+        c_{\bm{R},s}^\dagger e^{i \bm{k}_\alpha \cdot \bm{R}}$
+      Zero-Shot: U(\bm{q})=\sum_{\bm{R}}U(\bm{R})e^{i\bm{q}\cdot\bm{R}}
+      human: $c_{\bm{k},s}^\dagger= \frac{1}{\sqrt{N}} \sum_i c_{R_\bm{i},s}^\dagger
+        e^{i k \cdot R_i}$
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 0
+    momentum_creation_op:
+      One-Shot: $c_{\bm{k}_\alpha,s}^\dagger$
+      Zero-Shot: c_{\bm{k}_\alpha,s}^\dagger
+      human: null
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 2
+    momentum_var:
+      One-Shot: \bm{k}_\alpha
+      Zero-Shot: \bm{q}
+      human: null
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 2
+    real_creation_op:
+      One-Shot: $c_{\bm{R},s}^\dagger$
+      Zero-Shot: c_{\bm{k}_\alpha,s}^\dagger
+      human: c_{R_\bm{i},s}^\dagger
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 0
+    real_variable:
+      One-Shot: \bm{R}
+      Zero-Shot: \bm{R}
+      human: null
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 2
+    second_int_symbol:
+      One-Shot: $H_1$
+      Zero-Shot: H_1
+      human: null
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 2
+    single-particle|second-quantized:
+      One-Shot: second-quantized
+      Zero-Shot: second-quantized
+      human: null
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 2
+  source:
+    2008.08998.tex:
+    - - 225
+      - 237
+2012.04554.tex:
+  placeholder:
+    Note that interaction have no position dependence now:
+      One-Shot: false
+      Zero-Shot: null
+      human: false
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 0
+    definition_of_Fourier_Transformation:
+      One-Shot: $c_{k,s}^\dagger= \frac{1}{\sqrt{N}} \sum_i c_{R_\bm{i},s}^\dagger
+        e^{i k \cdot R_i}$
+      Zero-Shot: null
+      human: $c_{{k},s}^\dagger= \frac{1}{\sqrt{N}} \sum_i c_{i,s}^\dagger e^{i k
+        \cdot R_i}$
+      score:
+        One-Shot (Haining): 1
+        Zero-Shot (Haining): 0
+    momentum_creation_op:
+      One-Shot: $c_{k,s}^\dagger$
+      Zero-Shot: null
+      human: c_{k,s}^\dagger
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 0
+    momentum_var:
+      One-Shot: k
+      Zero-Shot: null
+      human: k
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 0
+    real_creation_op:
+      One-Shot: $c_{i,s}^\dagger$
+      Zero-Shot: c_{i,s}^\dagger
+      human: null
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 2
+    real_variable:
+      One-Shot: $\bm{R}_i$
+      Zero-Shot: i
+      human: null
+      score:
+        One-Shot (Haining): 1
+        Zero-Shot (Haining): 2
+    second_int_symbol:
+      One-Shot: $H$
+      Zero-Shot: H
+      human: H_{int}
+      score:
+        One-Shot (Haining): 1
+        Zero-Shot (Haining): 1
+    single-particle|second-quantized:
+      One-Shot: second-quantized
+      Zero-Shot: second-quantized
+      human: null
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 2
+  source:
+    2012.04554.tex:
+    - - 39
+      - 44
+2110.11330.tex:
+  placeholder:
+    Note that interaction have no position dependence now:
+      One-Shot: false
+      Zero-Shot: true
+      human: false
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 0
+    definition_of_Fourier_Transformation:
+      One-Shot: $c_{k,s}^\dagger= \frac{1}{\sqrt{N}} \sum_i c_{R_\bm{i},s}^\dagger
+        e^{i k \cdot R_i}$
+      Zero-Shot: null
+      human: $c_{k,s}^\dagger= \frac{1}{\sqrt{N}} \sum_i c_{R_\bm{i},s}^\dagger e^{i
+        k \cdot R_i}$
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 0
+    momentum_creation_op:
+      One-Shot: $c_{k,s}^\dagger$
+      Zero-Shot: null
+      human: $c_{k,s}^\dagger$
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 0
+    momentum_var:
+      One-Shot: k
+      Zero-Shot: null
+      human: k
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 0
+    real_creation_op:
+      One-Shot: $c_{i,s}^\dagger$
+      Zero-Shot: $c_{i,s}^\dagger$
+      human: null
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 2
+    real_variable:
+      One-Shot: $\bm{R}_i$
+      Zero-Shot: $\bm{R}_i$
+      human: null
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 2
+    second_int_symbol:
+      One-Shot: $H$
+      Zero-Shot: $H$
+      human: $H_{int}$
+      score:
+        One-Shot (Haining): 0
+        Zero-Shot (Haining): 0
+    single-particle|second-quantized:
+      One-Shot: second-quantized
+      Zero-Shot: second-quantized
+      human: null
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 2
+  source:
+    2110.11330.tex:
+    - - 29
+      - 36
+2308.03843.tex:
+  placeholder:
+    Note that interaction have no position dependence now:
+      One-Shot: true
+      Zero-Shot: true
+      human: false
+      score:
+        One-Shot (Haining): 0
+        Zero-Shot (Haining): 0
+    definition_of_Fourier_Transformation:
+      One-Shot: $V_{\alpha\beta}(\mathbf{q})$
+      Zero-Shot: $V_{\alpha\beta}(\mathbf{q})$
+      human: $d_{\alpha,\mathbf{k},\sigma}^{\dagger}= \frac{1}{\sqrt{N}} \sum_i d_{\alpha,i,\sigma}^{\dagger}
+        e^{i k \cdot R_i}$
+      score:
+        One-Shot (Haining): 0
+        Zero-Shot (Haining): 0
+    momentum_creation_op:
+      One-Shot: $\hat{n}_{\alpha}(\mathbf{q})$
+      Zero-Shot: $\hat{n}_{\alpha}(\mathbf{q})$
+      human: d_{\alpha,\mathbf{k},\sigma}^{\dagger}
+      score:
+        One-Shot (Haining): 0
+        Zero-Shot (Haining): 0
+    momentum_var:
+      One-Shot: $\mathbf{q}$
+      Zero-Shot: $\mathbf{q}$
+      human: null
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 2
+    real_creation_op:
+      One-Shot: $\hat{n}_{\alpha}$
+      Zero-Shot: $\hat{n}_{\alpha}$
+      human: d_{\alpha,i,\sigma}^{\dagger}
+      score:
+        One-Shot (Haining): 0
+        Zero-Shot (Haining): 0
+    real_variable:
+      One-Shot: $\alpha$
+      Zero-Shot: $\alpha$
+      human: $i$
+      score:
+        One-Shot (Haining): 0
+        Zero-Shot (Haining): 0
+    second_int_symbol:
+      One-Shot: $\mathcal{H}_{\text{C}}$
+      Zero-Shot: $\mathcal{H}_{\text{C}}$
+      human: null
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 2
+    single-particle|second-quantized:
+      One-Shot: second-quantized
+      Zero-Shot: second-quantized
+      human: null
+      score:
+        One-Shot (Haining): 2
+        Zero-Shot (Haining): 2
+  source:
+    2308.03843.tex:
+    - - 355
+      - 360

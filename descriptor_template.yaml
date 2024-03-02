@@ -1,4 +1,0 @@
-- task: 
-  source:
-    arxiv.tex:
-      - [start,end]

@@ -1,0 +1,698 @@
+- branch: lattice, second-quantized
+- task: Construct Kinetic Hamiltonian (lattice version)
+  source:
+    1508.00296.tex:
+      - [202, 203]
+      - [236, 246]
+  placeholder:
+    system:
+      LLM: BiNiO$_3$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 
+    real|momentum:
+      LLM: real
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 
+    single-particle|second-quantized:
+      LLM: second-quantized
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 
+    degrees_of_freedom:
+      LLM: Ni-Ni, Bi-Bi, and Bi-Ni bonds.
+      human: orbital index ($a$ for electron at Ni sites, $b$ for electron at Bi sites) and spin index (spin up and spin down)
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 
+    site i and site j with the amplitude hopping:
+      LLM: Ni-Ni bonds with the amplitude $t_{\rm N}$, Bi-Bi bonds with the amplitude $t_{\rm B}$, and Bi-Ni bonds with the amplitude $t_{\rm BN}$, and Bi-Ni bonds with the amplitude $t_{\rm BN}$.
+      human: Ni-Ni bonds with the amplitude $t_{\rm N}$, Bi-Bi bonds with the amplitude $t_{\rm B}$, and Bi-Ni bonds with the amplitude $t_{\rm BN}$, and Bi-Ni bonds with the amplitude $t_{\rm BN}$, onsite chemical potential of $n^{\rm N}_{i \sigma}$ with the amplitude $\Delta$.
+        # 1. $a_{i,s}^\dagger(R_i)$ and $c_{p_x,s}^\dagger(R_i+\hat{x}/2)$ with the hopping amplitude $-t_pd$.  
+        # 2. $c_{d,s}^\dagger(R_i)$ and $c_{p_x,s}^\dagger(R_i-\hat{x}/2)$ with the hopping amplitude $-t_pd$.  
+        # 3. $c_{d,s}^\dagger(R_i)$ and $c_{p_y,s}^\dagger(R_i+\hat{y}/2)$ with the hopping amplitude $-t_pd$.  
+        # 4. $c_{d,s}^\dagger(R_i)$ and $c_{p_y,s}^\dagger(R_i-\hat{y}/2)$ with the hopping amplitude $-t_pd$.  
+        # 5. $c_{p_x,s}^\dagger(R_i+\hat{x}/2)$ and $c_{p_y,s}^\dagger(R_i+\hat{y}/2)$ with the hopping amplitude $-t_pp$.  
+        # 6. $c_{p_x,s}^\dagger(R_i+\hat{x}/2)$ and $c_{p_y,s}^\dagger(R_i-\hat{y}/2)$ with the hopping amplitude $-t_pp$.  
+        # 7. $c_{p_x,s}^\dagger(R_i-\hat{x}/2)$ and $c_{p_y,s}^\dagger(R_i+\hat{y}/2)$ with the hopping amplitude $-t_pp$.  
+        # 8. $c_{p_x,s}^\dagger(R_i-\hat{x}/2)$ and $c_{p_y,s}^\dagger(R_i-\hat{y}/2)$ with the hopping amplitude $-t_pp$.
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 
+      # Missed the onsite hopping
+    kinetic_symbol:
+      LLM: ${\cal H}$
+      human: $T$
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 
+    definition_of_variables:
+      LLM: |
+        $a_{i \sigma}$ and $b_{i \sigma}$ represent the annihilation operators of electron with the spin $\sigma(=\uparrow, \downarrow)$ at the Ni and Bi sites of $i$-th unit cell, respectively; 
+        $n^{\rm N}_{i \sigma} = a^{\dagger}_{i \sigma} a_{i \sigma}$ and $n^{\rm B}_{i \sigma} = b^{\dagger}_{i \sigma} b_{i \sigma}$.
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 
+    You should ensure the hermiticity of the Hamiltonian:
+      LLM: True
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 
+  answer: $T = t_{\rm N} \sum_{\langle i,j \rangle, \sigma} (a^{\dagger}_{i \sigma} a_{j \sigma} + h.c.) + t_{\rm B} \sum_{\langle i,j \rangle, \sigma} (b^{\dagger}_{i \sigma} b_{j \sigma} + h.c.) + t_{\rm BN} \sum_{i, \sigma} (a^{\dagger}_{i \sigma} b_{i \sigma} + b^{\dagger}_{i \sigma} a_{i \sigma}) + \Delta \sum_{i, \sigma} n^{\rm N}_{i \sigma}$
+  score: 
+    in_paper: 2
+    prompt_quality: 2
+    follow_instructions: 1
+    physics_logic: 2
+    math_derivation: 2 
+    final_answer_accuracy: 2
+    # Again the sign before the hopping term is opposite, though physically it doesn't matter.
+- task: Construct interaction Hamiltonian (real space, lattice version)
+  source:
+    1508.00296.tex:
+      - [202, 203]
+      - [236, 245]
+      - [247, 248]
+  placeholder:
+    second_int_symbol:
+      LLM: ${\Delta} \sum_{i \sigma}^{\rm Ni} n^{\rm N}_{i \sigma} + U_{\rm N} \sum_{i \sigma}^{\rm Ni} n^{\rm N}_{i \uparrow} n^{\rm N}_{i \downarrow} + U_{\rm B} \sum_{i \sigma}^{\rm Bi} n^{\rm B}_{i \uparrow} n^{\rm B}_{i \downarrow} + V_{\rm B} \sum_{\langle ij \rangle}^{\rm Bi-Bi} n^{\rm B}_{i} n^{\rm B}_{j} + V_{\rm BN} \sum_{\langle ij \rangle}^{\rm Bi-Ni} n^{\rm N}_{i} n^{\rm B}_{j}$
+      human: $H_{int}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 
+    kinetic_symbol:
+      LLM: $t_{\rm N} \sum_{\langle ij \rangle \sigma}^{\rm Ni-Ni} \left( a^{\dagger}_{i \sigma} a_{j \sigma} + {\rm H.c.} \right) + t_{\rm B} \sum_{\langle ij \rangle \sigma}^{\rm Bi-Bi} \left( b^{\dagger}_{i \sigma} b_{j \sigma}+ {\rm H.c.} \right) + t_{\rm BN} \sum_{\langle ij \rangle \sigma}^{\rm Bi-Ni} \left( a^{\dagger}_{i \sigma} b_{j \sigma} + {\rm H.c.} \right)$
+      human: $T$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 
+    site i and site j with the interaction strength:
+      LLM: Bi-Bi and Bi-Ni sites with the interaction strength $V_{\rm B}$ and $V_{\rm BN}$ respectively.
+      human: Bi-Bi and Bi-Ni sites with the interaction strength $V_{\rm B}$ and $V_{\rm BN}$ respectively. Onsite Coulomb interaction on Bi with the interaction strength $U_{\rm B}$, and onsite Coulomb interaction on Ni with the interaction strength $U_{\rm N}$.
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 
+        # Miss the onsite Coulomb
+    degrees_of_freedom:
+      LLM: spins
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 
+    density_symbol:
+      LLM: $n^{\rm N}_{i \sigma}$ and $n^{\rm B}_{i \sigma}$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 
+    definition_of_variables:
+      LLM: |
+        $a_{i \sigma}$ and $b_{i \sigma}$ represent the annihilation operators of electron with the spin $\sigma(=\uparrow, \downarrow)$ at the Ni and Bi sites of $i$-th unit cell, respectively; 
+        $n^{\rm N}_{i \sigma} = a^{\dagger}_{i \sigma} a_{i \sigma}$ and $n^{\rm B}_{i \sigma} = b^{\dagger}_{i \sigma} b_{i \sigma}$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 
+  answer: $H_{int} = U_{\rm B} \sum_{i} n^{\rm B}_{i \uparrow} n^{\rm B}_{i \downarrow} + U_{\rm N} \sum_{i} n^{\rm N}_{i \uparrow} n^{\rm N}_{i \downarrow} + V_{\rm B} \sum_{\langle i,j \rangle, \sigma, \sigma'} n^{\rm B}_{i \sigma} n^{\rm B}_{j \sigma'} + V_{\rm BN} \sum_{\langle i,j \rangle, \sigma, \sigma'} n^{\rm B}_{i \sigma} n^{\rm N}_{j \sigma'}$
+  score: 
+    in_paper: 2
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 1
+    math_derivation: 2
+    final_answer_accuracy: 1
+    # It fails to recognize the intersite Coulomb interactions on Bi-Ni bonds.
+- task: Convert noninteracting Hamiltonian in real space to momentum space (lattice version)
+  source:
+    1508.00296.tex:
+      - [236, 246]
+  placeholder:
+    nonint_symbol:
+      LLM: ${\cal H}$
+      human: $T$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 
+    real_creation_op:
+      LLM: $a^{\dagger}_{i \sigma}$ and $b^{\dagger}_{i \sigma}$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 
+    momentum_creation_op:
+      LLM: 
+      human: $a^{\dagger}_{k, \sigma}$ and $b^{\dagger}_{k, \sigma}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 
+    definition_of_Fourier_Transformation:
+      LLM: 
+      human: $a^{\dagger}_{k, \sigma}= \frac{1}{\sqrt{N}} \sum_i a^{\dagger}_{i \sigma} e^{i k \cdot a_i}$ and $b^{\dagger}_{k, \sigma}= \frac{1}{\sqrt{N}} \sum_i b^{\dagger}_{i \sigma} e^{i k \cdot b_i}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 
+    real_variable:
+      LLM:  $i$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 
+    definition_of_variables:
+      LLM: |
+        $a_{i \sigma}$ and $b_{i \sigma}$ represent the annihilation operators of electron with the spin $\sigma(=\uparrow, \downarrow)$ at the Ni and Bi sites of $i$-th unit cell, respectively; 
+        $n^{\rm N}_{i \sigma} = a^{\dagger}_{i \sigma} a_{i \sigma}$ and $n^{\rm B}_{i \sigma} = b^{\dagger}_{i \sigma} b_{i \sigma}$.
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 
+    Note that hopping have no position dependence now.:
+      LLM: 
+      human: True
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 
+    expression_nonint:
+      human: $T = t_{\rm N} \sum_{\langle i,j \rangle, \sigma} (a^{\dagger}_{i \sigma} a_{j \sigma} + h.c.) + t_{\rm B} \sum_{\langle i,j \rangle, \sigma} (b^{\dagger}_{i \sigma} b_{j \sigma} + h.c.) + t_{\rm BN} \sum_{\langle i,j \rangle, \sigma} (a^{\dagger}_{i \sigma} b_{j \sigma} + b^{\dagger}_{j \sigma} a_{i \sigma}) + \Delta \sum_{i, \sigma} n^{\rm N}_{i \sigma}$
+  answer:  |
+    $T = 
+    t_{\rm N} \sum_{k, \sigma} a^{\dagger}_{k \sigma} a_{k \sigma} \sum_n e^{-ik\cdot n} + 
+    t_{\rm B} \sum_{k, \sigma} b^{\dagger}_{k \sigma} b_{k \sigma} \sum_n e^{-ik\cdot n} +
+    t_{\rm BN} \sum_{k, \sigma} (a^{\dagger}_{k \sigma} b_{k \sigma} \sum_{n'} \exp{-ik\cdot n'} + b^{\dagger}_{k \sigma} a_{k \sigma} \sum_{n'} \exp{ik\cdot n'}) + 
+    \Delta \sum_{k, \sigma} a^{\dagger}_{k \sigma} a_{k \sigma} $, where $n$ is the lattice vector connecting nearest Ni (or, equivalently, Bi), and $n'$ is the lattice vector connecting nearest Bi and Ni.
+  score: 
+    in_paper: 0 
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 1
+    math_derivation: 1 
+    final_answer_accuracy: 1
+    # It fails to gives the correct answer. The Fourier transform is not complete.
+- task: Convert interacting Hamiltonian in real space to momentum space (lattice version)
+  source:
+    1508.00296.tex:
+      - [236, 245]
+      - [247, 248]
+  placeholder:
+    second_int_symbol:
+      LLM: ${\cal H}$
+      human: $H_{int}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 
+    single-particle|second-quantized:
+      LLM: second-quantized
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 
+    real_creation_op:
+      LLM:  $a_{i \sigma}$ and $b_{i \sigma}$
+      human: $a^{\dagger}_{i \sigma}$ and $b^{\dagger}_{i \sigma}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 
+    momentum_creation_op:
+      LLM: 
+      human: $a^{\dagger}_{k, \sigma}$ and $b^{\dagger}_{k, \sigma}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 
+    definition_of_Fourier_Transformation:
+      LLM: 
+      human: $a^{\dagger}_{k, \sigma}= \frac{1}{\sqrt{N}} \sum_i a^{\dagger}_{i \sigma} e^{i k \cdot a_i}$ and $b^{\dagger}_{k, \sigma}= \frac{1}{\sqrt{N}} \sum_i b^{\dagger}_{i \sigma} e^{i k \cdot b_i}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 
+    real_variable:
+      LLM: $i$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 
+    momentum_var:
+      LLM: 
+      human: $k$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 
+    Note that interaction have no position dependence now:
+      LLM: 
+      human: True
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 
+    expression_int: 
+      human: |
+        $H_{int} = U_{\rm B} \sum_{i} (n^{\rm B}_{i \uparrow} n^{\rm B}_{i \downarrow}) + U_{\rm N} \sum_{i} (n^{\rm N}_{i \uparrow} n^{\rm N}_{i \downarrow}) + V_{\rm B} \sum_{\langle i,j \rangle, \sigma, \sigma'} (n^{\rm B}_{i \sigma} n^{\rm B}_{j \sigma'}) + V_{\rm BN} \sum_{\langle i,j \rangle, \sigma, \sigma'} (n^{\rm B}_{i \sigma} n^{\rm N}_{j \sigma'})$
+  answer: $H_{int} = \frac{U_{\rm B}}{2N} \sum_{k_1,k_2,k_3,k_4, \sigma \neq \sigma'}  b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} \sum_G\delta_{k_1+k_3-k_2-k_4,G} + \frac{U_{\rm N}}{2N} \sum_{k_1,k_2,k_3,k_4, \sigma \neq \sigma'}  a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} \sum_G\delta_{k_1+k_3-k_2-k_4,G} + \frac{V_{\rm B} }{N} \sum_{k_1,k_2,k_3,k_4, \sigma, \sigma'}  b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} \sum_n e^{-i(k_3-k_4)\cdot n} \sum_G\delta_{k_1+k_3-k_2-k_4,G} + \frac{V_{\rm BN}}{N} \sum_{k_1,k_2,k_3,k_4, \sigma, \sigma'}  b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} \sum_{n'} e^{-i(k_3-k_4)\cdot n'} \sum_G\delta_{k_1+k_3-k_2-k_4,G}$, where $n$ is the lattice vector connecting nearest Ni (or, equivalently, Bi), and $n'$ is the lattice vector connecting nearest Bi and Ni.
+  score: 
+    in_paper: 0
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 0
+    math_derivation: 1
+    final_answer_accuracy: 1
+    # The final answer is wrong. The Fourier transform is not wrong; the form factor is missing; 
+- task: Wick's theorem
+  source:
+    1508.00296.tex:
+      - [236, 248]
+      - [250, 253]
+  placeholder:
+    second_int_symbol:
+      LLM: ${\cal H}$
+      human: $H_{int}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 
+    Hartree_Fock_symbol:
+      LLM: 
+      human: $\hat{H}^{int,HF}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 
+    definition_of_variables:
+      LLM: |
+        $a_{i \sigma}$ and $b_{i \sigma}$ represent the annihilation operators of electron with the spin $\sigma(=\uparrow, \downarrow)$ at the Ni and Bi sites of $i$-th unit cell, respectively; 
+        $n^{\rm N}_{i \sigma} = a^{\dagger}_{i \sigma} a_{i \sigma}$ and $n^{\rm B}_{i \sigma} = b^{\dagger}_{i \sigma} b_{i \sigma}$.
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 
+    expression_int:
+      human: $H_{int} = \frac{U_{\rm B}}{2N} \sum_{k_1,k_2,k_3,k_4, \sigma \neq \sigma'}  b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} \sum_G\delta_{k_1+k_3-k_2-k_4,G} + \frac{U_{\rm N}}{2N} \sum_{k_1,k_2,k_3,k_4, \sigma \neq \sigma'}  a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} \sum_G\delta_{k_1+k_3-k_2-k_4,G} + \frac{V_{\rm B} }{N} \sum_{k_1,k_2,k_3,k_4, \sigma, \sigma'}  b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} \sum_n e^{-i(k_3-k_4)\cdot n} \sum_G\delta_{k_1+k_3-k_2-k_4,G} + \frac{V_{\rm BN}}{N} \sum_{k_1,k_2,k_3,k_4, \sigma, \sigma'}  b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} \sum_{n'} e^{-i(k_3-k_4)\cdot n'} \sum_G\delta_{k_1+k_3-k_2-k_4,G}$, where $n$ is the lattice vector connecting nearest Ni (or, equivalently, Bi), and $n'$ is the lattice vector connecting nearest Bi and Ni.
+  answer: |
+    $\frac{U_{\rm B}}{2N} \sum_{k_1,k_2,k_3,k_4, \sigma \neq \sigma'}  
+    \left(
+    \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} + 
+    \langle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} \rangle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} -
+    \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle  \langle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} \rangle-
+    \langle b^{\dagger}_{k_1, \sigma} b_{k_4, \sigma'} \rangle b^{\dagger}_{k_3, \sigma'}b_{k_2, \sigma} -
+    \langle b^{\dagger}_{k_3, \sigma'}b_{k_2, \sigma} \rangle b^{\dagger}_{k_1, \sigma} b_{k_4, \sigma'}  +
+    \langle b^{\dagger}_{k_1, \sigma} b_{k_4, \sigma'} \rangle \langle b^{\dagger}_{k_3, \sigma'}b_{k_2, \sigma} \rangle
+    \right) \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+    \frac{U_{\rm N}}{2N} \sum_{k_1,k_2,k_3,k_4, \sigma \neq \sigma'}  \left( 
+    \langle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} \rangle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} + 
+    \langle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} \rangle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} -
+    \langle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} \rangle  \langle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} \rangle-
+    \langle a^{\dagger}_{k_1, \sigma} a_{k_4, \sigma'} \rangle a^{\dagger}_{k_3, \sigma'}a_{k_2, \sigma} -
+    \langle a^{\dagger}_{k_3, \sigma'}a_{k_2, \sigma} \rangle a^{\dagger}_{k_1, \sigma} a_{k_4, \sigma'} +
+    \langle a^{\dagger}_{k_1, \sigma} a_{k_4, \sigma'} \rangle \langle a^{\dagger}_{k_3, \sigma'}a_{k_2, \sigma} \rangle
+    \right) \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+    \frac{V_{\rm B} }{N} \sum_{k_1,k_2,k_3,k_4, \sigma, \sigma'}  \left(
+    \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} + 
+    \langle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} \rangle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} -
+    \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle  \langle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} \rangle-
+    \langle b^{\dagger}_{k_1, \sigma} b_{k_4, \sigma'} \rangle b^{\dagger}_{k_3, \sigma'}b_{k_2, \sigma} -
+    \langle b^{\dagger}_{k_3, \sigma'}b_{k_2, \sigma} \rangle b^{\dagger}_{k_1, \sigma} b_{k_4, \sigma'}+
+    \langle b^{\dagger}_{k_1, \sigma} b_{k_4, \sigma'} \rangle \langle b^{\dagger}_{k_3, \sigma'}b_{k_2, \sigma} \rangle
+    \right) \sum_n e^{-i(k_3-k_4)\cdot n} \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+    \frac{V_{\rm BN}}{N} \sum_{k_1,k_2,k_3,k_4, \sigma, \sigma'}  \left(
+    \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'}+
+    \langle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} \rangle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma}  -
+    \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma}\rangle \langle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} \rangle-
+    \langle b^{\dagger}_{k_1, \sigma} a_{k_4, \sigma'}\rangle a^{\dagger}_{k_3, \sigma'}  b_{k_2, \sigma}  -
+    \langle a^{\dagger}_{k_3, \sigma'}  b_{k_2, \sigma} \rangle b^{\dagger}_{k_1, \sigma} a_{k_4, \sigma'}+
+    \langle b^{\dagger}_{k_1, \sigma} a_{k_4, \sigma'}\rangle \langle a^{\dagger}_{k_3, \sigma'}  b_{k_2, \sigma} \rangle
+    \right) \sum_{n'} e^{-i(k_3-k_4)\cdot n'} \sum_G\delta_{k_1+k_3-k_2-k_4,G}$
+  score: 
+    in_paper: 0
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 1 
+    math_derivation: 1
+    final_answer_accuracy: 0
+    # The HF decomposition is not correct
+- task: Extract quadratic term
+  source:
+    1508.00296.tex:
+      - [236, 248]
+      - [250, 253]
+  placeholder:
+    Hartree_Fock_term_symbol:
+      LLM: ${\cal H}$
+      human: $\hat{H}^{int,HF}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 
+    bilinear_op:
+      LLM: $a^{\dagger}_{i \sigma} a_{j \sigma}$, $b^{\dagger}_{i \sigma} b_{j \sigma}$, and $a^{\dagger}_{i \sigma} b_{j \sigma}$
+      human: $a^\dagger a$, $b^\dagger b$ and $a^\dagger b$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 
+    Hartree_Fock_second_quantized_symbol:
+      LLM: ${\cal H}_{\rm quad}$
+      human: $\hat{H}^{int,HF,2}$
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 
+    definition_of_variables:
+      LLM: |
+        $a_{i \sigma}$ and $b_{i \sigma}$ represent the annihilation operators of electron with the spin $\sigma(=\uparrow, \downarrow)$ at the Ni and Bi sites of $i$-th unit cell, respectively; 
+        $n^{\rm N}_{i \sigma} = a^{\dagger}_{i \sigma} a_{i \sigma}$ and $n^{\rm B}_{i \sigma} = b^{\dagger}_{i \sigma} b_{i \sigma}$.
+      human: |
+        $\hat{H}^{int,HF,2}$ : the quadratic terms in $\hat{H}^{int,HF}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 
+    expression_HF: 
+      human: |
+        $\frac{U_{\rm B}}{2N} \sum_{k_1,k_2,k_3,k_4, \sigma \neq \sigma'}  
+        \left(
+        \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} + 
+        \langle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} \rangle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} -
+        \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle  \langle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} \rangle-
+        \langle b^{\dagger}_{k_1, \sigma} b_{k_4, \sigma'} \rangle b^{\dagger}_{k_3, \sigma'}b_{k_2, \sigma} -
+        \langle b^{\dagger}_{k_3, \sigma'}b_{k_2, \sigma} \rangle b^{\dagger}_{k_1, \sigma} b_{k_4, \sigma'}  +
+        \langle b^{\dagger}_{k_1, \sigma} b_{k_4, \sigma'} \rangle \langle b^{\dagger}_{k_3, \sigma'}b_{k_2, \sigma} \rangle
+        \right) \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+        \frac{U_{\rm N}}{2N} \sum_{k_1,k_2,k_3,k_4, \sigma \neq \sigma'}  \left( 
+        \langle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} \rangle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} + 
+        \langle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} \rangle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} -
+        \langle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} \rangle  \langle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} \rangle-
+        \langle a^{\dagger}_{k_1, \sigma} a_{k_4, \sigma'} \rangle a^{\dagger}_{k_3, \sigma'}a_{k_2, \sigma} -
+        \langle a^{\dagger}_{k_3, \sigma'}a_{k_2, \sigma} \rangle a^{\dagger}_{k_1, \sigma} a_{k_4, \sigma'} +
+        \langle a^{\dagger}_{k_1, \sigma} a_{k_4, \sigma'} \rangle \langle a^{\dagger}_{k_3, \sigma'}a_{k_2, \sigma} \rangle
+        \right) \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+        \frac{V_{\rm B} }{N} \sum_{k_1,k_2,k_3,k_4, \sigma, \sigma'}  \left(
+        \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} + 
+        \langle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} \rangle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} -
+        \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle  \langle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} \rangle-
+        \langle b^{\dagger}_{k_1, \sigma} b_{k_4, \sigma'} \rangle b^{\dagger}_{k_3, \sigma'}b_{k_2, \sigma} -
+        \langle b^{\dagger}_{k_3, \sigma'}b_{k_2, \sigma} \rangle b^{\dagger}_{k_1, \sigma} b_{k_4, \sigma'}+
+        \langle b^{\dagger}_{k_1, \sigma} b_{k_4, \sigma'} \rangle \langle b^{\dagger}_{k_3, \sigma'}b_{k_2, \sigma} \rangle
+        \right) \sum_n e^{-i(k_3-k_4)\cdot n} \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+        \frac{V_{\rm BN}}{N} \sum_{k_1,k_2,k_3,k_4, \sigma, \sigma'}  \left(
+        \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'}+
+        \langle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} \rangle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma}  -
+        \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma}\rangle \langle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} \rangle-
+        \langle b^{\dagger}_{k_1, \sigma} a_{k_4, \sigma'}\rangle a^{\dagger}_{k_3, \sigma'}  b_{k_2, \sigma}  -
+        \langle a^{\dagger}_{k_3, \sigma'}  b_{k_2, \sigma} \rangle b^{\dagger}_{k_1, \sigma} a_{k_4, \sigma'}+
+        \langle b^{\dagger}_{k_1, \sigma} a_{k_4, \sigma'}\rangle \langle a^{\dagger}_{k_3, \sigma'}  b_{k_2, \sigma} \rangle
+        \right) \sum_{n'} e^{-i(k_3-k_4)\cdot n'} \sum_G\delta_{k_1+k_3-k_2-k_4,G}$
+  answer: |
+    $\frac{U_{\rm B}}{2N} \sum_{k_1,k_2,k_3,k_4, \sigma \neq \sigma'}  
+    \left(
+    \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} + 
+    \langle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} \rangle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} -
+    \langle b^{\dagger}_{k_1, \sigma} b_{k_4, \sigma'} \rangle b^{\dagger}_{k_3, \sigma'}b_{k_2, \sigma} -
+    \langle b^{\dagger}_{k_3, \sigma'}b_{k_2, \sigma} \rangle b^{\dagger}_{k_1, \sigma} b_{k_4, \sigma'}  
+    \right) \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+    \frac{U_{\rm N}}{2N} \sum_{k_1,k_2,k_3,k_4, \sigma \neq \sigma'}  \left( 
+    \langle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} \rangle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} + 
+    \langle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} \rangle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} -
+    \langle a^{\dagger}_{k_1, \sigma} a_{k_4, \sigma'} \rangle a^{\dagger}_{k_3, \sigma'}a_{k_2, \sigma} -
+    \langle a^{\dagger}_{k_3, \sigma'}a_{k_2, \sigma} \rangle a^{\dagger}_{k_1, \sigma} a_{k_4, \sigma'} 
+    \right) \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+    \frac{V_{\rm B} }{N} \sum_{k_1,k_2,k_3,k_4, \sigma, \sigma'}  \left(
+    \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} + 
+    \langle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} \rangle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} -
+    \langle b^{\dagger}_{k_1, \sigma} b_{k_4, \sigma'} \rangle b^{\dagger}_{k_3, \sigma'}b_{k_2, \sigma} -
+    \langle b^{\dagger}_{k_3, \sigma'}b_{k_2, \sigma} \rangle b^{\dagger}_{k_1, \sigma} b_{k_4, \sigma'}
+    \right) \sum_n e^{-i(k_3-k_4)\cdot n} \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+    \frac{V_{\rm BN}}{N} \sum_{k_1,k_2,k_3,k_4, \sigma, \sigma'}  \left(
+    \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'}+
+    \langle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} \rangle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma}  -
+    \langle b^{\dagger}_{k_1, \sigma} a_{k_4, \sigma'}\rangle a^{\dagger}_{k_3, \sigma'}  b_{k_2, \sigma}  -
+    \langle a^{\dagger}_{k_3, \sigma'}  b_{k_2, \sigma} \rangle b^{\dagger}_{k_1, \sigma} a_{k_4, \sigma'}
+    \right) \sum_{n'} e^{-i(k_3-k_4)\cdot n'} \sum_G\delta_{k_1+k_3-k_2-k_4,G}$
+  score: 
+    in_paper: 0 
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2 
+- task: Hartree term only
+  source:
+    1508.00296.tex:
+      - [236, 248]
+      - [250, 253]
+  placeholder:
+    Hartree_Fock_second_quantized_symbol:
+      LLM: ${\cal H}$
+      human: $\hat{H}^{int,HF,2}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 
+    expected_value_Hartree:
+      LLM: $U_{\rm N} \sum_{i \sigma}^{\rm Ni} n^{\rm N}_{i \uparrow} n^{\rm N}_{i \downarrow}$ and $U_{\rm B} \sum_{i \sigma}^{\rm Bi} n^{\rm B}_{i \uparrow} n^{\rm B}_{i \downarrow}$
+      human: $\langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle$ and $\langle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} \rangle$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 
+    Hartree_second_quantized_symbol:
+      LLM: ${\cal H} = U_{\rm N} \sum_{i \sigma}^{\rm Ni} n^{\rm N}_{i \uparrow} n^{\rm N}_{i \downarrow} + U_{\rm B} \sum_{i \sigma}^{\rm Bi} n^{\rm B}_{i \uparrow} n^{\rm B}_{i \downarrow}$
+      human: $\hat{H}^{int,Hartree}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 
+    expression_HF:
+      human: |
+        $\frac{U_{\rm B}}{2N} \sum_{k_1,k_2,k_3,k_4, \sigma \neq \sigma'}  
+        \left(
+        \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} + 
+        \langle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} \rangle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} -
+        \langle b^{\dagger}_{k_1, \sigma} b_{k_4, \sigma'} \rangle b^{\dagger}_{k_3, \sigma'}b_{k_2, \sigma} -
+        \langle b^{\dagger}_{k_3, \sigma'}b_{k_2, \sigma} \rangle b^{\dagger}_{k_1, \sigma} b_{k_4, \sigma'}  
+        \right) \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+        \frac{U_{\rm N}}{2N} \sum_{k_1,k_2,k_3,k_4, \sigma \neq \sigma'}  \left( 
+        \langle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} \rangle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} + 
+        \langle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} \rangle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} -
+        \langle a^{\dagger}_{k_1, \sigma} a_{k_4, \sigma'} \rangle a^{\dagger}_{k_3, \sigma'}a_{k_2, \sigma} -
+        \langle a^{\dagger}_{k_3, \sigma'}a_{k_2, \sigma} \rangle a^{\dagger}_{k_1, \sigma} a_{k_4, \sigma'} 
+        \right) \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+        \frac{V_{\rm B} }{N} \sum_{k_1,k_2,k_3,k_4, \sigma, \sigma'}  \left(
+        \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} + 
+        \langle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} \rangle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} -
+        \langle b^{\dagger}_{k_1, \sigma} b_{k_4, \sigma'} \rangle b^{\dagger}_{k_3, \sigma'}b_{k_2, \sigma} -
+        \langle b^{\dagger}_{k_3, \sigma'}b_{k_2, \sigma} \rangle b^{\dagger}_{k_1, \sigma} b_{k_4, \sigma'}
+        \right) \sum_n e^{-i(k_3-k_4)\cdot n} \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+        \frac{V_{\rm BN}}{N} \sum_{k_1,k_2,k_3,k_4, \sigma, \sigma'}  \left(
+        \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'}+
+        \langle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} \rangle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma}  -
+        \langle b^{\dagger}_{k_1, \sigma} a_{k_4, \sigma'}\rangle a^{\dagger}_{k_3, \sigma'}  b_{k_2, \sigma}  -
+        \langle a^{\dagger}_{k_3, \sigma'}  b_{k_2, \sigma} \rangle b^{\dagger}_{k_1, \sigma} a_{k_4, \sigma'}
+        \right) \sum_{n'} e^{-i(k_3-k_4)\cdot n'} \sum_G\delta_{k_1+k_3-k_2-k_4,G}$
+  answer: |
+    $\frac{U_{\rm B}}{2N} \sum_{k_1,k_2,k_3,k_4, \sigma \neq \sigma'}  
+    \left(
+    \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} + 
+    \langle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} \rangle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} 
+    \right) \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+    \frac{U_{\rm N}}{2N} \sum_{k_1,k_2,k_3,k_4, \sigma \neq \sigma'}  \left( 
+    \langle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} \rangle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} + 
+    \langle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} \rangle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} 
+    \right) \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+    \frac{V_{\rm B} }{N} \sum_{k_1,k_2,k_3,k_4, \sigma, \sigma'}  \left(
+    \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} + 
+    \langle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} \rangle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} 
+    \right) \sum_n e^{-i(k_3-k_4)\cdot n} \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+    \frac{V_{\rm BN}}{N} \sum_{k_1,k_2,k_3,k_4, \sigma, \sigma'}  \left(
+    \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'}+
+    \langle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} \rangle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma}  
+    \right) \sum_{n'} e^{-i(k_3-k_4)\cdot n'} \sum_G\delta_{k_1+k_3-k_2-k_4,G}$
+  score: 
+    in_paper: 0 
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 1 
+    final_answer_accuracy: 1
+    # The physics logic is correct, ie. only Hartree is kept. But the math is not correct, form factor is dropped.
+- task: Swap the index only
+  source:
+    1508.00296.tex:
+      - [236, 248]
+      - [250, 253]
+  placeholder:
+    Hartree_Fock_second_quantized_symbol:
+      LLM: ${\cal H}$
+      human: $\hat{H}^{int,Hartree}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 
+    expected_value:
+      LLM: $n^{\rm N}_{i \sigma} = a^{\dagger}_{i \sigma} a_{i \sigma}$ and $n^{\rm B}_{i \sigma} = b^{\dagger}_{i \sigma} b_{i \sigma}$
+      human: $\langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle$ and $\langle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} \rangle$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 
+    expression_Hartree_1:
+      LLM: $t_{\rm N} \sum_{\langle ij \rangle \sigma}^{\rm Ni-Ni} \left( a^{\dagger}_{i \sigma} a_{j \sigma} + {\rm H.c.} \right)$
+      human: $\langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'}$ and $\langle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} \rangle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 
+    expression_Hartree_2:
+      LLM: $t_{\rm B} \sum_{\langle ij \rangle \sigma}^{\rm Bi-Bi} \left( b^{\dagger}_{i \sigma} b_{j \sigma}+ {\rm H.c.} \right)$
+      human: $\langle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} \rangle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma}$ and $\langle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} \rangle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 
+    relabel:
+      LLM: 
+      human: $k_1 \leftrightarrow k_3$ and $k_2 \leftrightarrow k_4$, $\sigma \leftrightarrow \sigma'$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 
+    Unsummed_Indices:
+      LLM: 
+      human: the different orbitals, namely $a^\dagger$ and $b^\dagger$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 
+    expression_HF_2:
+      human: |
+        $\frac{U_{\rm B}}{2N} \sum_{k_1,k_2,k_3,k_4, \sigma \neq \sigma'}  
+        \left(
+        \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} + 
+        \langle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} \rangle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} 
+        \right) \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+        \frac{U_{\rm N}}{2N} \sum_{k_1,k_2,k_3,k_4, \sigma \neq \sigma'}  \left( 
+        \langle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} \rangle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} + 
+        \langle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} \rangle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} 
+        \right) \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+        \frac{V_{\rm B} }{N} \sum_{k_1,k_2,k_3,k_4, \sigma, \sigma'}  \left(
+        \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} + 
+        \langle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} \rangle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} 
+        \right) \sum_n e^{-i(k_3-k_4)\cdot n} \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+        \frac{V_{\rm BN}}{N} \sum_{k_1,k_2,k_3,k_4, \sigma, \sigma'}  \left(
+        \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'}+
+        \langle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} \rangle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma}  
+        \right) \sum_{n'} e^{-i(k_3-k_4)\cdot n'} \sum_G\delta_{k_1+k_3-k_2-k_4,G}$
+  answer: |
+    $\frac{U_{\rm B}}{N} \sum_{k_1,k_2,k_3,k_4, \sigma \neq \sigma'}  
+    \left(
+    \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} 
+    \right) \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+    \frac{U_{\rm N}}{N} \sum_{k_1,k_2,k_3,k_4, \sigma \neq \sigma'}  \left( 
+    \langle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} \rangle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} 
+    \right) \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+    \frac{2V_{\rm B} }{N} \sum_{k_1,k_2,k_3,k_4, \sigma, \sigma'}  \left(
+    \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'}  
+    \right) \sum_n e^{i(k_1-k_2)\cdot n} \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+    \frac{V_{\rm BN}}{N} \sum_{k_1,k_2,k_3,k_4, \sigma, \sigma'}  \left(
+    \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'}+
+    \langle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} \rangle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'}
+    \right) \sum_{n'} e^{i(k_1-k_2)\cdot n'} \sum_G\delta_{k_1+k_3-k_2-k_4,G}$
+  score: 
+    in_paper: 0 
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 1
+    math_derivation:  2
+    final_answer_accuracy: 1
+    # Shounldn't have swapped a and b in the last term
+- task: Reduce momentum in Hartree term (momentum in BZ)
+  source:
+    1508.00296.tex:
+      - [236, 248]
+      - [250, 253]
+  placeholder:
+    Hartree_second_quantized_symbol:
+      LLM: ${\cal H}$
+      human: $\hat{H}^{int,Hartree}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 
+    expected_value:
+      LLM: $\langle ij \rangle$
+      human: $\langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle$ and $\langle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} \rangle$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 
+    expected_value_nonzero:
+      LLM: $\langle ij \rangle = \delta_{{k_i,k_j}}$
+      human: $\langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle = \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle \delta_{k_1,k_2} $ and $\langle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} \rangle = \langle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} \rangle \delta_{k_1,k_2}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 
+    expression_Hartree:
+      human: |
+        $\frac{U_{\rm B}}{N} \sum_{k_1,k_2,k_3,k_4, \sigma \neq \sigma'}  
+        \left(
+        \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'} 
+        \right) \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+        \frac{U_{\rm N}}{N} \sum_{k_1,k_2,k_3,k_4, \sigma \neq \sigma'}  \left( 
+        \langle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} \rangle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'} 
+        \right) \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+        \frac{2V_{\rm B} }{N} \sum_{k_1,k_2,k_3,k_4, \sigma, \sigma'}  \left(
+        \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'}  
+        \right) \sum_n e^{i(k_1-k_2)\cdot n} \sum_G\delta_{k_1+k_3-k_2-k_4,G} + 
+        \frac{V_{\rm BN}}{N} \sum_{k_1,k_2,k_3,k_4, \sigma, \sigma'}  \left(
+        \langle b^{\dagger}_{k_1, \sigma} b_{k_2, \sigma} \rangle a^{\dagger}_{k_3, \sigma'} a_{k_4, \sigma'}+
+        \langle a^{\dagger}_{k_1, \sigma} a_{k_2, \sigma} \rangle b^{\dagger}_{k_3, \sigma'} b_{k_4, \sigma'}
+        \right) \sum_{n'} e^{i(k_1-k_2)\cdot n'} \sum_G\delta_{k_1+k_3-k_2-k_4,G}$
+  answer: |
+    $\hat{H}^{int,Hartree} = \frac{U_{\rm B}}{N} \sum_{k, \sigma \neq \sigma'}  
+    \langle b^{\dagger}_{k, \sigma} b_{k, \sigma} \rangle b^{\dagger}_{k, \sigma'} b_{k, \sigma'} + 
+    \frac{U_{\rm N}}{N} \sum_{k, \sigma \neq \sigma'}  
+    \langle a^{\dagger}_{k, \sigma} a_{k, \sigma} \rangle a^{\dagger}_{k, \sigma'} a_{k, \sigma'} + 
+    \frac{2V_{\rm B} }{N} \sum_{k, \sigma, \sigma'}  
+    \langle b^{\dagger}_{k, \sigma} b_{k, \sigma} \rangle b^{\dagger}_{k, \sigma'} b_{k, \sigma'} + 
+    \frac{V_{\rm BN}}{N} \sum_{k, \sigma, \sigma'}  
+    \langle b^{\dagger}_{k, \sigma} b_{k, \sigma} \rangle a^{\dagger}_{k, \sigma'} a_{k, \sigma'}+ \langle a^{\dagger}_{k, \sigma} a_{k, \sigma} \rangle b^{\dagger}_{k, \sigma'} b_{k, \sigma'}$
+  score: 
+    in_paper: 0 
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation:  2
+    final_answer_accuracy: 2
+  

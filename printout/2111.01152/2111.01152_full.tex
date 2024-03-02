@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{breqn}
+\usepackage{bm}
+\usepackage{fontspec}
+\setmainfont{DejaVu Serif}
+\usepackage{physics}
+\usepackage{geometry}
+\geometry{top=0.5cm,bottom=0.5cm,left=2cm,right=2cm}
+\setlength{\parindent}{0pt}
+
+% \usepackage[texMathDollars,tightLists]{markdown}
+\usepackage[texMathDollars,pipeTables=true,hybrid,]{markdown}
+
+
+% \def\markdownRendererInlineMath#1{\begin{math}#1\end{math}}
+\def\markdownRendererDisplayMath#1{\begin{dmath*}#1\end{dmath*}}
+
+
+\begin{document}
+\sloppy
+
+\markdownInput{2111.01152_full.md}
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Welcome to Overleaf --- just edit your LaTeX on the left,
+% and we'll compile it for you on the right. If you open the
+% 'Share' menu, you can invite other users to edit at the same
+% time. See www.overleaf.com/learn for more info. Enjoy!
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \documentclass{article}
+% \title{Using the markdown package}
+% \usepackage[render]{markdown}
+% \begin{document}
+
+% \markdownInput{example.md}
+
+% \end{document}
+% \documentclass{article}
+% % \usepackage{amsmath}
+% \usepackage{breqn}
+% \usepackage{bm}
+% \usepackage[texMathDollars,pipeTables=true,hybrid]{markdown}
+% \usepackage{geometry}
+% \geometry{top=0.5cm,bottom=0.5cm,left=2cm,right=2cm}
+
+% \def\markdownRendererDisplayMath#1{\begin{dmath}#1\end{dmath}}
+% \begin{document}
+% \sloppy
+% \markdownInput{intro.md}
+% \markdownInput{tab1.md}
+
+% \end{document}

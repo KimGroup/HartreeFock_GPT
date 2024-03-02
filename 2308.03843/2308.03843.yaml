@@ -1,0 +1,562 @@
+- branch: lattice, second-quantized
+- task: Construct Kinetic Hamiltonian (lattice version)
+  source:
+    2308.03843.tex:
+      - [311,321]
+  placeholder:
+    system:
+      LLM: TBG
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    real|momentum:
+      LLM: real
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    single-particle|second-quantized:
+      LLM: second-quantized
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    degrees_of_freedom:
+      LLM:  spin and sublattice
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 1
+        # partial credit -- missing unit cell
+    site i and site j with the amplitude hopping:
+      LLM: site i and site j with the amplitude $h_{\alpha\beta}(R_{i}-R_{j})$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    kinetic_symbol:
+      LLM: $H_{0}$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    definition_of_variables:
+      LLM: $d_{\alpha,i,\sigma}$ is the annihilation operator of an electron with spin σ=↑,↓ on sublattice α of unit cell i, and $h_{\alpha\beta}(R_{i}-R_{j})$ is the corresponding tight-binding matrix element between sublattices α and β located in unit cells centered at $R_{i}$ and $R_{j}$ respectively.
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    You should ensure the hermiticity of the Hamiltonian:
+      LLM: True
+      human: False
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 2
+        # remove from scoring
+  answer: $H_{0} = \sum_{i,j} \sum_{\alpha,\beta} \sum_{\sigma} h_{\alpha\beta}(R_{i}-R_{j}) d_{\alpha,i,\sigma}^{\dagger} d_{\beta,j,\sigma}$
+  score: 
+    in_paper: 2
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2 
+    final_answer_accuracy: 2
+- task: Construct interaction Hamiltonian (real space, lattice version)
+  source:
+    2308.03843.tex:
+      - [321,344]
+  placeholder:
+    second_int_symbol:
+      LLM: $\mathcal{H}_{\text{C}}$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    kinetic_symbol:
+      LLM: kinetic_symbol
+      human: $H_{0}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    site i and site j with the interaction strength:
+      LLM: site i and site j with the interaction strength $V_{\alpha\beta}(\mathbf{R}_{i}-\mathbf{R}_{j})$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+        # missing Haining's score
+    degrees_of_freedom:
+      LLM: $\alpha\beta$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    density_symbol:
+      LLM: $\hat{n}_{\alpha,i}$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    definition_of_variables:
+      LLM: $\hat{n}_{\alpha,i}=\sum_{\sigma}d_{\alpha,i,\sigma}^{\dagger}d_{\alpha,i,\sigma}$ is the local density operator and $V_{\alpha\beta}(\mathbf{R})=e^{2}/(\varepsilon\xi)\sum_{m=-\infty}^{\infty}(-1)^{m}[(|\boldsymbol{\tau}_{\alpha}-\boldsymbol{\mathbf{\tau}}_{\beta}+\mathbf{R}|/\xi)^{2}+m^{2}]^{-\frac{1}{2}}$ is the screened form of the interaction in the presence of symmetric gates located at the top and bottom of the TBG heterostructure.
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+        # reasonable, could be more complete with additional variables
+  answer: $\mathcal{H}_{\text{C}} = \frac{1}{2} \sum_{i,j} \sum_{\alpha,\beta} V_{\alpha\beta}(\mathbf{R}_{i}-\mathbf{R}_{j}) \hat{n}_{\alpha,i} \hat{n}_{\beta,j}$
+  score: 
+    in_paper: 2
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+- task: Convert noninteracting Hamiltonian in real space to momentum space (lattice version)
+  source:
+    2308.03843.tex:
+      - [349,354]
+  placeholder:
+    nonint_symbol:
+      LLM: $\mathcal{H}_0$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    real_creation_op:
+      LLM: d_{\alpha,\mathbf{k},\sigma}^{\dagger}
+      human: $d_{\alpha,i,\sigma}^{\dagger}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 1
+        # partial credit, does not appear in the current excerpt
+    momentum_creation_op:
+      LLM: $d_{\alpha,\mathbf{k},\sigma}^{\dagger}$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    definition_of_Fourier_Transformation:
+      LLM: 
+      human: $d_{\alpha,\mathbf{k},\sigma}^{\dagger}= \frac{1}{\sqrt{N}} \sum_i d_{\alpha,i,\sigma}^{\dagger} e^{i k \cdot R_i}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    real_variable:
+      LLM: 
+      human: $i$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    definition_of_variables:
+      LLM: 
+      human: |
+        $d_{\alpha,\mathbf{k},\sigma}$ : annihilation operator at momentum $k$, spin $s$  , sublattice $\alpha$
+        $d_{\alpha,\mathbf{k},\sigma}^\dagger(k)$ : creation operator at momentum $k$, spin $s$ , sublattice $\alpha$
+        $N$ : number of the unit cells in the real space  
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    Note that hopping have no position dependence now.:
+      LLM: true
+      human: false
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 2
+      # remove from scoring
+    expression_nonint:
+      human: $H_{0} = \sum_{i,j} \sum_{\alpha,\beta} \sum_{\sigma} h_{\alpha\beta}(R_{i}-R_{j}) d_{\alpha,i,\sigma}^{\dagger} d_{\beta,j,\sigma}$
+  answer: $\mathcal{H}_0 = \sum_{\mathbf{k}} \sum_{\alpha,\beta} \sum_{\sigma} E_{\alpha\beta}(\mathbf{k}) d_{\alpha,\mathbf{k},\sigma}^{\dagger} d_{\beta,\mathbf{k},\sigma}$, where  $E_{\alpha\beta}(\mathbf{k})=\sum_{\mathbf{n}} h_{\alpha\beta}(\mathbf{n}) e^{-i \mathbf{k} \cdot \mathbf{n}}$
+  score: 
+    in_paper: 2
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+    # h and E can be used interchangably
+- task: Convert interacting Hamiltonian in real space to momentum space (lattice version)
+  source:
+    2308.03843.tex:
+      - [355,360]
+  placeholder:
+    second_int_symbol:
+      LLM: $\mathcal{H}_{\text{C}}$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    single-particle|second-quantized:
+      LLM: second-quantized
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    real_creation_op:
+      LLM: $\hat{n}_{\alpha}$
+      human: $d_{\alpha,i,\sigma}^{\dagger}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    momentum_creation_op:
+      LLM: $\hat{n}_{\alpha}(\mathbf{q})$
+      human: $d_{\alpha,\mathbf{k},\sigma}^{\dagger}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+        #note not given explicitly in this excerpt
+    definition_of_Fourier_Transformation:
+      LLM: $V_{\alpha\beta}(\mathbf{q})$
+      human: $d_{\alpha,\mathbf{k},\sigma}^{\dagger}= \frac{1}{\sqrt{N}} \sum_i d_{\alpha,i,\sigma}^{\dagger} e^{i k \cdot R_i}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+        # note, actually reasonable interpretation of "definition of Fourier transform"
+    real_variable:
+      LLM: $\alpha$
+      human: $i$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    momentum_var:
+      LLM: $\mathbf{q}$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    Note that interaction have no position dependence now:
+      LLM: True
+      human: False
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 2
+        # remove from scoring
+    expression_int: 
+      human: $\mathcal{H}_{\text{C}} = \frac{1}{2} \sum_{i,j} \sum_{\alpha,\beta} V_{\alpha\beta}(\mathbf{R}_{i}-\mathbf{R}_{j}) \hat{n}_{\alpha,i} \hat{n}_{\beta,j}$
+  answer: $\mathcal{H}_{\text{C}} = \frac{1}{2N} \sum_{\alpha,\beta} \sum_{\sigma,\sigma'} \sum_{\mathbf{k}_1,\mathbf{k}_2,\mathbf{k}_3,\mathbf{k}_4} V_{\alpha\beta}(\mathbf{k}_1 - \mathbf{k}_2) d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \sum_{\mathbf{G}} \delta(\mathbf{k}_1-\mathbf{k}_2+\mathbf{k}_3-\mathbf{k}_4,\mathbf{G})$
+  score: 
+    in_paper: 2
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+    # The equation is obscure to me, why n(q)? Though the later part of H^F and H^H looks fine. 
+- task: Wick's theorem
+  source:
+    2308.03843.tex:
+      - [401,423]
+  placeholder:
+    second_int_symbol:
+      LLM: $\mathcal{H}_{\text{HF}}$
+      human: $\mathcal{H}_{\text{C}}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 1
+        # partial credit -- I think placeholder is challenging for LLM or human to interpret
+    Hartree_Fock_symbol:
+      LLM: $\bar{h}_{\alpha\beta}(\mathbf{k},\sigma)$
+      human: $\mathcal{H}_{\text{HF}}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    definition_of_variables:
+      LLM: $\mathcal{H}_{\text{HF}}$ is the Hartree-Fock Hamiltonian, $\bar{h}_{\alpha\beta}(\mathbf{k},\sigma)$ is the renormalized matrix elements due to both Hartree and Fock contributions, $h_{\alpha\beta}^{\text{H}}(\mathbf{k},\sigma)$ and $h_{\alpha\beta}^{\text{F}}(\mathbf{k},\sigma)$ are the Hartree and Fock contributions respectively, $\rho_{\alpha\beta}(\mathbf{k},\sigma)$ is the zero-temperature density matrix for a given momentum and spin, and $\phi_{\alpha,\mathbf{k}}^{(n)}(\sigma)$ are the exact eigenvectors of $\mathcal{H}_{\text{HF}}$.
+      human: |
+        $\mathcal{H}_{\text{HF}}$ is the Hartree-Fock Hamiltonian, 
+        $\bar{h}_{\alpha\beta}(\mathbf{k},\sigma)$ is the renormalized matrix elements due to both Hartree and Fock contributions, 
+        $\rho_{\alpha\beta}(\mathbf{k},\sigma)$ is the zero-temperature density matrix for a given momentum and spin, and $\phi_{\alpha,\mathbf{k}}^{(n)}(\sigma)$ are the exact eigenvectors of $\mathcal{H}_{\text{HF}}$.
+        $\rho_{\alpha\beta}(\mathbf{k},\sigma)=\sum_{n}^{\text{occupied}}\phi_{\alpha,\mathbf{k}}^{(n)}(\sigma)\phi_{\beta,\mathbf{k}}^{(n)*}(\sigma)$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 2
+    expression_int: 
+      human: $\mathcal{H}_{\text{C}} = \frac{1}{2N} \sum_{\alpha,\beta} \sum_{\sigma,\sigma'} \sum_{\mathbf{k}_1,\mathbf{k}_2,\mathbf{k}_3,\mathbf{k}_4} V_{\alpha\beta}(\mathbf{k}_1 - \mathbf{k}_2) d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \sum_{\mathbf{G}} \delta(\mathbf{k}_1-\mathbf{k}_2+\mathbf{k}_3-\mathbf{k}_4,\mathbf{G})$
+  answer: $\mathcal{H}_{\text{C}} = \frac{1}{2N} \sum_{\alpha,\beta} \sum_{\sigma,\sigma'} \sum_{\mathbf{k}_1,\mathbf{k}_2,\mathbf{k}_3,\mathbf{k}_4} V_{\alpha\beta}(\mathbf{k}_1 - \mathbf{k}_2) \sum_{\mathbf{G}} \delta(\mathbf{k}_1-\mathbf{k}_2+\mathbf{k}_3-\mathbf{k}_4,\mathbf{G}) [ \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} \rangle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} + \langle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \rangle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} - \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} \rangle \langle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \rangle - \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \rangle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} - \langle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} \rangle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} + \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \rangle \langle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} \rangle ]$
+  score: 
+    in_paper: 1
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+    # This also looks weird to me, why spin exchange terms are dropped in Fock term? This may be due to some special ansatz but the physics is correct though.
+- task: Extract quadratic term
+  source:
+    2308.03843.tex:
+      - [401,423]
+  placeholder:
+    Hartree_Fock_term_symbol:
+      LLM: 
+      human: $\mathcal{H}_{\text{HF}}$
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 0
+    bilinear_op:
+      LLM: $d_{\alpha,\mathbf{k},\sigma}^{\dagger}d_{\beta,\mathbf{k},\sigma}$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    Hartree_Fock_second_quantized_symbol:
+      LLM: $\mathcal{H}_{\text{HF}}$
+      human: $\mathcal{H}_{\text{HF},2}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 2
+        # reasonable answer. challenging to interpret what placeholder requires -- filter these questions later in analysis.
+    definition_of_variables:
+      LLM: $\mathcal{H}_{\text{HF}}$ is the Hartree-Fock term, $\bar{h}_{\alpha\beta}(\mathbf{k},\sigma)$ is the renormalized matrix elements due to both Hartree and Fock contributions, $d_{\alpha,\mathbf{k},\sigma}^{\dagger}$ and $d_{\beta,\mathbf{k},\sigma}$ are creation and annihilation operators respectively, and $\rho_{\alpha\beta}(\mathbf{k},\sigma)$ is the zero-temperature density matrix for a given momentum and spin.
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    expression_HF:
+      human: $\mathcal{H}_{\text{C}} = \frac{1}{2N} \sum_{\alpha,\beta} \sum_{\sigma,\sigma'} \sum_{\mathbf{k}_1,\mathbf{k}_2,\mathbf{k}_3,\mathbf{k}_4} V_{\alpha\beta}(\mathbf{k}_1 - \mathbf{k}_2) \sum_{\mathbf{G}} \delta(\mathbf{k}_1-\mathbf{k}_2+\mathbf{k}_3-\mathbf{k}_4,\mathbf{G}) [ \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} \rangle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} + \langle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \rangle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} - \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} \rangle \langle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \rangle - \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \rangle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} - \langle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} \rangle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} + \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \rangle \langle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} \rangle ]$
+  answer: $\mathcal{H}_{\text{HF},2} = \frac{1}{2N} \sum_{\alpha,\beta} \sum_{\sigma,\sigma'} \sum_{\mathbf{k}_1,\mathbf{k}_2,\mathbf{k}_3,\mathbf{k}_4} V_{\alpha\beta}(\mathbf{k}_1 - \mathbf{k}_2) \sum_{\mathbf{G}} \delta(\mathbf{k}_1-\mathbf{k}_2+\mathbf{k}_3-\mathbf{k}_4,\mathbf{G}) [ \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} \rangle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} + \langle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \rangle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} - \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \rangle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} - \langle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} \rangle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} ]$
+  score: 
+    in_paper: 1
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+- task: Expand interaction
+  source:
+    2308.03843.tex:
+      - [401,423]
+  placeholder:
+    Hartree_Fock_second_quantized_symbol:
+      LLM: $\mathcal{H}_{\text{HF}}$
+      human: $\mathcal{H}_{\text{HF},2}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 2
+    momentum:
+      LLM: $\mathbf{k}$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    expression_HF_2: 
+      human: $\mathcal{H}_{\text{HF},2} = \frac{1}{2N} \sum_{\alpha,\beta} \sum_{\sigma,\sigma'} \sum_{\mathbf{k}_1,\mathbf{k}_2,\mathbf{k}_3,\mathbf{k}_4} V_{\alpha\beta}(\mathbf{k}_1 - \mathbf{k}_2) \sum_{\mathbf{G}} \delta(\mathbf{k}_1-\mathbf{k}_2+\mathbf{k}_3-\mathbf{k}_4,\mathbf{G}) [ \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} \rangle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} + \langle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \rangle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} - \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \rangle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} - \langle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} \rangle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'}]$
+  answer: \mathcal{H}_{\text{HF},2} = \frac{1}{2N} \sum_{\alpha,\beta} \sum_{\sigma,\sigma'} \sum_{\mathbf{k}_1,\mathbf{k}_2,\mathbf{k}_3,\mathbf{k}_4} V_{\alpha\beta}(\mathbf{k}_1 - \mathbf{k}_2) \sum_{\mathbf{G}} \delta(\mathbf{k}_1-\mathbf{k}_2+\mathbf{k}_3-\mathbf{k}_4,\mathbf{G}) [ \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} \rangle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} + \langle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \rangle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} - \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \rangle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} - \langle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} \rangle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} ]
+  score: 
+    in_paper: 1
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+- task: Swap the index only
+  source:
+    2308.03843.tex:
+      - [401,423]
+  placeholder:
+    Hartree_Fock_second_quantized_symbol:
+      LLM: $\mathcal{H}_{\text{HF},2}$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    expected_value:
+      LLM: $\rho_{\alpha\beta}(\mathbf{k},\sigma)$
+      human: $\langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} \rangle$
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    expression_Hartree_1:
+      LLM: $h_{\alpha\beta}^{\text{H}}(\mathbf{k},\sigma)$
+      human: $\langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} \rangle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 2
+        # not sure what placeholder expects here
+    expression_Hartree_2:
+      LLM: $h_{\alpha\beta}^{\text{H}}(\mathbf{k},\sigma)$
+      human: $\langle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \rangle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma}$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 2
+    relabel:
+      LLM: $\alpha$ and $\beta$
+      human: $\alpha$ and $\beta$, $\sigma$ and $\sigma'$, $\mathbf{k}_1$ and $\mathbf{k}_3$, $\mathbf{k}_2$ and $\mathbf{k}_4$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 2
+    Unsummed_Indices:
+      LLM: $\mathbf{k},\sigma$
+      human: Not neededded
+      score: 
+        Haining: 0
+        Will: 
+        Yasaman: 2
+    expression_HF_2: 
+      human: $\mathcal{H}_{\text{HF},2} = \frac{1}{2N} \sum_{\alpha,\beta} \sum_{\sigma,\sigma'} \sum_{\mathbf{k}_1,\mathbf{k}_2,\mathbf{k}_3,\mathbf{k}_4} V_{\alpha\beta}(\mathbf{k}_1 - \mathbf{k}_2) \sum_{\mathbf{G}} \delta(\mathbf{k}_1-\mathbf{k}_2+\mathbf{k}_3-\mathbf{k}_4,\mathbf{G}) [ \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} \rangle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} + \langle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \rangle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} - \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \rangle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} - \langle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} \rangle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'}]$
+  answer: $\mathcal{H}_{\text{HF},2} = \frac{1}{N} \sum_{\alpha,\beta} \sum_{\sigma,\sigma'} \sum_{\mathbf{k}_1,\mathbf{k}_2,\mathbf{k}_3,\mathbf{k}_4} V_{\alpha\beta}(\mathbf{k}_1 - \mathbf{k}_2) \sum_{\mathbf{G}} \delta(\mathbf{k}_1-\mathbf{k}_2+\mathbf{k}_3-\mathbf{k}_4,\mathbf{G}) [ \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} \rangle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} - \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \rangle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma}]$
+  score: 
+    in_paper: 1
+    prompt_quality: 2
+    follow_instructions: 1
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 1
+    # Did not follow instruction to simplify by combine the two same terms in Hartree and Fock.
+- task: Reduce momentum in Hartree term (momentum in BZ)
+  source:
+    2308.03843.tex:
+      - [401,423]
+  placeholder:
+    Hartree_second_quantized_symbol:
+      LLM: $h_{\alpha\beta}^{\text{H}}(\mathbf{k},\sigma)$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    expected_value:
+      LLM: $\rho_{\alpha\beta}(\mathbf{k},\sigma)$
+      human: $\langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} \rangle$
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    expected_value_nonzero:
+      LLM: $\rho_{\alpha\beta}(\mathbf{k},\sigma)=\delta_{\alpha\beta}\sum_{\gamma,\mathbf{k}^{\prime},\sigma^{\prime}}V_{\beta\gamma}(0)\rho_{\gamma\gamma}(\mathbf{k}^{\prime},\sigma^{\prime})$
+      human: $\langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} \rangle = \delta_{k_1,k_2}\langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} \rangle$
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 0
+        # doesn't appear in this excerpt -- not sure what is expected here in template.
+    expression_Hartree: 
+      human: $\mathcal{H}_{\text{HF},2} = \frac{1}{N} \sum_{\alpha,\beta} \sum_{\sigma,\sigma'} \sum_{\mathbf{k}_1,\mathbf{k}_2,\mathbf{k}_3,\mathbf{k}_4} V_{\alpha\beta}(\mathbf{k}_1 - \mathbf{k}_2) \sum_{\mathbf{G}} \delta(\mathbf{k}_1-\mathbf{k}_2+\mathbf{k}_3-\mathbf{k}_4,\mathbf{G})  \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma} \rangle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} $
+  answer: $h_{\alpha\beta}^{\text{H}}(\mathbf{k},\sigma) = \frac{1}{N} \sum_{\alpha,\beta} \sum_{\sigma,\sigma'} \sum_{\mathbf{k}_1,\mathbf{k}_3} V_{\alpha\beta}(0) \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_1,\sigma} \rangle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\beta,\mathbf{k}_3,\sigma'}$
+  score: 
+    in_paper: 1
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+- task: Reduce momentum in Fock term (momentum in BZ)
+  source:
+    2308.03843.tex:
+      - [401,423]
+  placeholder:
+    Fock_second_quantized_symbol:
+      LLM: $h_{\alpha\beta}^{\text{F}}(\mathbf{k},\sigma)$
+      human: 
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    expected_value:
+      LLM: $\rho_{\alpha\beta}(\mathbf{k},\sigma)$
+      human: $\langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \rangle$
+      score: 
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    expected_value_nonzero:
+      LLM: $\rho_{\alpha\beta}(\mathbf{k},\sigma)=\sum_{n}^{\text{occupied}}\phi_{\alpha,\mathbf{k}}^{(n)}(\sigma)\phi_{\beta,\mathbf{k}}^{(n)*}(\sigma)$.
+      human: $\langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \rangle= \delta_{k_1,k_4}\langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \rangle$
+      score: 
+        Haining: 1
+        Will: 
+        Yasaman: 0
+    expression_Fock: 
+      human: $\mathcal{H}_{\text{HF},2} = -\frac{1}{N} \sum_{\alpha,\beta} \sum_{\sigma,\sigma'} \sum_{\mathbf{k}_1,\mathbf{k}_2,\mathbf{k}_3,\mathbf{k}_4} V_{\alpha\beta}(\mathbf{k}_1 - \mathbf{k}_2) \sum_{\mathbf{G}} \delta(\mathbf{k}_1-\mathbf{k}_2+\mathbf{k}_3-\mathbf{k}_4,\mathbf{G})  \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\beta,\mathbf{k}_4,\sigma'} \rangle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma}$
+  answer:
+  score: 
+    in_paper: 1
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+- task: Combine the Hartree and Fock term
+# This task should remove from scoring.
+  source:
+    2308.03843.tex:
+      - [401,423]
+  placeholder:
+    Hartree_symbol:
+      LLM: $h_{\alpha\beta}^{\text{H}}(\mathbf{k},\sigma)$
+      human: $h_{\alpha\beta}^{\text{H}}(\mathbf{k},\sigma)$
+      # score: 
+      #   Haining: 2
+      #   Will: 
+      #   Yasaman: 2
+      #   # what about other placeholders in this prompt, e.g. {Hartree}?
+    Fock_symbol:
+      LLM: $h_{\alpha\beta}^{\text{F}}(\mathbf{k},\sigma)$
+      human: $h_{\alpha\beta}^{\text{F}}(\mathbf{k},\sigma)$
+    Hartree:
+      human: $h_{\alpha\beta}^{\text{H}}(\mathbf{k},\sigma) = \frac{1}{N} \sum_{\alpha,\beta} \sum_{\sigma,\sigma'} \sum_{\mathbf{k}_1,\mathbf{k}_3} V_{\alpha\beta}(0) \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_1,\sigma} \rangle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\beta,\mathbf{k}_3,\sigma'}$
+    Fock:
+      human: $h_{\alpha\beta}^{\text{F}}(\mathbf{k},\sigma) = -\frac{1}{N} \sum_{\alpha,\beta} \sum_{\sigma,\sigma'} \sum_{\mathbf{k}_1,\mathbf{k}_2} V_{\alpha\beta}(\mathbf{k}_1 - \mathbf{k}_2) \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\beta,\mathbf{k}_1,\sigma'} \rangle d_{\beta,\mathbf{k}_2,\sigma'}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma}$
+      # score: 
+      #   Haining: 2
+      #   Will: 
+      #   Yasaman: 2
+    swap_rule:
+      LLM: 
+      human: Not neededded
+      # score: 
+      #   Haining: 0
+      #   Will: 
+      #   Yasaman: (?)
+      #   # not sure what answer is expected
+  answer: $h_{\alpha\beta}^{\text{HF}}(\mathbf{k},\sigma) = \frac{1}{N} \sum_{\alpha,\beta} \sum_{\sigma,\sigma'} \sum_{\mathbf{k}_1,\mathbf{k}_3} V_{\alpha\beta}(0) \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\alpha,\mathbf{k}_1,\sigma} \rangle d_{\beta,\mathbf{k}_3,\sigma'}^{\dagger} d_{\beta,\mathbf{k}_3,\sigma'} - \frac{1}{N} \sum_{\alpha,\beta} \sum_{\sigma,\sigma'} \sum_{\mathbf{k}_1,\mathbf{k}_2} V_{\alpha\beta}(\mathbf{k}_1 - \mathbf{k}_2) \langle d_{\alpha,\mathbf{k}_1,\sigma}^{\dagger} d_{\beta,\mathbf{k}_1,\sigma'} \rangle d_{\beta,\mathbf{k}_2,\sigma'}^{\dagger} d_{\alpha,\mathbf{k}_2,\sigma}$
+  score: 
+    in_paper: 1
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2

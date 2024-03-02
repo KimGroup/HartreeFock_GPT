@@ -1,0 +1,170 @@
+\documentclass[twocolumn,aps,prl,superscriptaddress]{revtex4-2}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+%\usepackage{stix2}
+\usepackage{bm}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{outlines}
+
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\blue}[1]{{\leavevmode\color{blue}#1}}
+\newcommand{\red}[1]{{\leavevmode\color{red}#1}}
+
+\begin{document}
+
+\title{Gate-tunable antiferromagnetic Chern insulator in twisted bilayer transition metal dichalcogenides}
+
+\author{Xiaoyu Liu}
+\affiliation{Department of Materials Science and Engineering, University of Washington, Seattle, WA 98195, USA}
+\author{Chong Wang}
+\affiliation{Department of Materials Science and Engineering, University of Washington, Seattle, WA 98195, USA}
+\author{Xiao-Wei Zhang}
+\affiliation{Department of Materials Science and Engineering, University of Washington, Seattle, WA 98195, USA}
+\author{Ting Cao}
+\affiliation{Department of Materials Science and Engineering, University of Washington, Seattle, WA 98195, USA}
+\author{Di Xiao}
+\affiliation{Department of Materials Science and Engineering, University of Washington, Seattle, WA 98195, USA}
+\affiliation{Department of Physics, University of Washington, Seattle, WA 98195, USA}
+
+\begin{abstract}
+A series of recent experimental works on twisted MoTe$_2$ homobilayers have unveiled an abundance of exotic states in this system. Valley-polarized quantum anomalous Hall states have been identified at hole doping of $\nu = -1$, and the fractional quantum anomalous Hall effect is observed at $\nu = -2/3$ and $\nu = -3/5$. In this work, we investigate the electronic properties of AA-stacked twisted bilayer MoTe$_2$ at $\nu=-2$ by $k$-space Hartree-Fock calculations. We find that the phase diagram is qualitatively similar to the phase diagram of a Kane-Mele-Hubbard with staggered onsite potential. A noteworthy phase within the diagram is the antiferromagnetic Chern insulator, stabilized by the external electric field. We attribute the existence of this Chern insulator to an antiferromagnetic instability at a topological phase transition between the quantum spin hall phase and a band insulator phase. We highlight that the antiferromagnetic Chern insulator phase is most evident at a twist angle of approximately $4^\circ$. Our research proposes the potential of realizing a Chern insulator beyond $\nu=-1$, and contributes fresh perspectives on the interplay between band topology and electron-electron correlations in moir\'e superlattices.
+\end{abstract}
+
+\maketitle
+
+\textit{Introduction.}---
+Since the experimental discovery of correlated states and superconductivity in twisted bilayer graphene \cite{cao2018unconventional,cao2018correlated}, two-dimensional moir\'e superlattices have emerged as a revolutionary platform in the study of electron-electron correlations. Apart from graphene moir\'e superlattices, transition metal dichalcogenides (TMD) moir\'e superlattices have been under intensive investigation due to the reduced number of degrees of freedom \cite{wu2018hubbard,wu2019topological}. For examples, heterobilayer TMD moir\'e superlattices have been found to host magnetic phases \cite{regan2020mott,tang2020simulation,zhao2023gate,li2021continuous}, charge ordered phases \cite{regan2020mott,xu2020correlated,huang2021correlated,li2021imaging} and quantum anomalous Hall states \cite{li2021quantum,tao2022valley,zhao2022realization,zhang2021spin,devakul2021magic,pan2022topological,xie2022valley}. Recently, there has been a surge in research focused on homobilayer TMD moir\'e superlattices \cite{pan2020band,angeli2021gamma,xian2021realization,anderson2023programming,cai2023signatures,foutty2023mapping}. Compared with heterobilayers, homobilayer TMD moir\'e superlattices host intrinsic topological band structures \cite{wu2019topological,yu2020giant}. Moreover, both layers' electrons actively contribute to the low-energy physics for homobilayers, which provides a unique opportunity to tune the electronic properties with an out-of-plane electric field \cite{haavisto2022topological,anderson2023programming}.
+
+Recently, a series of works on twisted MoTe$_2$ homobilayers (tMoTe$_2$) have unveiled an abundance of topological states in this system. At hole doping $\nu = -1$ (one hole per moir\'e unit cell), valley-polarized quantum anomalous Hall states are observed \cite{cai2023signatures,zeng2023integer,park2023observation}. At $\nu = -2/3$ and $\nu = -3/5$, fractional Chern insulator is observed at zero magnetic field \cite{cai2023signatures,zeng2023integer,park2023observation}. The emergence of these states arise from quenched kinetic energy in the flat bands \cite{li2021spontaneous,wang2023fractional,reddy2023fractional}. Following the same logic, it would appear that there might not be as many interesting observations at $\nu = -2$, for which the flat bands are completely filled. In this scenario, for electron-electron interactions to play a significant role in low-energy dynamics, the interaction energy has to overcome the band gap. Fortunately, the band gap can be substantially reduced by an external electric field, hinting at the potential for gate-tunable correlated states in twisted tMoTe$_2$. Such prospects add a captivating dimension to the exploration of this fascinating material.
+
+In this work, we investigate the electronic properties of AA-stacked tMoTe$_2$ at $\nu=-2$ by $k$-space Hartree-Fock calculations. The phase diagram of this system reveals four distinct states: an antiferromagnetic Chern insulator, an in-plane antiferromagnetic phase, a quantum spin hall (QSH) phase, and a trivial band insulator (BI). We find that the phase diagram is qualitatively similar to the phase diagram of a Kane-Mele-Hubbard with staggered onsite potential \cite{jiang2018antiferromagnetic}. Within the framework of the Kane-Mele-Hubbard model, we explain the existence of the in-plane antiferromagnetic phase by a spin model. The emergence of the antiferromagnetic Chern insulator is attributed to an instability of the phase boundary between the QSH and the BI phases with respect to an antiferromagnetic perturbation under a sufficiently large Coulomb interaction. Additionally, we investigate the tMoTe$_2$ of different twist angles and find that the antiferromagnetic Chern insulator phase is most prominently observed at twist angle $\sim 4^\circ$. Our work points out the possibility of realizing Chern insulator beyond $\nu=-1$ and provides new insights into the interplay between the band topology and electron-electron correlations in moir\'e superlattices. 
+
+\begin{figure}
+\centering
+\includegraphics[width=\columnwidth]{Fig1.png}
+\caption{(a) The moir\'e superlattice of twisted bilayer tMoTe$_2$. Orange (green) circles represent MX (XM) stackings, where the Mo (Te) atoms sit on top of the Te (Mo) atoms. For the top four moir\'e valence bands, the charge density at MX (XM) stacking is mainly located on bottom (top) layer. In the Kane-Mele-Hubbard model, $\nu_{ij} = 1$ ($\nu_{ij} = -1$) if the hopping is along (opposite to) the direction of the arrows for the next-nearest-neighbor hopping (see main text). (b) The moir\'e band structure without out-of-plane electric field in the mBZ. (c) The moir\'e band structure with an out-of-plane electric field of $\Delta_D = 5~\rm{meV}$. The orange (green) arrows indicate the states are mainly from the bottom (top) layer, and the up (down) arrows indicate spin up (down) states.\label{fig:fig1}}
+\end{figure}
+
+\textit{Method.}---
+In monolayer MoTe$_2$, the conduction and valence band edges are located at the corners of the Brillouin zone, i.e., $K$ and $K'$ points. Due to strong spin-orbit interaction, electrons in the $K$ and $K'$ valleys have opposite spins \cite{xiao2012coupled}. The major effect of the moir\'e superlattice is to induce coupling between Bloch functions separated by moir\'e reciprocal lattice vectors, which is captured by a continuum model. The separation between the $K$ and $K'$ points are much larger than the length scale of the moir\'e Brillouin zone (mBZ), such that the continuum model is block-diagonal in the valley indices. For $K$ valley, the continuum model Hamiltonian reads \cite{wu2019topological,yu2020giant}:
+\begin{equation}\label{eq:continuum_ham}
+\begin{aligned}
+H_K = & \left(
+    \begin{matrix}
+        -\frac{\hbar^2(\bm{k}-\bm{\kappa}_+)^2}{2m^*} + \Delta_b(\bm{r})  & \Delta_T(\bm{r}) \\
+        \Delta_T^{\dagger}(\bm{r}) & -\frac{\hbar^2(\bm{k}-\bm{\kappa}_-)^2}{2m^*} + \Delta_t(\bm{r})
+    \end{matrix}
+\right) \\ 
+& + \frac{1}{2}\left(\begin{matrix}
+    \Delta_D & 0 \\
+        0 & -\Delta_D
+    \end{matrix}\right),
+\end{aligned}
+\end{equation}
+where the intralayer and interlayer moir\'e potentials are $\Delta_{b/t}=2V\sum_{i=1,3,5}\cos(\bm{G}_i\cdot\bm{r}\pm\phi)$ and $\Delta_T = w(1+e^{-i \bm{G}_2 \cdot \bm{r}} + e^{-i \bm{G}_3 \cdot \bm{r}})$, respectively. $\bm{G}_i = \frac{4\pi}{\sqrt{3} a_M }(\cos\frac{i-1}{3}\pi, \sin\frac{i-1}{3}\pi)$ are moir\'e reciprocal lattice vectors with $a_M$ being the moir\'e lattice constant. $\bm{\kappa}_+ = 2\bm{G}_1 / 3 - \bm{G}_2 / 3$ and $\bm{\kappa}_- = \bm{G}_1 / 3 + \bm{G}_2 / 3$ are the mBZ corners. $m^*$ is the effective mass and is taken as $0.6 m_e$, where $m_e$ is the free electron mass. Layer-differentiating potential proportional to $\Delta_D$ is included in $H_K$ to take into account the out-of-plane electric field. For $K'$ valley, the continuum model Hamiltonian can be deduced by acting time reversal operator on $H_K$.
+
+%This model was found to be a realization of Kane-Mele model \cite{kane2005quantum,kane2005z} with valley-contrasting Chern numbers \cite{wu2019topological,yu2020giant}. 
+
+The parameters for the continuum model is fitted from large-scale density functional theory calculations \cite{wang2023fractional}. Specifically, $(V, \phi, w) = (20.8~\text{meV}, -107.7^\circ,-23.8~\text{meV})$. The corresponding single-particle band structure at twist angle $\theta = 3.89^\circ$ is presented in Fig.~\ref{fig:fig1}(b), where every band is doubly degenerate due to emergent inversion symmetry. The degeneracy can be split by a finite electric field, as shown in Fig.~\ref{fig:fig1}(c).  The topmost moir\'e band from $K$ ($K'$) valley has Chern number $-1$ ($+1$).  Therefore at $\nu = -2$, the Hamiltonian Eq.~(\ref{eq:continuum_ham}) describes a quantum spin Hall insulator~\cite{wu2019topological,yu2020giant}. 
+
+To investigate the effect of electron-electron interaction, we carry out self-consistent Hartree-Fock calculations based on the continuum model. The solution of the continuum model is the envelope function of the atomistic wave function, and the envelope function is expanded as superposition of plane waves. In the basis of the plane waves (labeled by momentum $\bm{k}$), the electron-electron interaction reads
+\begin{equation}
+H_{\rm int} = \frac{1}{2A} \sum_{l, l', \tau, \tau', \bm{k}, \bm{k}', \bm{q}} V_{ll'} (\bm{q}) {c_{l \tau \bm{k}+\bm{q}}^{\dagger}}  {c_{l' \tau' \bm{k}' -\bm{q}}^{\dagger}}  {c_{l' \tau' \bm{k}'}} c_{l \tau\bm{k}},
+\end{equation}
+where $A$ is the area of the system, $l$ and $l'$ label layers and $\tau$ and $\tau'$ label valleys. The Coulomb interaction takes the form \cite{chatterjee2020symmetry}
+\begin{equation}\label{eq:coulomb}
+    V_{ll'}(\bm{q}) = \frac{e^2}{2\epsilon\epsilon_0 |\bm{q}|} \left[\tanh(d_{\rm gate}|\bm{q}|) + (1-\delta_{ll'})(e^{-d |\bm{q}|}-1)\right],
+\end{equation}
+where $\epsilon$ is the relative dielectric constant, $\epsilon_0$ is the vacuum permittivity, $d_{\rm gate}$ is the distance between the sample and the symmetric metal gate, and $d$ is the distance between the two monolayers. The interlayer Coulomb interaction is reduced from the intralayer Coulomb interaction by $e^{-d |\bm{q}|} - 1$. This correction is only valid for $d \ll d_{\rm gate}$ \cite{chatterjee2020symmetry}. The self-consistent Hartree-Fock calculations are performed in the reciprocal space without projecting the interaction to bands near the charge neutrality point.
+
+\begin{figure}
+\centering
+\includegraphics[width=\columnwidth]{Fig2.png}
+\caption{(a) Phase diagram of $k$-space Hartree Fock calculation vs displacement field $\Delta_D$ and dielectric constant $\epsilon$. In the calculations, an $18 \times 18$ mesh in the reciprocal space is used and 196 bands are included. (b) The quasiparticle band structure of the AFMz Chern insulator phase at $\Delta_D = 30$~meV and $\epsilon = 33$. (c) In-plane spin texture of the AFMxy phase in the moir\'e unit cell. (d) Out-of-plane spin density of the AFMz phase for both layers. (e) Line cut at $\epsilon=20$. The black dots denote the layer polarization, indicating the difference in hole occupation between the two layers. The red circles denote the charge gap. The red background indicates Chern number equaling 1. Numerical evidences of first order phase transitions can be observed (sudden jump in both charge gap and layer polarization). (f) Line cut at $\Delta_D=10~\rm{meV}$. The aquamarine background indicates the QSH phase. The twist angle for the calculation is 3.89$^\circ$.\label{fig2}}.
+\end{figure}
+
+\textit{Phase diagram.}---
+Figure \ref{fig2}(a) presents the Hartree-Fock phase diagram as a function of $\epsilon$ and $\Delta_D$ at twist angle $\theta=3.89^\circ$. For noninteracting limit ($\epsilon \to \infty$), the system exhibits a QSH phase at $\Delta_D = 0$. The QSH state can be turned into a trivial BI state via band inversions at $\bm{\kappa}_+$ and $\bm{\kappa}_-$ point for large $\Delta_D$. As the interacting strength increases, two more phases emerge. With $\Delta_D=0$, the AFMxy phase is stabilized for small $\epsilon$. In this phase, the two sublattices possess opposite magnetic moments in the $x-y$ plane [Fig.~\ref{fig2}(c)]. For larger $\Delta_D$, the orientation of the magnetic moment changes to the $\pm z$ direction and the AFMz phase is stabilized [Fig.~\ref{fig2}(d)]. We have also performed Hartree-Fock calculations in a $\sqrt{3}\times\sqrt{3}$ supercell, and no translational symmetry breaking phases are found. The phase transitions from AFMxy to AFMz and from AFMz to BI are characterized as first-order phase transitions [Fig.~\ref{fig2}(e)], whereas the transition from QSH to BI is a second-order phase transition. Based on our numerical evidence, the transition between QSH and AFMxy is more likely to be a second-order phase transition, as shown in Fig.~\ref{fig2}(f).
+
+Most interestingly, the AFMz phase is an antiferromagnetic Chern insulator. The quasiparticle band structure of AFMz features two massive Dirac points [Fig.~\ref{fig2}(b)] at $\bm{\kappa_+}$ and $\bm{\kappa_-}$, both of which contribute $\pi$ Berry flux and the total Chern number is 1. 
+
+A real space picture can help understand the phase diagram in Fig.~\ref{fig2}(a). The moir\'e potential has local minimums at the MX (XM) stacking for the bottom and top layers, respectively. As shown in Fig.~\ref{fig:fig1}(a), these local minimums form a buckled honeycomb lattice, where the $A$ ($B$) sublattices are from the bottom (top) layer. Therefore, tMoTe$_2$ can be qualitatively understood as a Kane-Mele-Hubbard model \cite{kane2005quantum,kane2005z,hohenadler2011correlation,hohenadler2012quantum}:
+\begin{equation}\label{eq:kmh}
+\begin{aligned}
+    H_{\rm KMH} = & H_{\rm single} + \sum_i U n_{i\uparrow} n_{i\downarrow}, \\
+    H_{\rm single} = & \sum_{\langle i, j\rangle, \sigma} t_1 c_{i\sigma}^\dagger c_{j\sigma} + 
+    \sum_{\langle\langle i, j \rangle\rangle, \sigma} t_2 ~ e^{i\sigma\nu_{ij}\theta} c_{i\sigma}^\dagger c_{j\sigma} \\
+    & - \frac{1}{2}\sum_{i\in A} \Delta_D c_{i\sigma}^\dagger c_{i\sigma} + \frac{1}{2}\sum_{i\in B} \Delta_D c_{i\sigma}^\dagger c_{i\sigma},
+\end{aligned}
+\end{equation}
+where $t_1$ is the nearest-neighbor hopping, $t_2$ is the next-nearest-neighbor hopping amplitude, and $U$ is the onsite Coulomb interaction. In Eq.~(\ref{eq:kmh}), we have performed a particle-hole transformation, and $c^\dagger_{i \sigma}$ is the creation operator of a hole at site $i$ with spin $\sigma$. The phase of the next-nearest-neighbor hopping is $\pm\nu_{ij}\theta$ ($+$ for spin up holes), where $\nu_{ij}$ depends on the hopping directions [Fig.~\ref{fig:fig1}(a)]. If the top four moir\'e bands are well separated from the remaining bands, $\theta = \pi/3$ can be deduced from momentum mismatch via Peierls substitution \cite{wu2019topological}. The phase diagram of Kane-Mele-Hubbard model as a function of $U$ and $\Delta_D$ is first obtained in Ref.~\cite{jiang2018antiferromagnetic} for $\theta=\pi / 2$. In Fig.~\ref{fig:KMH}(a), we obtain a similar phase diagram for $\theta=\pi / 3$. We find the phase diagrams for the continuum model and the Kane-Mele-Hubbard model are qualitatively similar. In the following, analysis based on Kane-Mele-Hubbard model will be presented to understand the emergence of correlated phases in tMoTe$_2$.
+
+\textit{Spin model at $\Delta_D=0$.}--- At $\nu = -2$, without the electric field, each site is occupied by one electron. In the strong coupling regime, the Kane-Mele-Hubbard model can be projected into a spin model \cite{hohenadler2012quantum,rachel2010topological,zare2021spin}
+\begin{equation}\label{eq:spin}
+\begin{aligned}
+    H_{\rm spin} = & ~J_1 \sum_{\langle i, j\rangle} \bm{S}_i \cdot \bm{S}_j + 
+    \sum_{\langle\langle i, j \rangle\rangle} J_2^z S_i^z S_j^z \\
+    & + J_2^{xy} (S_i^x S_j^x + S_i^y S_j^y) + D (\bm{S}_i\times \bm{S}_j) \cdot \hat{\bm{z}}, 
+\end{aligned}
+\end{equation}
+with $J_1=4t_1^2/U$ , $J_2^z = 4 t_2^2/U$, $J_2^{xy} = 4t_2^2 \cos(2\theta)/U$ and $D = 4t_2^2 \sin(2\theta)/U$. The direction for $\langle\langle i, j\rangle\rangle$ follows the arrows in Fig.~\ref{fig:fig1}(a).  Therefore, $J_1$ is always positive, leading to antiferromagnetic interactions between sublattices. The sign of $J_2^{xy}$ depends on the $\theta$. For $\theta = \pi / 3$, $J_2^{xy} < 0$, leading to the AFMxy phase in the Hartree-Fock phase diagram. For other values of $\theta$, translational symmetry breaking phase and spin liquid phase may appear \cite{zare2021spin}.
+
+\begin{figure}
+\centering
+\includegraphics[width=\columnwidth]{KMH.png}
+\caption{(a) The phase diagram of the Kane-Mele-Hubbard model as a function of the Hubbard interaction $U$ and sublattice potential $\Delta_D$. (b) The Hartree-Fock quasiparticle band structure (spins labelled) of the nonmagnetic phase (black) and AFMz (red) phase at $U = 5.4 t_1$ and $\Delta_D = 5.95 t_1$. At this point, the Hartree-Fock ground state is AFMz, and the nonmagnetic phase is obtained by using a nonmagnetic initial state in the self-consistent loop. The nonmagnetic phase is at the transition point between the QSH and NI phases. While the two band structures differ at almost all $\bm{k}$ points, the contribution to the difference of the two total quasiparticle energies mainly comes from the Dirac points at the $K$ and $K'$ points (see main text). The next-nearest-hopping for both (a) and (b) is $t_2 = 0.3 t_1$ and $\theta = \pi/3$.\label{fig:KMH}}
+\end{figure}
+
+\textit{The emergence of the AFMz phase.}---
+To explain the existence of the AFMz phase, we find it useful to investigate the behavior of an infinitesimal antiferromagnetic perturbation to the phase boundary between the QSH and the BI in the mean field theory. On the QSH-BI phase boundary, the quasiparticle band gap closes at the $\bm{\kappa_+}$ and $\bm{\kappa_-}$ points, forming Dirac points [Fig.~\ref{fig:KMH}(b)]. An antiferromagnetic perturbation in the $z$ direction (AFMz perturbation) will open up gaps at both $\bm{\kappa_+}$ and $\bm{\kappa_-}$ points, providing an opportunity to lower the energy around the Dirac points [Fig.~\ref{fig:KMH}(b)]. We identify the gap opening as the driving force in stabilizing the AFMz phase at the QSH-BI phase boundary.
+
+As only onsite Coulomb interactions are considered in the Kane-Mele-Hubbard model, the local magnetic moments completely determine the Hartree-Fock quasiparticle Hamiltonian $H_{\mathrm{HF}}$. In AFMz, QSH and BI phases, our simulations find no in-plane magnetic components, thus the mean-field decoupled Hartree-Fock Hamiltonian can be written as $H_{\mathrm{HF}} = H_{\mathrm{single}} + U \sum_{i,\sigma} n_{i \bar{\sigma}} c^\dagger_{i\sigma} c_{i\sigma}$, where $n_{i\bar{\sigma}}$ is the occupation number at site $i$ with spin $-\sigma$. Due to translational symmetry of the AFMz, QSH and BI states, $n_{i\sigma}$ only depends on the sublattice and spin, and takes value $n_{A\sigma}$ or $n_{B\sigma}$. An AFMz perturbation $\delta n_{A\uparrow} = \delta n_{B\downarrow} = -\delta n_{A\downarrow} = -\delta n_{B\uparrow} = \delta n$ will induce a perturbative Hartree-Fock Hamiltonian $\delta H_{\mathrm{HF}}$. Accordingly, the quasiparticle energies $\epsilon_\alpha(\bm{k})$ will receive a perturbative correction $\delta \epsilon_\alpha(\bm{k})$ ($\alpha$ is the band index). For a single band that are well separated from other bands by an energy gap, $ \delta \epsilon_\alpha(\bm{k}) \approx - \delta \epsilon_\alpha(\bm{-k})$, because $\delta \hat{H}_{\mathrm{HF}}$ is odd under time reversal symmetry~\footnote{The argument can be easily generalized to summations of band energies of nearly degenerate bands}. For example, the energy of the lowest band in Fig.~\ref{fig:KMH}(b) shifts in opposite directions at $\bm{\kappa_-}$ and $\bm{\kappa_+}$ under an AFMz perturbation (red vs. black lines). Therefore, the change of the total quasiparticle energy $\delta E_\mathrm{QP} = \sum_{\bm{k},\alpha \in \mathrm{occupied}} \delta\epsilon_\alpha(\bm{k})$ will be mainly contributed by the $\bm{k}$ points where the quasiparticle energies might shift above or below the Fermi energy. In particular, at the QSH-BI phase boundary, $\delta E_\mathrm{QP}$ is dominated by the gap opening at the Dirac points [Fig.~\ref{fig:KMH}(b)]. The total quasiparticle energy $E_\mathrm{QP}$ has double counted the interaction energy. The correct energy of a Hartree-Fock state is $E = E_\mathrm{QP} - E_\mathrm{int}$, where the interaction energy $E_\mathrm{int} = U n_{i\uparrow} n_{i\downarrow}$ for states without in-plane magnetic moments. For an infinitesimal AFMz perturbation to the QSH-BI phase boundary, $\delta E_\mathrm{QP} \propto -U \delta n$ (the opened gap is proportional to $U \delta n$), while the change of interaction energy $\delta E_\mathrm{int} \propto  -U \delta n^2$ ($n_{i\uparrow} = n_{i\downarrow}$ for nonmagnetic states). Therefore, an infinitesimal AFMz perturbation will always lower energy at the QSH-BI phase boundary. However, the AFMz perturbation itself has to be consistently enforced. Especially, the interaction has to be sufficiently large, such that local magnetic moments can be stabilized. This is evidenced in Fig.~\ref{fig:KMH}(a), where a critical $U$ is needed for the existence of the AFMz phase.
+
+Finally, at the QSH-BI phase boundary, an antiferromagnetic perturbation in the $x-y$ plane (AFMxy perturbation) will open up a much smaller gap at the Dirac points compared to an AFMz perturbation in most cases. This is because an AFMxy perturbation has no first order perturbative effects to the Dirac points due to the spin-split quasiparticle band structure [Fig.~\ref{fig:KMH}(b)] unless $\theta = 0$ or $\pi$, for which there is no spin orbit interaction and the bands are spin degenerate.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.617\columnwidth]{Fig3.png}
+\caption{The phase diagram of the continuum model at $\epsilon = 20$. \label{fig:angle}}
+\end{figure}
+
+\textit{Twist angle dependence.}---
+The twist angle changes the period of the moir\'e potential and serves as another tuning knob in moir\'e systems. In Fig.~\ref{fig:angle}, we present the phase diagram as a function of the twist angle and $\Delta_D$. Deviations from Kane-Mele-Hubbard model appears for some twist angles. Especially, for small twist angles, there is a phase boundary between AFMxy and BI phase, which does not appear in the phase diagram of the Kane-Mele-Hubbard model. One cause is the reduction of $t_2$ with respect to $t_1$. In the Supplemental Material~\cite{supp}, we show that for small $t_2$, the area of the AFMz phase shrinks significantly in the phase diagram of Kane-Mele-Hubbard model. Therefore, AFMz phase might completely disappear if further ingredients are added to the Kane-Mele-Hubbard model, explaining the absence of the AFMz state for $\epsilon = 20$ and $\theta < 3^\circ$ for the continuum model. For large twist angles, both AFMz and AFMxy are gradually suppressed due to large band dispersion. We note that our calculations are most accurate around $~3.89^\circ$ where the continuum model parameters are extracted from the density functional theory calculations.
+
+In summary, we have discovered an antiferromagnetic Chern state in twisted bilayer MoTe$_2$ at hole doping $\nu = -2$ under an out-of-plane electric field. Experimentally, due to vanishing total magnetic moment, a direct or indirect measurement of Hall conductivity is required to confirm the existence of state. The easiest route is probably inferring the Hall conductivity by Streda formula \cite{cai2023signatures}, which requires the use of an external magnetic field that does not alter the system's magnetic state. For a spin model, where the local magnetic moments have fixed magnitudes, the stability of an antiferromagnetic phase under external magnetic field is usually determined by magnetic anisotropy. In the current case, however, the magnitudes of local magnetic moments are not fixed, and the antiferromagnetic Chern state do not admit a straightforward spin model description. Further investigations are needed to determine the stability of the antiferromagnetic Chern state with respect to an external magnetic field.
+
+\begin{acknowledgments}
+We thank Xiaodong Xu and Yuchi He for stimulating discussions.  This work is mainly supported by the Center on Programmable Quantum Materials, an Energy Frontier Research Center funded by DOE BES under award DE-SC0019443.  The real-space Hartree-Fock calculation is supported by the Department of Energy BES QIS program under award DE-SC0022277.  This work was facilitated through the use of advanced computational, storage, and networking infrastructure provided by the Hyak supercomputer system and funded by the University of Washington Molecular Engineering Materials Center at the University of Washington (NSF MRSEC DMR-1719797).
+\end{acknowledgments}
+
+%For small twist angle, the spatial separations between moir\'e sites are enhanced, affecting both hoppings and interactions. As the twist angle increases, both hoppings and interactions diminish, but the relative ratio between them decreases, indicating a stronger interaction.
+%This is reflected in the phase diagram  in Fig.~\ref{fig:angle} the transition from QSH to AFMxy at small displacement field, consistent with Fig.~\ref{fig2}. 
+%The critical displacement field between QSH and NI also increases with the twist angle, consistent with the trend of the increasing bandwidth with respect to the increasing twist angle. 
+%Similar to previous phase diagram, we also found a AFMz phase at the boundary of QSH, NI and AFMxy, though this phase only exist between 3-4.5$^\circ$ under our parameters. 
+
+%The extraction in angles from one set of continuum parameters obtained at a particular angle is not always legitimate. Apart from realistic aspects such as different structural relaxation for different twist angles in first principle calculations, the model itself can be problematic?  
+
+
+%\textit{Discussion.}---
+%In this paper, we perform the $k$ space Hartree Fock calculations on the recently twisted MoTe2 homobilayer and show the phase diagrams at filling factor $\nu=-2$. 
+%The twisted MoTe2 bilayer realizes effectively a Kane-Mele-Hubbard model with staggered potential. 
+%In the non-interaction regime,  the system is in QSH phase due to the complex nnn hoppings. 
+%Strong interactions are able to induce local magnetic moments, inducing a magnetic transition from QSH to AFMxy. This result is consistent with previous studies. Our system thus provides a realistic platform for KMH models. 
+%The staggered potential is easily tunable in our system by perpendicular displacement field. 
+%In the non-interaction regime, the displacement induces a topological transition from QSH to normal insulator. This transition might be  unstable against Coulomb interactions. 
+%Indeed we find an AFMz phase with Chern number equals 1 at the boundary between QSH and NI. 
+%We discussed the stability of this phase and corroborates that it appear as long as the Coulomb potential exceeds a critical value. 
+
+
+%Previously the QAH phase has been reported in quarter-filled honeycomb systems such as graphene, TMD hetero bilayer and recently twisted MoTe2 bilayer. In these systems, the parent phase is in QSH phase with a pair of opposite QAH phase. The QAH is stabilized by interaction, and is usually ferromagnetic (or valley polarized due to spin-valley locking). However we found that the half-filling can also host a QAH state under displacement field, and the QAH phase shows antiferromagnetic order. 
+%Our work thus calls for further investigations at filling factor $\nu=-2$ for tMoTe2 bilayer system. The found phases are either nonmagnetic or antiferromagnetic, making the identification quite challenging.
+
+
+\begin{acknowledgments}
+
+\end{acknowledgments}
+
+\bibliography{main}
+
+\end{document}

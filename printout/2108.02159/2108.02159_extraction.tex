@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{breqn}
+\usepackage{bm}
+\usepackage{fontspec}
+\setmainfont{DejaVu Serif}
+\usepackage{physics}
+\usepackage{geometry}
+\geometry{top=0.5cm,bottom=0.5cm,left=2cm,right=2cm}
+\setlength{\parindent}{0pt}
+\DeclareMathOperator{\degree}{^{\circ}}
+\newcommand{\<}{\langle}
+\newcommand{\e}{\varepsilon}
+\newcommand{\up}{\uparrow}
+\newcommand{\down}{\downarrow}
+\renewcommand{\>}{\rangle}
+\renewcommand{\(}{\left(}
+\renewcommand{\)}{\right)}
+\renewcommand{\[}{\left[}
+\renewcommand{\]}{\right]}
+\renewcommand{\v}[1]{\vec{#1}} % \v -> vector
+\renewcommand{\b}[1]{\mathbf{#1}} % \b -> bf vector
+\newcommand{\dslash}{d \hspace{-0.8ex}\rule[1.2ex]{0.8ex}{.1ex}}
+\newcommand{\bs}[1]{\boldsymbol{#1}}
+\renewcommand{\d}{\partial}
+\newcommand{\del}{\nabla}
+\renewcommand{\div}{\nabla\cdot}
+% \newcommand{\curl}{\nabla\times}
+\newcommand{\eps}{\epsilon}
+\newcommand{\p}{\parallel}
+\newcommand{\D}{\mathcal{D}}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\ml}{\mathcal{L}}
+
+\newcommand{\rt}[1]{\textcolor{red}{#1}}
+\newcommand{\bt}[1]{\textcolor{blue}{#1}}
+\newcommand{\green}[1]{\textcolor{ForestGreen}{#1}} %Naichao
+%\newcommand{\header}[1]{\vspace{4pt}\noindent{\bf #1 --}}
+\newcommand{\subheader}[1]{\vspace{4pt}\noindent{\bf #1 -- }}
+
+\newcommand{\Pover}{\underset{P}{\curvearrowleft}}
+\usepackage[texMathDollars]{markdown}
+
+% \def\markdownRendererInlineMath#1{\begin{math}#1\end{math}}
+\def\markdownRendererDisplayMath#1{\begin{dmath*}#1\end{dmath*}}
+\begin{document}
+\sloppy
+\markdownInput{2108.02159_extraction.md}
+
+\end{document}

@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{breqn}
+\usepackage{bm}
+\usepackage{fontspec}
+\setmainfont{DejaVu Serif}
+\usepackage{physics}
+\usepackage{geometry}
+\geometry{top=0.5cm,bottom=0.5cm,left=2cm,right=2cm}
+\setlength{\parindent}{0pt}
+\newcommand{\bk}{{\bf k}} 
+\newcommand{\bq}{{\bf q}}
+\newcommand{\br}{{\bf r}} 
+\newcommand{\bp}{{\bf p}}
+\newcommand{\ep}{{$e$-ph}\:}
+\newcommand{\ee}{{$e$-$e$}\:}
+\newcommand{\needref}{\textcolor{red}{[ref]}}
+\newcommand{\ligand}{{\underbar L}}
+
+
+\newcommand{\comM}[1]{{\color{red} #1}}
+\newcommand{\comS}[1]{{\color{blue} #1}}
+\usepackage[texMathDollars]{markdown}
+
+% \def\markdownRendererInlineMath#1{\begin{math}#1\end{math}}
+\def\markdownRendererDisplayMath#1{\begin{dmath*}#1\end{dmath*}}
+\begin{document}
+\sloppy
+\markdownInput{1310.2674_extraction.md}
+
+\end{document}

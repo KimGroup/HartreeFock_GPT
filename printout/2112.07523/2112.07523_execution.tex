@@ -1,0 +1,20 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{breqn}
+\usepackage{bm}
+\usepackage{fontspec}
+\setmainfont{DejaVu Serif}
+\usepackage{physics}
+\usepackage{geometry}
+\geometry{top=0.5cm,bottom=0.5cm,left=2cm,right=2cm}
+\setlength{\parindent}{0pt}
+
+\usepackage[texMathDollars]{markdown}
+
+% \def\markdownRendererInlineMath#1{\begin{math}#1\end{math}}
+\def\markdownRendererDisplayMath#1{\begin{dmath*}#1\end{dmath*}}
+\begin{document}
+\sloppy
+\markdownInput{2112.07523_execution.md}
+
+\end{document}

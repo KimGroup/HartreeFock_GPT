@@ -1,0 +1,719 @@
+# This paper is highly likely to perform very poorly because the formalism of block matrix is not very compatible with the current template
+- branch: lattice, second-quantized
+- task: Construct Kinetic Hamiltonian (continuum version, single-particle) 
+  source:
+    1812.04213.tex:
+      - [653, 695]
+  placeholder:
+    system:
+      LLM: the flavorless case, i.e. the valley projected and spinless case
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+        # Gave it full credit (although I expected e.g. something like “twisted bilayer graphene”) since the excerpt does not have enough info.
+    real|momentum:
+      LLM: real
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+        # Either would have been correct, H combined the two
+    single-particle|second-quantized:
+      LLM: single-particle
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+    degrees_of_freedom:
+      LLM: spin and valley
+      human: spin index ($\uparrow$ and $\downarrow$), valley index (+K and -K valley), layer index (top and bottom layer), and sublattice index (A and B)
+      score:
+        Haining: 1
+        Will:
+        Yasaman: 0
+        # I vacillated between scoring 1 and 0. 
+        # The LLM misses that the DOF for the Hamiltonian *as it appears in the excerpt* are the layer and sublattice indices. 
+        # OTOH, for the full Hamiltonian (not appearing here), one would also need spin and valley.
+    kinetic_symbol:
+      LLM: $\mathcal{\hat{H}}^{\rm{K}}_{0}$
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+    variable:
+      LLM: $\psi_{\alpha, \bm{k}}(\bm{r})$
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+    order:
+      LLM: $A1, B1, A2, B2$
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+    definition_of_variables:
+      LLM: $\alpha=\{A1, \ B1,\ A2,\ B2\}$ where $A(B)$ in the first index specifies sublattice and $1(2)$ in the second index specifies layer. $\hat{h}_{\pm \theta/2}$ are the Dirac Hamiltonians for isolated rotated graphene layers. $\theta_{\bar{\bm{k}}}$ is the orientation angle of momentum measured from the Dirac point $\bar{\bm{k}}=\bm{k}-\bm{K}_{\theta}$. $\bm{K}_{\pm\theta/2}$ is the Dirac momentum of top(bottom) layer. $\bm{b}_{1,2}=(\pm 1/2,\sqrt{3}/2)4\pi/(\sqrt{3}a_M)$ are the basis vectors of moir\'{e} reciprocal lattice, where $a_M=a/(2\sin(\theta/2))$ is the lattice constant of moire pattern and $a$ the lattice constant of monolayer graphene. $h_T(\bm{r}) = \sum_{j=0}^3 T_j e^{-i\bm{q}_j\cdot \bm{r}}$ where $T_j = \omega_0\sigma_0 + \omega_1\cos(j\phi)\sigma_x + \omega_1\sin(j\phi)\sigma_y$.
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+        # Note, the excerpt itself is missing q_j for j=3 (unless this is clear from outside the excerpt).
+    Note that the sublattice degrees of freedom is suppressed for now and will be stated later:
+      LLM: true
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2 
+        # N/A, this is not a task and remove from biasing the overall score.
+  answer: |
+    $$H_{Kinetic}(r) = \begin{bmatrix}
+    h_{\uparrow,+K,t} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & h_{\uparrow,+K,b} & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & h_{\uparrow,-K,t} & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & h_{\uparrow,-K,b} & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & h_{\downarrow,+K,t} & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & h_{\downarrow,+K,b} & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & h_{\downarrow,-K,t} & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & h_{\downarrow,-K,b}\end{bmatrix}$$
+  score: 
+    in_paper: 1
+    prompt_quality: 1
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2 
+    final_answer_accuracy: 1
+    # it mixed the potential term with kinetic term. Also the prompt itself is not optimal as it involves block matrices which is not compatible with the current template.
+- task: Define each term in Kinetic Hamiltonian (continuum version)
+# COMMENT (YB): the example 3 in the prompt actually did not compile properly for me
+# Note that Example 3 is ~exactly the Hamiltonian that appears in the excerpt, so this is more like a one-shot task than zero.
+  source:
+    1812.04213.tex:
+      - [653, 695]
+  placeholder:
+    Energy_dispersion:
+      LLM: $h_{\theta}(\bm{k})$
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+    parabolic|Dirac|cos:
+      LLM: Dirac
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+    electrons|holes:
+      LLM: electrons
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+    momentum_shift:
+      LLM: $\bm{K}_{\pm\theta/2}$
+      human: $K_{\theta}$
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 1
+    k_symbol:
+      LLM: \bm{k}
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+    shifted_Ek:
+      LLM: $\bar{\bm{k}}=\bm{k}-\bm{K}_{\theta}$
+      human: $h_{s,\tau,l}(k)$
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 0
+        #  I think filling in this prompt would be challenging for a human (to infer what is desired), especially since the example doesn’t say “shifted Ek”.
+        # Where is the {expression_kinetic} portion in prompt template?
+    r_symbol:
+      LLM: \bm{r}
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+    kinetic_symbol:
+      LLM: $\mathcal{\hat{H}}^{\rm{K}}_{0}$
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+    definition_of_variables:
+      LLM: $\alpha=\{A1, \ B1,\ A2,\ B2\}$, where $A(B)$ in the first index specifies sublattice and $1(2)$ in the second index specifies layer. $\theta_{\bar{\bm{k}}}$ is the orientation angle of momentum measured from the Dirac point $\bar{\bm{k}}=\bm{k}-\bm{K}_{\theta}$.  ($\bm{K}_{\pm\theta/2}$ is the Dirac momentum of top(bottom) layer.) $\bm{b}_{1,2}=(\pm 1/2,\sqrt{3}/2)4\pi/(\sqrt{3}a_M)$ are the basis vectors of moir\'{e} reciprocal lattice, where $a_M=a/(2\sin(\theta/2))$ is the lattice constant of moire pattern and $a$ the lattice constant of monolayer graphene.
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+    In addition, a shift of {momentum_shift} in the momentum ${k_symbol}$ for {shifted_Ek}, respectively.:
+      LLM: true
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+        # N/A, not a task and remove so as to not bias the score.
+    expression_kinetic:
+      human: |
+        $$H_{Kinetic}(r) = \begin{bmatrix}
+        h_{\uparrow,+K,t} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        0 & h_{\uparrow,+K,b} & 0 & 0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & h_{\uparrow,-K,t} & 0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & h_{\uparrow,-K,b} & 0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 & h_{\downarrow,+K,t} & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & h_{\downarrow,+K,b} & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & h_{\downarrow,-K,t} & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & h_{\downarrow,-K,b}\end{bmatrix}$$
+  answer: 
+  score: 
+    in_paper: 1
+    prompt_quality: 1
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+- task: Construct Potential Hamiltonian (continuum version)
+  # Is this meant to extract the off-diagonal terms in the 4x4 matrix (and kinetic is diagonal blocks)? In that case, h_T(r) should appear here as variables, and not earlier.
+  # Meta-comment: this section is difficult, LLM cannot really tell what constitutes potential term. 
+  source:
+    1812.04213.tex:
+      - [653, 695]
+  placeholder:
+    potential_symbol:
+      LLM: $\mathcal{\hat{H}}^{\rm{K}}_{0}$
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+    real|momentum:
+      LLM: real
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+    single-particle|second-quantized:
+      LLM: single-particle
+      human:
+      score:
+        Haining: 2
+        Will: 
+        Yasaman: 2
+    diagonal_potential:
+      LLM: $h_{\theta/2}(\bm{k})$ and $h_{-\theta/2}(\bm{k}')$
+      human: zero
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 0
+        # Again, seems challenging. Graded harshly.
+    potential_degrees_of_freedom:
+      LLM: $A1, \ B1,\ A2,\ B2$, $h_{T}(\bm{r})$
+      human: $t$ and $b$
+      score:
+        Haining: 1
+        Will:
+        Yasaman: 0
+        # I guess 1 is also a reasonable score. To recognize top and bottom it has to very carefully read the prompt which points to off-diagonal terms. 
+    offdiagonal_potential:
+      LLM: $h^\dagger_{T}(\bm{r})$
+      human: $h_T(r)$
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+        # Gave full points since the prompt nowhere specifies a basis ordering, and the hermitian conjugate is a valid answer.
+    definition_of_variables:
+      LLM: $\alpha=\{A1, \ B1,\ A2,\ B2\}$, where $A(B)$ in the first index specifies sublattice and $1(2)$ in the second index specifies layer. $\theta_{\bar{\bm{k}}}$ is the orientation angle of momentum measured from the Dirac point $\bar{\bm{k}}=\bm{k}-\bm{K}_{\theta}$. $\bm{b}_{1,2}=(\pm 1/2,\sqrt{3}/2)4\pi/(\sqrt{3}a_M)$ are the basis vectors of moir\'{e} reciprocal lattice, where $a_M=a/(2\sin(\theta/2))$ is the lattice constant of moire pattern and $a$ the lattice constant of monolayer graphene. $T_j = \omega_0\sigma_0 + \omega_1\cos(j\phi)\sigma_x + \omega_1\sin(j\phi)\sigma_y$.
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 1
+        #  This would be sort of fine / useful as variable extraction, but for the strict problem of constructing the off-diagonal terms, it has unnecessary variables.
+  answer: 
+  score: 
+    in_paper: 1
+    prompt_quality: 1
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+- task: Define each term in Potential Hamiltonian (continuum version)
+  source:
+    1812.04213.tex:
+      - [653, 695]
+  placeholder:
+    potential_symbol:
+      LLM: $\mathcal{\hat{H}}^{\rm{K}}_{0}$
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+    Potential_variables:
+      LLM: $h_{\theta/2}(\bm{k})$, $h_{T}(\bm{r})$, $h^\dagger_{T}(\bm{r})$, and $h_{-\theta/2}(\bm{k}')$
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+    expression_diag:
+      LLM: $h_{\theta/2}(\bm{k})$ and $h_{-\theta/2}(\bm{k}')$
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+    expression_offdiag:
+      LLM: $h_{T}(\bm{r})$ and $h^\dagger_{T}(\bm{r})$
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+    definition_of_variables:
+      LLM: |
+        $h_{\theta}(\bm{k}) = -\hbar v_D |\bar{\bm{k}}| 
+        \begin{pmatrix}
+        0 & e^{i (\theta_{\bar{\bm{k}}}- \theta)} \\
+        e^{-i  (\theta_{\bar{\bm{k}}}- \theta)}  & 0
+        \end{pmatrix}$, where $\theta_{\bar{\bm{k}}}$ is the orientation angle of momentum measured from the Dirac point 
+        $\bar{\bm{k}}=\bm{k}-\bm{K}_{\theta}$.  
+        $h_T(\bm{r}) = \sum_{j=0}^3 T_j e^{-i\bm{q}_j\cdot \bm{r}}$, where $T_j = \omega_0\sigma_0 + \omega_1\cos(j\phi)\sigma_x + \omega_1\sin(j\phi)\sigma_y$.
+      human: |
+        $\omega_i$ :  magnitude of interlayer tunneling, i=0,1,2  
+        $\sigma_0$: Pauli Matrix 0 $\sigma_0 = \begin{bmatrix} 1 & 0 \\ 0 & 1\end{bmatrix}$  
+        $\sigma_x$: Pauli Matrix x $\sigma_x = \begin{bmatrix} 0 & 1 \\ 1 & 0\end{bmatrix}$  
+        $\sigma_y$: Pauli Matrix y $\sigma_y = \begin{bmatrix} 0 & -i \\ i & 0\end{bmatrix}$  
+        $\phi$: interlayer tunneling phase
+        $q_j$: momentum boost 
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 1
+        # Partially correct answer but missing some variables. Not sure why this got scored 0 (given that other answers above for diagonal, off-diagonals got full credit).
+    expression_Potential:
+      human: |
+        $H_{Potential}(r) = 
+        \begin{bmatrix}
+        0 & h_T(r) & 0 & 0 & 0 & 0 & 0 & 0 \\
+        h_T^\dagger(r) & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & h_T(r) & 0 & 0 & 0 & 0 \\
+        0 & 0 & h_T^\dagger(r) & 0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & h_T(r) & 0 & 0 \\
+        0 & 0 & 0 & 0 & h_T^\dagger(r) & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & h_T(r) \\
+        0 & 0 & 0 & 0 & 0 & 0 & h_T^\dagger(r) & 0
+        \end{bmatrix}$
+  answer: 
+  score: 
+    in_paper: 0
+    prompt_quality: 1
+    follow_instructions: 1
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 1 
+    # mix kinetic and potential term
+- task: Construct interaction Hamiltonian (momentum space)
+# I find this task confusing given the [A, B] excerpt – there is very little information here to glean what the interaction Hamiltonian is. Is this why LLM responses are blank?
+  source:
+    1812.04213.tex:
+      - [127, 128]
+  placeholder:
+    second_int_symbol:
+      LLM:
+      human: $\hat{H}^{int}$
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 0
+    index_of_operator:
+      LLM:
+      human: spin index, valley index and layer index, $1,2,3,4$ for the moire reciprocal lattice vectors
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 0
+    momentum:
+      LLM:
+      human: momentum
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 0
+    interaction:
+      LLM:
+      human: the bare Coulomb interaction $V(q)=2\pi e^2/(\epsilon |q|)$
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 0
+    int_form:
+      LLM:
+      human: the bare Coulomb
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 0
+    normalization_factor:
+      LLM:
+      human: $\frac{1}{2 N V}$
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 0
+    op:
+      LLM:
+      human: spin index, moire reciprocal lattice index
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 0
+    definition_of_variables:
+      LLM:
+      human: |
+        $c_{s,\tau,l,\alpha,b}(k)$: annihilation operator with spin $s$, valley $\tau$, layer $l$, sublattice $\alpha$, and moire reciprocal lattice vectors $b$
+        $\epsilon$ : dielectric constant  
+        $V(q)$ : bare Coulomb interaction in the momentum space  
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 0
+    For each operator, the total momentum is the sum of moire reciprocal lattice $b_i$ and momentum with in the first BZ $k_i$:
+      LLM:
+      human: true
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 2
+        # Remove this from the scoring, not a task
+  answer: |
+    $\hat{H}^{int} = \frac{1}{2 N V} \sum_{\substack{s_1,s_2\\ \tau_1,\tau_2 \\ l_1,l_2 \\ \alpha_1, \alpha_2}} \sum_{\substack{b_1,b_2 \\ b_3,b_4}} \sum_{k_1,k_2,k_3,k_4} V(q) \times \delta_{k_1+b_1+k_2+b_2, k_3+b_3+k_4+b_4} \times c^\dagger_{s_1,\tau_1,l_1,\alpha_1,b_1}(k_1) c^\dagger_{s_2,\tau_2,l_2,\alpha_2,b_2}(k_2) c_{s_2,\tau_2,l_2,\alpha_2,b_3}(k_3) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_4)$
+  score: 
+    in_paper: 0
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 1
+    math_derivation: 2
+    final_answer_accuracy: 1
+    # Miss the interaction between layer index,  and sublattice index.  
+- task: Wick's theorem
+  source:
+    1812.04213.tex:
+      - [127, 128]
+      - [696, 744]
+  placeholder:
+    second_int_symbol:
+      LLM: $\Sigma^{\rm{H}} + \Sigma^{\rm{F}}$
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+        # Actually this is surprising! LLM recognizes that interaction is the sum of the two terms, not explicitly mentioned.
+    Hartree_Fock_symbol:
+      LLM: $\mathcal{H}$
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+    definition_of_variables:
+      LLM: $\omega_1\equiv T_{AB}=110meV$ and $\omega_0\equiv T_{AA}=0.8\omega_1$ are the magnitudes of interlayer tunneling. $\bm{k}$ is restricted to the first moir\'{e} Brillouin zone (mBZ) ($\bm{k} \in$ mBZ). The plane-wave expansion basis is $|\psi_{\alpha, \bm{G},\bm{k}}\rangle$ where $\bm{G}=m\bm{b}_1+n\bm{b}_2$ and $m,n$ are integers. The single-particle Hamiltonian $\mathcal{\hat{H}}^{\rm{K}}_{0}$ has both terms that are diagonal in reciprocal lattice vector and terms that are off-diagonal in reciprocal lattice vector. The Hartree and Fock self-energies are $\Sigma^{H}_{\alpha, \bm{G}; \beta, \bm{G}'}(\bm{k})$ and $\Sigma^{F}_{\alpha, \bm{G}; \beta, \bm{G}'}(\bm{k})$ respectively. The density-matrix $\rho$ is defined in a plane wave basis as $\rho_{\alpha,\bm{G};\beta,\bm{G}'}(\bm{k}) = \sum_{n} \; z^{n*}_{\beta,\bm{G}',\bm{k}}z^n_{\alpha,\bm{G},\bm{k}}$ where the summation is over filled bands. $z_{\alpha, \bm{G},\bm{k}}^n$ is a numerical eigenvector in the plane-wave expansion.
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+    expression_int:
+      human: |
+        $\hat{H}^{int} = \frac{1}{2 N V} \sum_{\substack{s_1,s_2\\ \tau_1,\tau_2 \\ l_1,l_2 \\ \alpha_1, \alpha_2}} \sum_{\substack{b_1,b_2 \\ b_3,b_4}} \sum_{k_1,k_2,k_3,k_4} V(q) \times \delta_{k_1+b_1+k_2+b_2, k_3+b_3+k_4+b_4} \times c^\dagger_{s_1,\tau_1,l_1,\alpha_1,b_1}(k_1) c^\dagger_{s_2,\tau_2,l_2,\alpha_2,b_2}(k_2) c_{s_2,\tau_2,l_2,\alpha_2,b_3}(k_3) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_4)$
+  answer: 
+  score: 
+    in_paper: 0
+    prompt_quality: 2
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+- task: Extract quadratic term
+  source:
+    1812.04213.tex:
+      - [127, 128]
+      - [696, 744]
+  placeholder:
+    Hartree_Fock_term_symbol:
+      LLM: Hartree-Fock method
+      human: $\hat{H}^{int,HF}$
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 0
+    bilinear_op:
+      LLM: $\rho_{\alpha,\bm{G};\beta,\bm{G}'}(\bm{k}) = \sum_{n} \; z^{n*}_{\beta,\bm{G}',\bm{k}}z^n_{\alpha,\bm{G},\bm{k}}$,
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+    Hartree_Fock_second_quantized_symbol:
+      LLM: $\mathcal{H} = \mathcal{H}^{\rm{K}}_0 +  \Sigma^{\rm{H}} + \Sigma^{\rm{F}}$
+      human: $\hat{H}^{int,HF,2}$
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 2
+        # I’m actually not sure what LLM is supposed to do here – define a new symbol? Since not explicitly in the text.
+    definition_of_variables:
+      LLM: $\mathcal{H}^{\rm{K}}_0$ is the single-particle Hamiltonian, $\Sigma^{\rm{H}}$ and $\Sigma^{\rm{F}}$ are the Hartree and Fock self-energies respectively, $\rho_{\alpha,\bm{G};\beta,\bm{G}'}(\bm{k})$ is the density-matrix defined in a plane wave basis, and $z_{\alpha, \bm{G},\bm{k}}^n$ is a numerical eigenvector in the plane-wave expansion.
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 1
+        # The included info is incorrect, but seems incomplete? E.g. should also include reference to matrix elements V.
+    expression_HF: 
+      human: |
+        $
+        \hat{H}^{int,HF} = \frac{1}{2 N V} \sum_{\substack{s_1,s_2\\ \tau_1,\tau_2 \\ l_1,l_2 \\ \alpha_1, \alpha_2}} \sum_{\substack{b_1,b_2 \\ b_3,b_4}} \sum_{k_1,k_2,k_3,k_4} V(q) \times \delta_{k_1+b_1+k_2+b_2, k_3+b_3+k_4+b_4} \times \Bigg[ \\
+        \langle c^\dagger_{s_1,\tau_1,l_1,\alpha_1,b_1}(k_1) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_4) \rangle c^\dagger_{s_2,\tau_2,l_2,\alpha_2,b_2}(k_2) c_{s_2,\tau_2,l_2,\alpha_2,b_3}(k_3) +\\
+        \langle c^\dagger_{s_2,\tau_2,l_2,\alpha_2,b_2}(k_2) c_{s_2,\tau_2,l_2,\alpha_2,b_3}(k_3) \rangle c^\dagger_{s_1,\tau_1,l_1,\alpha_1,b_1}(k_1) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_4) -\\
+        \langle c^\dagger_{s_1,\tau_1,l_1,\alpha_1,b_1}(k_1) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_4) \rangle \langle c^\dagger_{s_2,\tau_2,l_2,\alpha_2,b_2}(k_2) c_{s_2,\tau_2,l_2,\alpha_2,b_3}(k_3) \rangle -\\
+        \langle c^\dagger_{s_1,\tau_1,l_1,\alpha_1,b_1}(k_1) c_{s_2,\tau_2,l_2,\alpha_2,b_3}(k_3) \rangle c^\dagger_{s_2,\tau_2,l_2,\alpha_2,b_2}(k_2) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_4) -\\
+        \langle c^\dagger_{s_2,\tau_2,l_2,\alpha_2,b_2}(k_2) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_4) \rangle c^\dagger_{s_1,\tau_1,l_1,\alpha_1,b_1}(k_1) c_{s_2,\tau_2,l_2,\alpha_2,b_3}(k_3) +\\
+        \langle c^\dagger_{s_1,\tau_1,l_1,\alpha_1,b_1}(k_1) c_{s_2,\tau_2,l_2,\alpha_2,b_
+        3}(k_3) \rangle \langle c^\dagger_{s_2,\tau_2,l_2,\alpha_2,b_2}(k_2) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_4) \rangle \Bigg]$
+  answer: 
+  score: 
+    in_paper: 0
+    prompt_quality: 2
+    follow_instructions: 0
+    physics_logic: 1
+    math_derivation: 2
+    final_answer_accuracy: 1
+    # Failed to keep the other half of Hartree and Fock terms
+- task: Expand interaction
+# The prompt has a grammatical error (hanging clause).
+  source:
+    1812.04213.tex:
+      - [127, 128]
+      - [696, 744]
+  placeholder:
+    Hartree_Fock_second_quantized_symbol:
+      LLM: $\Sigma^{H}_{\alpha, \bm{G}; \beta, \bm{G}'}(\bm{k})$ and $\Sigma^{F}_{\alpha, \bm{G}; \beta, \bm{G}'}(\bm{k})$
+      human:
+      score:
+        Haining: 2
+        Will:
+        Yasaman: 2
+    momentum:
+      LLM: $\bm{k}$
+      human: $b_i$ and $k_i$
+      score:
+        Haining: 1
+        Will:
+        Yasaman: 2
+        # It was not clear to me what answer would be expected here.
+        # Where is the {expression_HF_2}? Does not seem to arise in the previous prompts?
+    expression_HF_2: 
+      human: |
+        $\hat{H}^{int,HF,2} = \frac{1}{2 N V} \sum_{\substack{s_1,s_2\\ \tau_1,\tau_2 \\ l_1,l_2 \\ \alpha_1, \alpha_2}} \sum_{\substack{b_1,b_2 \\ b_3,b_4}} \sum_{k_1,k_2,k_3,k_4} V(q) \times \delta_{k_1+b_1+k_2+b_2, k_3+b_3+k_4+b_4} \times \Bigg[ \\
+        \langle c^\dagger_{s_1,\tau_1,l_1,\alpha_1,b_1}(k_1) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_4) \rangle c^\dagger_{s_2,\tau_2,l_2,\alpha_2,b_2}(k_2) c_{s_2,\tau_2,l_2,\alpha_2,b_3}(k_3) +\\
+        \langle c^\dagger_{s_2,\tau_2,l_2,\alpha_2,b_2}(k_2) c_{s_2,\tau_2,l_2,\alpha_2,b_3}(k_3) \rangle c^\dagger_{s_1,\tau_1,l_1,\alpha_1,b_1}(k_1) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_4) -\\
+        \langle c^\dagger_{s_1,\tau_1,l_1,\alpha_1,b_1}(k_1) c_{s_2,\tau_2,l_2,\alpha_2,b_3}(k_3) \rangle c^\dagger_{s_2,\tau_2,l_2,\alpha_2,b_2}(k_2) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_4) -\\
+        \langle c^\dagger_{s_2,\tau_2,l_2,\alpha_2,b_2}(k_2) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_4) \rangle c^\dagger_{s_1,\tau_1,l_1,\alpha_1,b_1}(k_1) c_{s_2,\tau_2,l_2,\alpha_2,b_3}(k_3) \Bigg]$
+  answer: 
+  score: 
+    in_paper: 1
+    prompt_quality: 2
+    follow_instructions: 0
+    physics_logic: 0
+    math_derivation: 2
+    final_answer_accuracy: 0
+    # This is a strange output, it seems that it ignores instruction.
+- task: Swap the index to combine Hartree and Fock terms
+  source:
+    1812.04213.tex:
+      - [127, 128]
+      - [696, 744]
+  placeholder:
+    Hartree_Fock_second_quantized_symbol:
+      LLM: $\mathcal{H} = \mathcal{H}^{\rm{K}}_0 +  \Sigma^{\rm{H}} + \Sigma^{\rm{F}}$
+      human: $\hat{H}^{int,HF,2}$
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 2
+        # I feel like this is a reasonable answer given the excerpt.
+    expected_value:
+      LLM: $\delta \rho_{\alpha\beta}(\bm{G})\equiv\sum_{\bm{k},\bm{G}_1}\delta \rho_{\alpha,\bm{G}_1+\bm{G}; \beta, \bm{G}_1}(\bm{k})$
+      human: $\langle c_{s_1,\tau_1,l_1,\alpha_1,b_1}^\dagger(k_1) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_4) \rangle$
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 2
+         # I wouldn’t know what the prompt writer intends as an answer, LLM answer seems reasonable.
+    expression_Hartree_1:
+      LLM: |
+        $\Sigma^{H}_{\alpha, \bm{G}; \beta, \bm{G}'}(\bm{k}) 
+        = \frac{1}{A} \sum_{\alpha'}
+        V_{\alpha'\alpha}(\bm{G}'-\bm{G}) 
+        \delta \rho_{\alpha'\alpha'}(\bm{G}-\bm{G}')  \delta_{\alpha\beta}$
+      human: $\langle c_{s_1,\tau_1,l_1,\alpha_1,b_1}^\dagger(k_1) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_4) \rangle c_{s_2,\tau_2,l_2,\alpha_2,b_2}^\dagger(k_2) c_{s_2,\tau_2,l_2,\alpha_2,b_3}(k_3)$
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 2
+        # Again, I wouldn’t know what the prompt writer intends as an answer, LLM answer seems reasonable.
+    expression_Hartree_2:
+      LLM:
+      human: $\langle c_{s_2,\tau_2,l_2,\alpha_2,b_2}^\dagger(k_2) c_{s_2,\tau_2,l_2,\alpha_2,b_3}(k_3) \rangle c_{s_1,\tau_1,l_1,\alpha_1,b_1}^\dagger(k_1) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_4)$
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 0
+        # Since answer is empty
+    expression_HF_2:
+      human: |
+        $\hat{H}^{int,HF,2} = \frac{1}{2 N V} \sum_{\substack{s_1,s_2\\ \tau_1,\tau_2 \\ l_1,l_2 \\ \alpha_1, \alpha_2}} \sum_{\substack{b_1,b_2 \\ b_3,b_4}} \sum_{k_1,k_2,k_3,k_4} V(k_4+b_4-k_1-b_1) \times \delta_{k_1+b_1+k_2+b_2, k_3+b_3+k_4+b_4} \times [ \\
+        \langle c^\dagger_{s_1,\tau_1,l_1,\alpha_1,b_1}(k_1) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_4) \rangle c^\dagger_{s_2,\tau_2,l_2,\alpha_2,b_2}(k_2) c_{s_2,\tau_2,l_2,\alpha_2,b_3}(k_3) +\\
+        \langle c^\dagger_{s_2,\tau_2,l_2,\alpha_2,b_2}(k_2) c_{s_2,\tau_2,l_2,\alpha_2,b_3}(k_3) \rangle c^\dagger_{s_1,\tau_1,l_1,\alpha_1,b_1}(k_1) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_4) -\\
+        \langle c^\dagger_{s_1,\tau_1,l_1,\alpha_1,b_1}(k_1) c_{s_2,\tau_2,l_2,\alpha_2,b_3}(k_3) \rangle c^\dagger_{s_2,\tau_2,l_2,\alpha_2,b_2}(k_2) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_4) -\\
+        \langle c^\dagger_{s_2,\tau_2,l_2,\alpha_2,b_2}(k_2) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_4) \rangle c^\dagger_{s_1,\tau_1,l_1,\alpha_1,b_1}(k_1) c_{s_2,\tau_2,l_2,\alpha_2,b_3}(k_3) ]
+        $
+  answer: 
+  score: 
+    in_paper: 0
+    prompt_quality: 1
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+- task: Reduce momentum in Hartree term (momentum in BZ + reciprocal lattice)
+  source:
+    1812.04213.tex:
+      - [127, 128]
+      - [696, 744]
+  placeholder:
+    Hartree_second_quantized_symbol:
+      LLM: $\Sigma^{H}_{\alpha, \bm{G}; \beta, \bm{G}'}(\bm{k})$
+      human: $\hat{H}^{int,HF,2}$
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 2
+        # Again, I think LLM answer is reasonable.
+    expected_value:
+      LLM: $\delta \rho_{\alpha'\alpha'}(\bm{G}-\bm{G}')$
+      human: $\langle c_{s_i,\tau_i,l_i,\alpha_i,b_i}^\dagger(k_i) c_{s_j,\tau_j,l_j,\alpha_j,b_j}(k_j) \rangle$
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 0
+        # Following Haining I scored 0, but again think this is challenging based on excerpt.
+    expected_value_nonzero:
+      LLM: $\delta_{\bm{G}\bm{G}'}$
+      human: $\langle c_{s_i,\tau_i,l_i,\alpha_i,b_i}^\dagger(k_i) c_{s_j,\tau_j,l_j,\alpha_j,b_j}(k_j) \rangle=\langle c_{s_i,\tau_i,l_i,\alpha_i,b_i}^\dagger(k_i) c_{s_j,\tau_j,l_j,\alpha_j,b_j}(k_j) \rangle \delta_{k_i,k_j}$
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 0
+        # Following Haining I scored 0, but again think this is challenging based on excerpt.
+    expression_Hartree:
+      human: |
+        $\hat{H}^{int,Hartree,2}= \frac{1}{N V} \sum_{\substack{s_1,s_2\\ \tau_1,\tau_2 \\ l_1,l_2 \\ \alpha_1, \alpha_2}} \sum_{\substack{b_1,b_2 \\ b_3,b_4}} \sum_{k_1,k_2,k_3,k_4} V(k_1+b_1-k_4-b_4) \times \delta_{k_1+b_1+k_2+b_2, k_3+b_3+k_4+b_4} \langle c^\dagger_{s_1,\tau_1,l_1,\alpha_1,b_1}(k_1) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_4) \rangle c^\dagger_{s_2,\tau_2,l_2,\alpha_2,b_2}(k_2) c_{s_2,\tau_2,l_2,\alpha_2,b_3}(k_3)$
+  answer: $\hat{H}^{int,HF,2}= \frac{1}{N V} \sum_{\substack{s_1,s_2\\ \tau_1,\tau_2 \\ l_1,l_2 \\ \alpha_1, \alpha_2}} \sum_{\substack{b_1,b_2 \\ b_3,b_4}} \sum_{k_1,k_2} V(b_1-b_4) \times \delta_{b_1+b_2, b_3+b_4} \langle c^\dagger_{s_1,\tau_1,l_1,\alpha_1,b_1}(k_1) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_1) \rangle c^\dagger_{s_2,\tau_2,l_2,\alpha_2,b_2}(k_2) c_{s_2,\tau_2,l_2,\alpha_2,b_3}(k_2)$.
+  score: 
+    in_paper: 1
+    prompt_quality: 1
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+- task: Reduce momentum in Fock term (momentum in BZ + reciprocal lattice)
+  source:
+    1812.04213.tex:
+      - [127, 128]
+      - [696, 744]
+  placeholder:
+    Fock_second_quantized_symbol:
+      LLM: $\Sigma^{F}_{\alpha, \bm{G}; \beta, \bm{G}'}(\bm{k})$
+      human: $\hat{H}^{int,HF,2}$
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 0
+        # Following Haining I scored 0, but again think this is challenging based on excerpt.
+    expected_value:
+      LLM: $\rho_{\alpha,\bm{G};\beta,\bm{G}'}(\bm{k})$
+      human: $\langle c_{s_i,\tau_i,l_i,\alpha_i,b_i}^\dagger(k_i) c_{s_j,\tau_j,l_j,\alpha_j,b_j}(k_j) \rangle$
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 0
+        # Following Haining I scored 0, but again think this is challenging based on excerpt.
+    expected_value_nonzero:
+      LLM: $\rho_{\alpha,\bm{G};\beta,\bm{G}}(\bm{k})$
+      human: $\langle c_{s_i,\tau_i,l_i,\alpha_i,b_i}^\dagger(k_i) c_{s_j,\tau_j,l_j,\alpha_j,b_j}(k_j) \rangle=\langle c_{s_i,\tau_i,l_i,\alpha_i,b_i}^\dagger(k_i) c_{s_j,\tau_j,l_j,\alpha_j,b_j}(k_j) \rangle \delta_{k_i,k_j}$
+      score:
+        Haining: 0
+        Will:
+        Yasaman: 0
+        # Following Haining I scored 0, but again think this is challenging based on excerpt.
+    expression_Fock:
+      human: |
+        $\hat{H}^{int,Fock,2} = -\frac{1}{N V} \sum_{\substack{s_1,s_2\\ \tau_1,\tau_2 \\ l_1,l_2 \\ \alpha_1, \alpha_2}} \sum_{\substack{b_1,b_2 \\ b_3,b_4}} \sum_{k_1,k_2,k_3,k_4} V(k_1+b_1-k_4-b_4) \times \delta_{k_1+b_1+k_2+b_2, k_3+b_3+k_4+b_4} \times \langle c^\dagger_{s_1,\tau_1,l_1,\alpha_1,b_1}(k_1) c_{s_2,\tau_2,l_2,\alpha_2,b_3}(k_3) \rangle c^\dagger_{s_2,\tau_2,l_2,\alpha_2,b_2}(k_2) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_4)$
+  answer: $\hat{H}^{int,Fock,2} = -\frac{1}{N V} \sum_{\substack{s_1,s_2\\ \tau_1,\tau_2 \\ l_1,l_2 \\ \alpha_1, \alpha_2}} \sum_{\substack{b_1,b_2 \\ b_3,b_4}} \sum_{k_1,k_2} V(k_1+b_1-k_2-b_4) \times \delta_{b_1+b_2, b_3+b_4} \times \langle c^\dagger_{s_1,\tau_1,l_1,\alpha_1,b_1}(k_1) c_{s_2,\tau_2,l_2,\alpha_2,b_3}(k_1) \rangle c^\dagger_{s_2,\tau_2,l_2,\alpha_2,b_2}(k_2) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_2)$.
+  score: 
+    in_paper: 1
+    prompt_quality: 1
+    follow_instructions: 2
+    physics_logic: 2
+    math_derivation: 2
+    final_answer_accuracy: 2
+- task: Combine the Hartree and Fock term
+  source:
+    1812.04213.tex:
+      - [127, 128]
+      - [696, 744]
+  placeholder:
+    Hartree_symbol:
+      human: $\hat{H}^{int,Hartree,2}$
+    Fock_symbol:
+      human: $\hat{H}^{int,Fock,2}$
+    Hartree:
+      human: $\hat{H}^{int,HF,2}= \frac{1}{N V} \sum_{\substack{s_1,s_2\\ \tau_1,\tau_2 \\ l_1,l_2 \\ \alpha_1, \alpha_2}} \sum_{\substack{b_1,b_2 \\ b_3,b_4}} \sum_{k_1,k_2} V(b_1-b_4) \times \delta_{b_1+b_2, b_3+b_4} \langle c^\dagger_{s_1,\tau_1,l_1,\alpha_1,b_1}(k_1) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_1) \rangle c^\dagger_{s_2,\tau_2,l_2,\alpha_2,b_2}(k_2) c_{s_2,\tau_2,l_2,\alpha_2,b_3}(k_2)$
+    Fock:
+      human: $\hat{H}^{int,Fock,2} = -\frac{1}{N V} \sum_{\substack{s_1,s_2\\ \tau_1,\tau_2 \\ l_1,l_2 \\ \alpha_1, \alpha_2}} \sum_{\substack{b_1,b_2 \\ b_3,b_4}} \sum_{k_1,k_2} V(k_1+b_1-k_2-b_4) \times \delta_{b_1+b_2, b_3+b_4} \times \langle c^\dagger_{s_1,\tau_1,l_1,\alpha_1,b_1}(k_1) c_{s_2,\tau_2,l_2,\alpha_2,b_3}(k_1) \rangle c^\dagger_{s_2,\tau_2,l_2,\alpha_2,b_2}(k_2) c_{s_1,\tau_1,l_1,\alpha_1,b_4}(k_2)$.
+    swap_rule:
+      human: Not neededded
+  answer:
+  score: 
+    in_paper: 2
+    prompt_quality: 0
+    follow_instructions: 0
+    physics_logic: 0
+    math_derivation: 0
+    final_answer_accuracy: 0

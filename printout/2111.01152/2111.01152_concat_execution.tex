@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{breqn}
+\usepackage{bm}
+\usepackage{fontspec}
+\setmainfont{Roboto}
+\usepackage{physics}
+\usepackage{geometry}
+\geometry{top=0.5cm,bottom=0.5cm,left=4cm,right=4cm}
+\setlength{\parindent}{0pt}
+
+\usepackage[texMathDollars,tightLists]{markdown}
+
+% \def\markdownRendererInlineMath#1{\begin{math}#1\end{math}}
+\def\markdownRendererDisplayMath#1{\begin{dmath*}#1\end{dmath*}}
+
+
+% \def\markdownRendererInterblockSeparator{}
+% \def\markdownRendererUlBeginTight{ (}
+% \def\markdownRendererUlItem{%
+%   \def\markdownRendererUlItem{%
+%     ,
+%     \def\markdownRendererUlItem{, and }%
+%   }%
+% }
+% \def\markdownRendererUlItemEnd{}
+% \def\markdownRendererUlEndTight{).}
+
+
+% % Define global renderers for loose list
+% \def\markdownRendererInterblockSeparator{%
+%   :\par
+%   \def\markdownRendererInterblockSeparator{\par}%
+% }
+% \def\markdownRendererUlBegin{\begin{itemize}}
+% \def\markdownRendererUlItem{\item}
+% \def\markdownRendererUlItemEnd{.}
+% \def\markdownRendererUlEnd{\end{itemize}}
+
+
+\begin{document}
+\sloppy
+
+% \markdownInput{2111.01152_concat_execution.md}
+\markdownInput{2111.01152_concat_execution_0.md}
+
+
+\end{document}

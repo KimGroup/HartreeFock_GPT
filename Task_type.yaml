@@ -1,0 +1,37 @@
+# Preamble: 
+# Problemm-solver: 
+# Conversation summarizer: 
+Construct Kinetic Hamiltonian (continuum version, single-particle): $H=H_0+H_{\rm{int}}$
+Construct Kinetic Hamiltonian (continuum version, second-quantized): $H=H_0+H_{\rm{int}}$
+Construct Kinetic Hamiltonian (lattice version): $H=H_0+H_{\rm{int}}$
+Define each term in Kinetic Hamiltonian (continuum version): $H=H_0+H_{\rm{int}}$
+Construct Potential Hamiltonian (continuum version): $H=H_0+H_{\rm{int}}$
+Define each term in Potential Hamiltonian (continuum version): $H=H_0+H_{\rm{int}}$
+Construct interaction Hamiltonian (real space, lattice version): $H=H_0+H_{\rm{int}}$
+Construct interaction Hamiltonian (momentum space): $H=H_0+H_{\rm{int}}$
+Convert from single-particle to second-quantized form, return in matrix: FT
+Convert from single-particle to second-quantized form, return in summation (expand the matrix): FT
+Convert noninteracting Hamiltonian in real space to momentum space (continuum version): FT
+Convert noninteracting Hamiltonian in real space to momentum space (lattice version): FT
+Convert interacting Hamiltonian in real space to momentum space (lattice version): FT
+Particle-hole transformation: FT
+Simplify the Hamiltonian in the particle-hole basis: FT
+Wick's theorem: Wick's theorem
+Extract quadratic term: Wick's theorem
+Hartree term only: $H_{\rm{HF}}$
+Fock term only: $H_{\rm{HF}}$
+Expand interaction: $H_{\rm{HF}}$
+Swap the index only: $H_{\rm{HF}}$
+Swap the index to combine Hartree and Fock terms: $H_{\rm{HF}}$
+Reduce momentum in Hartree term (momentum in BZ + reciprocal lattice): OP
+Reduce momentum in Hartree term (momentum in BZ): OP
+Reduce momentum in Fock term (momentum in BZ + reciprocal lattice): OP
+Reduce momentum in Fock term (momentum in BZ): OP
+Combine the Hartree and Fock term: OP
+# Construct full Hamiltonian after HF: 
+# Mathematical simplify:  inner product expansion: 
+# Mathematical simplify:  Euler's formula: 
+# Mathematical simplify:  prosthaphaeresis: 
+# Mathematical simplify:  Expand the product using Associative property: 
+# Mathematical simplify:  Combine using Associative property: 
+# Mathematical simplify:  reduce index: 

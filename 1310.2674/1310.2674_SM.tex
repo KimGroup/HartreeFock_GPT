@@ -1,0 +1,168 @@
+\documentclass[showpacs,preprintnumbers,amsmath,amssymb,prl,aps,onecolumn,superscriptaddress]{revtex4}
+
+\usepackage{graphicx}% Include figure files \usepackage{dcolumn}% Align table columns on decimal point 
+\usepackage{bm}% bold math
+\usepackage[usenames,dvipsnames]{color} \usepackage{ulem}
+
+\newcommand{\bk}{{\bf k}} 
+\newcommand{\bq}{{\bf q}}
+\newcommand{\br}{{\bf r}} 
+\newcommand{\bp}{{\bf p}}
+\newcommand{\ep}{{$e$-ph}\:}
+\newcommand{\ee}{{$e$-$e$}\:}
+\newcommand{\needref}{\textcolor{red}{[ref]}}
+\newcommand{\ligand}{{\underbar L}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\begin{document}
+%\preprint{APS/123-QED}
+\bibliographystyle{prsty}
+
+\title{Charge disproportionation without charge transfer in the rare-earth 
+nickelates as a possible mechanism for the metal-insulator transition - 
+supplementary material}
+
+\author{Steve Johnston}
+\affiliation{Department of Physics and Astronomy, University of British Columbia, Vancouver, British Columbia, Canada V6T~1Z1}
+\affiliation{Quantum Matter Institute, University of British Columbia, Vancouver, British Columbia, Canada V6T~1Z4}
+
+\author{Anamitra Mukherjee}
+\affiliation{Department of Physics and Astronomy, University of British Columbia, Vancouver, British Columbia, Canada V6T~1Z1}
+
+\author{Ilya Elfimov}
+\affiliation{Department of Physics and Astronomy, University of British Columbia, Vancouver, British Columbia, Canada V6T~1Z1}
+\affiliation{Quantum Matter Institute, University of British Columbia, Vancouver, British Columbia, Canada V6T~1Z4}
+
+\author{Mona Berciu}
+\affiliation{Department of Physics and Astronomy, University of British Columbia, Vancouver, British Columbia, Canada V6T~1Z1}
+\affiliation{Quantum Matter Institute, University of British Columbia,
+Vancouver, British Columbia, Canada V6T~1Z4}
+
+\author{George A. Sawatzky}
+\affiliation{Department of Physics and Astronomy, University of British Columbia, Vancouver, British Columbia, Canada V6T~1Z1}
+\affiliation{Quantum Matter Institute, University of British Columbia,
+Vancouver, British Columbia, Canada V6T~1Z4}
+\affiliation{Department of Chemistry, University of British Columbia, Vancouver, British Columbia, Canada V6T~1Z1}
+
+\date{\today}
+
+\pacs{71.30.+h, 71.38.-k, 72.80.Ga} \maketitle 
+
+% 71.30.+h - metal insulator transitions
+% 71.38.-k - electron-phonon interactions, electronic structure of solids.
+% 72.80.Ga - Transition-metal compounds, electrical conductivity of
+\section{Phonon displacement pattern}
+In order to verify that the rock-salt-like distortion pattern assumed
+in the main text is energetically favored we performed a series of ED
+calculations for the Ni$_2$O$_{10}$ cluster. In each case we allowed
+the ten O atoms to be displaced by $\delta d = \pm 0.1$
+$\AA$ along the Ni-O bond direction. ED calculations for the ground
+state energy were then carried out for the $2^{10}$ possible
+configurations. The lowest energies were obtained for the two
+displacement patterns corresponding to a contraction/expansion or
+expansion/contraction of the O octahedra about the two Ni sites as 
+considered in the article.
+
+\section{Hartree-Fock Calculations}
+We performed unbiased Hartree-Fock calculations for the model
+Hamiltonian given in the main text.   
+Our treatment follows that of Ref. \onlinecite{MeanField}, which we 
+summarize here for completeness. We work in momentum space where the 
+microscopic Hamiltonian can be rewritten in the form 
+\begin{equation}
+H=\sum_{\bk,\alpha,\beta,\sigma} T_{\alpha,\beta}(\bk) d^\dagger_{\bk,\alpha,\sigma}
+d^{\phantom\dagger}_{\bk,\beta,\sigma} 
++ \sum_{\alpha,\alpha^\prime,\beta,\beta^\prime,\sigma,\sigma^\prime}\sum_{\bk,\bk^\prime,\bq} 
+U^{\sigma,\sigma^\prime}_{\alpha,\alpha^\prime,\beta,\beta^\prime}(\bq)  
+d^{\dagger}_{\bk,\alpha,\sigma}d^{\dagger}_{\bk^\prime,\alpha^\prime,\sigma^\prime}
+d^{\phantom\dagger}_{\bk^\prime-\bq,\beta^\prime,\sigma^\prime}
+d^{\phantom\dagger}_{\bk+\bq,\beta,\sigma}. 
+\end{equation}
+where the interaction on a Ni site is given by  
+\begin{eqnarray}
+U^{\sigma\sigma^\prime}_{\alpha,\alpha^\prime,\beta,\beta^\prime}&=& 
+ \frac{U}{2} \delta_{-\sigma,\sigma^\prime}\delta_{\alpha,\alpha^\prime}\delta_{\alpha\beta}\delta_{\alpha\beta^\prime}  
+ +\frac{U^\prime}{2}(1-\delta_{\alpha\alpha^\prime}) \delta_{\alpha\beta}\delta_{\alpha^\prime\beta^\prime} \\\nonumber
+ &+&\frac{J}{2}(1-\delta_{\alpha\alpha^\prime})\delta_{\alpha\beta^\prime}\delta_{\alpha^\prime\beta} + 
+ \frac{J^\prime}{2}\delta_{\alpha\alpha^\prime}\delta_{\beta\beta^\prime}(1-\delta_{\sigma\sigma^\prime})(1-\delta_{\alpha\beta}).
+\end{eqnarray} 
+The interaction on an O site is like the first term with $U$ replaced by $U_p$. 
+
+Our aim is to now construct a HF Hamiltonian of the form  
+\begin{equation}
+    H_{\rm HF} = \sum_{n,\bk} E_n(\bk)\gamma^\dagger_{n,\bk,\sigma}\gamma^{\phantom\dagger}_{n,\bk,\sigma}, 
+\end{equation}
+where $n$ is a band index and $\bk$ is the electron momentum
+restricted to the first Brillouin zone. 
+We begin by expanding the HF operators in terms of the original basis set 
+$\gamma_{\bk,n,\sigma} = \sum_{\alpha}
+c_{n,\alpha}(\bk)d_{\bk,\alpha,\sigma}$, and then obtain the HF matrix
+equation for the expansion coefficients   
+$\sum_{\alpha} M_{\alpha\beta}(\bk) c_{\alpha}(\bk) = E_n(\bk)c_\alpha(\bk)$, 
+which is solved self-consistently. The matrix $M_{\alpha\beta}(\bk)$
+results from the equation:
+\begin{equation}
+   \langle \big\{[\gamma^{\phantom\dagger}_{n,\bk,\sigma},H], d^\dagger_{\bk,\alpha^\prime,\sigma^\prime}\big\} \rangle= 
+    \big\{ E_n(\bk)\gamma^{\phantom\dagger}_{n,\bk,\sigma},d^\dagger_{\bk,\alpha^\prime,\sigma^\prime} \big\}.
+\end{equation} 
+For a quadratic Hamiltonian the left-hand side result of the
+commutators/anticommutators is a c-number and no average would be
+needed. For a quartic Hamiltonian that side contains operators which
+are replaced with their HF values. This method leads to  the true
+unbiased HF solution
+(i.e., the Slater determinant that minimizes the total energy, see
+\cite{MeanField}). 
+
+After lengthy but straightforward algebra we find:
+\begin{eqnarray}
+M_{\alpha\beta}(\bk)=T_{\alpha,\beta}(\bk)&+&\frac{1}{2}\sum_{\bq,\alpha^\prime,\beta^\prime,\sigma^\prime} 
+    \left[ U^{\sigma\sigma^\prime}_{\beta,\alpha^\prime,\alpha,\beta^\prime} + 
+           U^{\sigma^\prime\sigma}_{\alpha^\prime,\beta,\beta^\prime,\alpha}
+    \right] \langle d^\dagger_{\bq,\alpha^\prime,\sigma^\prime}d^{\phantom\dagger}_{\bq,\beta^\prime,\sigma^\prime} \rangle 
+    \\ \nonumber 
+ &-&\frac{1}{2}\sum_{\bq,\alpha^\prime,\beta^\prime} 
+    \left[U^{\sigma\sigma}_{\alpha^\prime,\beta,\alpha,\beta^\prime} + 
+          U^{\sigma\sigma}_{\beta,\alpha^\prime,\beta^\prime,\alpha}\right]
+    \langle d^\dagger_{\bq,\alpha^\prime,\sigma}d^{\phantom\dagger}_{\bq,\beta^\prime,\sigma} \rangle 
+\end{eqnarray}
+where the average $\langle  \rangle$ defines the
+self-consistent HF fields, which  are found iterationally. 
+ It should be noted that the dependence on the static lattice displacement is 
+introduced through the kinetic term $T_{\alpha,\beta}(\bk)$, see main text.  
+
+
+\section{Comparison with Exact Diagonalization}
+Here we compare the results of the HFA with those obtained from 
+exact diagonalization for the Ni$_2$O$_6$ cluster where periodic
+boundary conditions  
+have been assumed such that only the $\bk = 0$ momentum point is included. 
+Fig. \ref{Fig:MF_vs_ED}a shows a comparison of the ground state energy
+(electronic component only), identical 
+to the results shown in Fig. 3(a) of the main text.  
+In general the HF treatment overestimates the exact answer by $\sim 1$ eV, 
+however the overall dependence on displacement is well reproduced.  
+This general behavior also holds for the total hole occupancies, shown in 
+Fig. \ref{Fig:MF_vs_ED}b and \ref{Fig:MF_vs_ED}c for the exact and 
+HF solutions, respectively. This comparison gives us confidence that the 
+HF method can describe the physics of the nickelates for our choice in 
+parameters. 
+
+\begin{figure}
+ \includegraphics[width=0.5\columnwidth]{ED_vs_MF.pdf}
+ \caption{\label{Fig:MF_vs_ED} (color online)
+ (a) The ground state energy per Ni atom of the 
+ Ni$_2$O$_6$ cluster with periodic boundary conditions. 
+ HF (red/dashed) and ED (black/solid) results are shown.
+ (b) The total hole occupancy of the compressed Ni (black/solid), 
+ expanded Ni (red/dash-dot), and O (green/dashed) sites as obtained 
+ from ED. 
+ (c) As panel (b) but obtained within the HF treatment.  
+ }
+\end{figure}
+
+\begin{thebibliography}{99}
+\bibitem{MeanField}
+J.-P. Blaizot and G. Ripka, {\it Quantum Theory of Finite Systems}. The MIT Press (1986).
+\end{thebibliography}
+\end{document}
+
