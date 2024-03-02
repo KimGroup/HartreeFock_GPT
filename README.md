@@ -41,3 +41,7 @@ Located in `printout`:
 - `processed_oneshot_df_reverified_scores_renamed.yaml`: Results of one-shot extraction.
 - `Prompt_template.md`: Prompt templates.
 - `Task_type.yaml`: Task types.
+
+# Authors
+
+Haining Pan, Nayantara Mudur, Will Taranto, Maria Tikhanovskaya, Subhashini Venugopalan, Yasaman Bahri, Michael P. Brenner, Eun-Ah Kim
